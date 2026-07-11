@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default care service catalog, from the Peart Serenity Residence
+         business plan pricing table. Loaded once on install (noupdate="1")
+         so staff can freely adjust prices afterwards from Sales > Products
+         without an upgrade overwriting their changes. -->
+    <data noupdate="1">
+
+        <record id="product_care_day" model="product.template">
+            <field name="name">Adult Day Care (per day)</field>
+            <field name="type">service</field>
+            <field name="list_price">50.00</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Daytime supervision, meals and activities. Business plan range: $40–$60/day.</field>
+        </record>
+
+        <record id="product_care_respite_week" model="product.template">
+            <field name="name">Respite Stay (per week)</field>
+            <field name="type">service</field>
+            <field name="list_price">725.00</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Short-term residential stay for family respite. Business plan range: $550–$900/week.</field>
+        </record>
+
+        <record id="product_care_shared_monthly" model="product.template">
+            <field name="name">Shared Residence (monthly)</field>
+            <field name="type">service</field>
+            <field name="list_price">2250.00</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Long-term residential care, shared room. Business plan range: $1,900–$2,600/month.</field>
+        </record>
+
+        <record id="product_care_private_suite_monthly" model="product.template">
+            <field name="name">Private Premium Suite (monthly)</field>
+            <field name="type">service</field>
+            <field name="list_price">4100.00</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Long-term residential care, private suite, premium service level. Business plan range: $3,200–$5,000/month.</field>
+        </record>
+
+        <record id="product_care_postop_recovery" model="product.template">
+            <field name="name">Post-Surgical Recovery Care (per day)</field>
+            <field name="type">service</field>
+            <field name="list_price">195.00</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="description_sale">Intensive short-term recovery support after surgery. Business plan range: $140–$250/day.</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+# Confidential business documentation - kept local only
+Business Package/
+
+# Bolt.new export archives
+*.zip
+
+# macOS
+.DS_Store
+
+# Frontend (project/)
+project/node_modules/
+project/dist/
+project/dist-ssr/
+project/.env
+project/.env.local
+project/*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Odoo
+odoo/addons/**/__pycache__/
+odoo/addons/**/*.pyc
+odoo/filestore/
+odoo/sessions/
+*.pyc
+__pycache__/
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea
