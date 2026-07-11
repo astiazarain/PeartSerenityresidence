@@ -60,7 +60,7 @@ cd infra
 docker compose up -d
 ```
 
-Odoo will be available at **http://localhost:8069**. On first run, create a database and install the **Peart Serenity - Care Services** module (`peart_serenity`) from *Apps*.
+Odoo will be available at **http://localhost:8169** (container `peartserenity`, port `8069` kept free for other local Odoo instances). On first run, create a database and install the **Peart Serenity - Care Services** module (`peart_serenity`) from *Apps*.
 
 The database manager master password is set in `odoo/config/odoo.conf` — it is a local-dev-only placeholder and **must** be changed before any non-local deployment.
 
