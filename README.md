@@ -37,7 +37,8 @@ Frontend integration with the Odoo API (replacing the current Supabase calls) an
 │   └── config/
 │       └── odoo.conf                 Local Odoo configuration
 └── infra/
-    └── docker-compose.yml            Local dev environment: Odoo 19 + PostgreSQL 16
+    ├── docker-compose.yml            Local dev environment: Odoo 19 + PostgreSQL 16 + reverse proxy
+    └── nginx/default.conf            Single local entry point (see below)
 ```
 
 Confidential business documentation (business plan, contracts, financials — the `Business Package/` folder) is kept **local only** and is excluded via `.gitignore`. It is intentionally not part of this repository.
@@ -53,26 +54,35 @@ Confidential business documentation (business plan, contracts, financials — th
 
 ## 4. Getting started
 
-### Odoo backend
+There is a **single local entry point** for the whole platform, so you never have to juggle two URLs: **http://localhost:8080**
+
+- `http://localhost:8080/` → the website (proxied to the Vite dev server)
+- `http://localhost:8080/odoo`, `/web`, `/website`, `/api`, `/report`, `/mail` → the Odoo backend (proxied to the `peartserenity` container)
+
+This is handled by an Nginx reverse proxy (`infra/nginx/default.conf`) that ships with the Docker Compose stack. In production the same split happens at the domain/edge level instead (main domain → website, admin subdomain → Odoo).
+
+### 1. Start Odoo + Postgres + the proxy
 
 ```bash
 cd infra
 docker compose up -d
 ```
 
-Odoo will be available at **http://localhost:8169** (container `peartserenity`, port `8069` kept free for other local Odoo instances). On first run, create a database and install the **Peart Serenity - Care Services** module (`peart_serenity`) from *Apps*.
+On first run, open **http://localhost:8080/odoo**, create a database and install the **Peart Serenity - Care Services** module (`peart_serenity`) from *Apps*.
 
-The database manager master password is set in `odoo/config/odoo.conf` — it is a local-dev-only placeholder and **must** be changed before any non-local deployment.
+The database manager master password is set in `odoo/config/odoo.conf` — it is a local-dev-only placeholder and **must** be changed before any non-local deployment. Odoo itself is still reachable directly on `http://localhost:8169` if you need to bypass the proxy for debugging.
 
-### Website
+### 2. Start the website
 
 ```bash
 cd project
 npm install
-npm run dev
+npm run dev -- --host 0.0.0.0
 ```
 
-Requires a local `project/.env` (not committed — see `project/.env.example` conventions once the Odoo API client lands).
+`--host 0.0.0.0` is required so the Nginx container (running in Docker) can reach the Vite dev server on the host — otherwise it only binds to `localhost` and the proxy gets a 502. Requires a local `project/.env` (not committed — see `project/.env.example` conventions once the Odoo API client lands).
+
+Once both are running, use **http://localhost:8080** for everything.
 
 ## 5. Roadmap
 

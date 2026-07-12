@@ -30,6 +30,19 @@ services:
       - ../odoo/config:/etc/odoo
     restart: unless-stopped
 
+  proxy:
+    image: nginx:alpine
+    container_name: peartserenity_proxy
+    depends_on:
+      - odoo
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
 volumes:
   odoo-db-data:
   odoo-web-data:
