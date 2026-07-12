@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Pipeline stages requested by the business plan's website/CRM guide:
+             New -> Assessed -> Quoted -> Admitted. Scoped to the Care
+             Admissions team so they don't interfere with other teams' stages. -->
+
+        <record id="crm_stage_care_new" model="crm.stage">
+            <field name="name">New</field>
+            <field name="sequence">1</field>
+            <field name="team_ids" eval="[(6, 0, [ref('crm_team_care_admissions')])]"/>
+        </record>
+
+        <record id="crm_stage_care_assessed" model="crm.stage">
+            <field name="name">Assessed</field>
+            <field name="sequence">2</field>
+            <field name="team_ids" eval="[(6, 0, [ref('crm_team_care_admissions')])]"/>
+        </record>
+
+        <record id="crm_stage_care_quoted" model="crm.stage">
+            <field name="name">Quoted</field>
+            <field name="sequence">3</field>
+            <field name="team_ids" eval="[(6, 0, [ref('crm_team_care_admissions')])]"/>
+        </record>
+
+        <record id="crm_stage_care_admitted" model="crm.stage">
+            <field name="name">Admitted</field>
+            <field name="sequence">4</field>
+            <field name="is_won">True</field>
+            <field name="team_ids" eval="[(6, 0, [ref('crm_team_care_admissions')])]"/>
+        </record>
+
+    </data>
+</odoo>

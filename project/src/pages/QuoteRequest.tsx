@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,8 +16,7 @@ import {
   FileText,
   CheckCircle2,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import type { Session } from '@supabase/supabase-js';
+import { submitCareQuote } from '../lib/odoo';
 
 const STEPS = [
   { id: 0, label: 'Applicant', icon: User },
@@ -48,12 +47,6 @@ export default function QuoteRequest() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [session, setSession] = useState<Session | null>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
-  }, []);
 
   const update = (field: string, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -72,12 +65,10 @@ export default function QuoteRequest() {
     try {
       const payload = {
         ...form,
-        user_id: session?.user?.id || null,
         resident_dob: form.resident_dob || null,
         preferred_start_date: form.preferred_start_date || null,
       };
-      const { error: insertError } = await supabase.from('quote_requests').insert(payload);
-      if (insertError) throw insertError;
+      await submitCareQuote(payload);
       setSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit quote request.');
@@ -310,12 +301,10 @@ export default function QuoteRequest() {
                     </div>
                   ))}
                 </div>
-                {!session && (
-                  <div className="bg-gold-50 border border-gold-200 rounded-xl p-4 text-sm text-brand-charcoal">
-                    <p className="font-semibold mb-1">Tip: Create an account to track your quote request.</p>
-                    <p>You can submit this form as a guest, but <Link to="/auth" className="text-gold-600 font-semibold hover:underline">creating an account</Link> lets you track status and manage all your requests in one place.</p>
-                  </div>
-                )}
+                <div className="bg-gold-50 border border-gold-200 rounded-xl p-4 text-sm text-brand-charcoal">
+                  <p className="font-semibold mb-1">What happens after you submit?</p>
+                  <p>Our care team reviews your request and emails a personalized quote to <span className="font-semibold">{form.applicant_email || 'your email'}</span> within 48 hours.</p>
+                </div>
               </div>
             )}
 

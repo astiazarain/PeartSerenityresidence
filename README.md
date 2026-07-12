@@ -87,11 +87,20 @@ Once both are running, use **http://localhost:8080** for everything.
 ## 5. Roadmap
 
 1. ✅ Repository, Docker dev environment, and `peart_serenity` module scaffold with the default care service catalog
-2. Care intake/assessment model + website API (replaces the Supabase calls in `project/src/lib`)
-3. Family portal (Odoo portal users) powering `project/src/pages/Dashboard.tsx`
-4. Data migration off Supabase
+2. ✅ Care intake/assessment model (`peart.admission`) + public JSON API (`project/src/lib/odoo.ts`) — the Quote Request form and account sign-up now write directly to Odoo (contacts, CRM lead, admissions pipeline)
+3. Family portal (Odoo portal users) powering `project/src/pages/Dashboard.tsx` — it still reads from Supabase and needs to be pointed at Odoo next
+4. Data migration off Supabase (remaining forms: Contact, tour bookings, waitlist, testimonials)
 5. Production deployment (VPS + Docker + domain + professional email)
 6. Odoo eCommerce for the future online store
+
+### Public API (`peart_serenity` module)
+
+| Route | Purpose |
+|---|---|
+| `POST /api/care-quote` | Submits the multi-step Quote Request form. Creates/dedupes the applicant & resident contacts, a `peart.admission` record, and a `crm.lead` in the *Care Admissions* pipeline (stage **New**). |
+| `POST /api/register-contact` | Called on account sign-up so every registered user also exists as an Odoo contact (deduplicated by email). |
+
+Both are JSON-RPC (`{jsonrpc: "2.0", method: "call", params: {...}}`), `auth='public'`, and elevate to `sudo()` only after validating required fields — visitors are never given direct model access.
 
 ## 6. Data privacy
 

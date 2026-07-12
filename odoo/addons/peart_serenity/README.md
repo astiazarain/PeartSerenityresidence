@@ -2,8 +2,7 @@
 
 Custom Odoo 19 module for **Peart Serenity Residence**. This module is the
 integration point between the public website and Odoo: it is where the
-care service catalog, the admissions pipeline, and (in later releases) the
-website API and family portal live.
+care service catalog, the admissions pipeline, and the website API live.
 
 ## What this module installs today
 
@@ -25,22 +24,42 @@ website API and family portal live.
   `crm.team` used for every lead/quotation originating from the website's
   care request flow, so it's filterable and reportable on its own.
 
+- **Pipeline stages** (`data/crm_stage_data.xml`) — `New → Assessed →
+  Quoted → Admitted`, scoped to the Care Admissions team only.
+
 - **Website Care Quote template** (`data/sale_order_template_data.xml`) —
   a `sale.order.template` applied to quotations generated from the site,
   so they're immediately recognizable inside the standard Sales pipeline.
 
+- **Care Admission Request model** (`models/peart_admission.py`) — mirrors
+  the Admission Form sections A–G. On creation it:
+  - finds-or-creates the applicant and resident as `res.partner` contacts
+    (deduplicated by email via the `res.partner.peart_find_or_create`
+    helper in `models/res_partner.py`, shared with account sign-up);
+  - creates a `crm.lead` in the Care Admissions pipeline, stage **New**;
+  - computes an internal `care_level` (Low/Moderate/High/Specialized)
+    from mobility and specialized-care answers — never shown publicly,
+    used only to guide staff triage;
+  - suggests a service product from the requested care type, used to
+    prefill the quotation staff generate with **Create Quotation** (a
+    standard `sale.order`, tagged with the Care Admissions team and the
+    website quote template — see root README).
+
+- **Public JSON API** (`controllers/main.py`):
+  - `POST /api/care-quote` — submits the website's Quote Request form.
+  - `POST /api/register-contact` — called on account sign-up so every
+    registered user also exists as an Odoo contact.
+
+  Both run `auth='public'` and only elevate to `sudo()` after validating
+  required fields — visitors never get direct model access.
+
 ## What's coming next
 
-- `models/` — the care intake/assessment model (mirrors the Admission Form
-  sections A–H) with care-level scoring logic, linked to `res.partner` and
-  to the generated `sale.order`.
-- `controllers/` — a JSON API consumed by the website's Quote Request form
-  and, later, by the family portal (`Dashboard.tsx`) to read back status.
-- `security/` — access rights and record rules (portal users only see
-  their own admission/quote records; medical data restricted by role).
-- `views/` — backend UI for staff to review assessments and manage the
-  `New → Assessed → Quoted → Admitted` pipeline stages.
+- Portal access so families can log in and see their own admission/quote
+  status (powers `project/src/pages/Dashboard.tsx`).
+- Record rules restricting medical fields to internal staff roles.
+- Backend UI polish (kanban view of the pipeline, activities/reminders).
 
 ## Dependencies
 
-`sale_management`, `crm`, `website` (all part of Odoo Community).
+`sale_management`, `crm`, `website`, `mail` (all part of Odoo Community).

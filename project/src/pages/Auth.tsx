@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, ArrowRight, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { registerContact } from '../lib/odoo';
 
 export default function Auth() {
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -44,6 +45,14 @@ export default function Auth() {
           options: { data: { full_name: fullName } },
         });
         if (signUpError) throw signUpError;
+        try {
+          await registerContact(fullName, email);
+        } catch (contactErr) {
+          // Non-blocking: the account was created either way, and this
+          // family will still get an Odoo contact the next time they
+          // submit a quote request.
+          console.error('Failed to register contact in Odoo:', contactErr);
+        }
         navigate('/dashboard');
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
