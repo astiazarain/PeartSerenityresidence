@@ -12,7 +12,7 @@ import {
   Plane,
   Users,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { submitTourBooking, submitContact, submitWaitlist } from '../lib/odoo';
 
 type FormMode = 'tour' | 'inquiry' | 'waitlist';
 
@@ -32,12 +32,11 @@ export default function Contact() {
     e.preventDefault();
     setSubmitting(true); setError(null);
     try {
-      const { error: insertError } = await supabase.from('tour_bookings').insert({
-        name: tourForm.name, email: tourForm.email, phone: tourForm.phone || null,
+      await submitTourBooking({
+        name: tourForm.name, email: tourForm.email, phone: tourForm.phone || undefined,
         preferred_date: tourForm.preferred_date, preferred_time: tourForm.preferred_time,
-        party_size: tourForm.party_size, message: tourForm.message || null, status: 'pending',
+        party_size: tourForm.party_size, message: tourForm.message || undefined,
       });
-      if (insertError) throw insertError;
       setSuccess(true);
       setTourForm({ name: '', email: '', phone: '', preferred_date: '', preferred_time: 'morning', party_size: 1, message: '' });
     } catch (err) { setError(err instanceof Error ? err.message : 'Something went wrong.'); }
@@ -48,12 +47,11 @@ export default function Contact() {
     e.preventDefault();
     setSubmitting(true); setError(null);
     try {
-      const { error: insertError } = await supabase.from('inquiries').insert({
-        name: inquiryForm.name, email: inquiryForm.email, phone: inquiryForm.phone || null,
+      await submitContact({
+        name: inquiryForm.name, email: inquiryForm.email, phone: inquiryForm.phone || undefined,
         country: inquiryForm.country, service_type: inquiryForm.service_type, message: inquiryForm.message,
-        preferred_date: inquiryForm.preferred_date || null, status: 'pending', source: 'website',
+        preferred_date: inquiryForm.preferred_date || undefined,
       });
-      if (insertError) throw insertError;
       setSuccess(true);
       setInquiryForm({ name: '', email: '', phone: '', country: 'Jamaica', service_type: 'general', message: '', preferred_date: '' });
     } catch (err) { setError(err instanceof Error ? err.message : 'Something went wrong.'); }
@@ -64,12 +62,11 @@ export default function Contact() {
     e.preventDefault();
     setSubmitting(true); setError(null);
     try {
-      const { error: insertError } = await supabase.from('waitlist').insert({
-        name: waitlistForm.name, email: waitlistForm.email, phone: waitlistForm.phone || null,
+      await submitWaitlist({
+        name: waitlistForm.name, email: waitlistForm.email, phone: waitlistForm.phone || undefined,
         country: waitlistForm.country, care_type: waitlistForm.care_type, urgency: waitlistForm.urgency,
-        notes: waitlistForm.notes || null, active: true,
+        notes: waitlistForm.notes || undefined,
       });
-      if (insertError) throw insertError;
       setSuccess(true);
       setWaitlistForm({ name: '', email: '', phone: '', country: 'Jamaica', care_type: 'long_term', urgency: 'medium', notes: '' });
     } catch (err) { setError(err instanceof Error ? err.message : 'Something went wrong.'); }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Carried over from the original Supabase seed so the site keeps
+             its existing family voices after the migration to Odoo. -->
+
+        <record id="testimonial_margaret_t" model="peart.testimonial">
+            <field name="author_name">Margaret T.</field>
+            <field name="relation">Daughter</field>
+            <field name="location">London, UK</field>
+            <field name="content">My mother has been at Peart Serenity for 8 months and the difference in her quality of life is remarkable. The staff treats her like family. I receive video updates every week and can rest easy knowing she is in the best of hands. As a Jamaican living abroad, this is the peace of mind I always prayed for.</field>
+            <field name="rating">5</field>
+            <field name="approved">True</field>
+            <field name="featured">True</field>
+        </record>
+
+        <record id="testimonial_anthony_b" model="peart.testimonial">
+            <field name="author_name">Anthony B.</field>
+            <field name="relation">Son</field>
+            <field name="location">Miami, USA</field>
+            <field name="content">After visiting several facilities in Montego Bay, Peart Serenity stood out immediately. The warmth of the staff, the cleanliness, and the professional care my father receives is exceptional. The monthly reports keep our family fully informed. Highly recommend to any diaspora family.</field>
+            <field name="rating">5</field>
+            <field name="approved">True</field>
+            <field name="featured">True</field>
+        </record>
+
+        <record id="testimonial_patricia_k" model="peart.testimonial">
+            <field name="author_name">Dr. Patricia K.</field>
+            <field name="relation">Referring Physician</field>
+            <field name="location">Montego Bay, Jamaica</field>
+            <field name="content">I have referred three post-surgical patients to Peart Serenity and the recovery outcomes have been outstanding. The nursing supervision is clinical-grade and the family communication is exemplary. This is the standard I wish all eldercare facilities would meet.</field>
+            <field name="rating">5</field>
+            <field name="approved">True</field>
+            <field name="featured">True</field>
+        </record>
+
+        <record id="testimonial_sandra_family" model="peart.testimonial">
+            <field name="author_name">Sandra &amp; Family</field>
+            <field name="relation">Daughter</field>
+            <field name="location">Toronto, Canada</field>
+            <field name="content">Placing Dad in a nursing home was one of the hardest decisions of our lives. But the moment we walked into Peart Serenity, we knew it was right. It feels like a home, not a hospital. The Caribbean warmth is real. Dad is thriving.</field>
+            <field name="rating">5</field>
+            <field name="approved">True</field>
+            <field name="featured">False</field>
+        </record>
+
+        <record id="testimonial_robert_c" model="peart.testimonial">
+            <field name="author_name">Robert C.</field>
+            <field name="relation">Spouse</field>
+            <field name="location">Montego Bay, Jamaica</field>
+            <field name="content">My wife requires specialized diabetes and mobility care. The nursing team manages her conditions with precision and compassion. We have seen real improvement in her vitals and her happiness. Forever grateful to this team.</field>
+            <field name="rating">5</field>
+            <field name="approved">True</field>
+            <field name="featured">False</field>
+        </record>
+
+    </data>
+</odoo>

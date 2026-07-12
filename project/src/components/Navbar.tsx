@@ -1,21 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import type { Session } from '@supabase/supabase-js';
+import { getSession, logout, onSessionChanged, type SessionInfo } from '../lib/odoo';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<SessionInfo | null>(null);
   const location = useLocation();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, sess) => {
-      setSession(sess);
-    });
-    return () => listener.subscription.unsubscribe();
+    const refresh = () => getSession().then(setSession).catch(() => setSession(null));
+    refresh();
+    return onSessionChanged(refresh);
   }, []);
 
   useEffect(() => {
@@ -39,7 +36,7 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   const onLogout = async () => {
-    await supabase.auth.signOut();
+    await logout();
   };
 
   return (
@@ -89,7 +86,7 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {session ? (
+            {session?.uid ? (
               <div className="flex items-center gap-3">
                 <Link to="/dashboard" className="flex items-center gap-2 text-sm font-medium text-brand-textgrey hover:text-gold-600 transition-colors">
                   <User className="h-4 w-4" />
@@ -147,7 +144,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="border-t border-brand-softgrey pt-4">
-                {session ? (
+                {session?.uid ? (
                   <>
                     <Link to="/dashboard" className="block text-sm font-medium text-brand-textgrey mb-3">Dashboard</Link>
                     <button onClick={onLogout} className="block text-sm font-medium text-brand-textgrey">Sign Out</button>

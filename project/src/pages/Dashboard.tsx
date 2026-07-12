@@ -8,52 +8,50 @@ import {
   Loader2,
   Plus,
   Calendar,
-  Mail,
-  Phone,
   LogOut,
-  User,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import type { Session } from '@supabase/supabase-js';
+import {
+  getSession,
+  logout,
+  fetchMyAdmissions,
+  fetchMyTours,
+  type SessionInfo,
+  type MyAdmission,
+  type MyTourBooking,
+} from '../lib/odoo';
 
-type QuoteStatus = 'pending' | 'reviewed' | 'quoted' | 'accepted' | 'rejected';
+type AdmissionState = 'new' | 'assessed' | 'quoted' | 'admitted' | 'declined';
 
-const statusConfig: Record<QuoteStatus, { label: string; color: string; icon: typeof Clock }> = {
-  pending:   { label: 'Pending Review',   color: 'bg-amber-100 text-amber-700',   icon: Clock },
-  reviewed:  { label: 'Under Review',      color: 'bg-blue-100 text-blue-700',     icon: Clock },
-  quoted:    { label: 'Quote Ready',        color: 'bg-gold-100 text-gold-700',     icon: CheckCircle2 },
-  accepted:  { label: 'Accepted',           color: 'bg-green-100 text-green-700',   icon: CheckCircle2 },
-  rejected:  { label: 'Rejected',            color: 'bg-red-100 text-red-700',       icon: XCircle },
+const statusConfig: Record<AdmissionState, { label: string; color: string; icon: typeof Clock }> = {
+  new:      { label: 'New',            color: 'bg-amber-100 text-amber-700', icon: Clock },
+  assessed: { label: 'Under Review',   color: 'bg-blue-100 text-blue-700',   icon: Clock },
+  quoted:   { label: 'Quote Ready',    color: 'bg-gold-100 text-gold-700',   icon: CheckCircle2 },
+  admitted: { label: 'Admitted',       color: 'bg-green-100 text-green-700', icon: CheckCircle2 },
+  declined: { label: 'Declined',       color: 'bg-red-100 text-red-700',     icon: XCircle },
 };
 
 export default function Dashboard() {
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<SessionInfo | null>(null);
   const [loading, setLoading] = useState(true);
-  const [quotes, setQuotes] = useState<any[]>([]);
-  const [tours, setTours] = useState<any[]>([]);
+  const [admissions, setAdmissions] = useState<MyAdmission[]>([]);
+  const [tours, setTours] = useState<MyTourBooking[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) { navigate('/auth'); return; }
-      setSession(data.session);
-      fetchData(data.session.user.id);
+    getSession().then((s) => {
+      if (!s.uid) { navigate('/auth'); return; }
+      setSession(s);
+      Promise.all([fetchMyAdmissions(), fetchMyTours()])
+        .then(([myAdmissions, myTours]) => {
+          setAdmissions(myAdmissions);
+          setTours(myTours);
+        })
+        .finally(() => setLoading(false));
     });
   }, [navigate]);
 
-  const fetchData = async (userId: string) => {
-    setLoading(true);
-    const [quotesRes, toursRes] = await Promise.all([
-      supabase.from('quote_requests').select('*').eq('user_id', userId).order('created_at', { ascending: false }),
-      supabase.from('tour_bookings').select('*').eq('name', session?.user?.email ?? '').order('created_at', { ascending: false }),
-    ]);
-    if (quotesRes.data) setQuotes(quotesRes.data);
-    if (toursRes.data) setTours(toursRes.data);
-    setLoading(false);
-  };
-
   const onLogout = async () => {
-    await supabase.auth.signOut();
+    await logout();
     navigate('/');
   };
 
@@ -72,7 +70,7 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600 mb-2">My Account</p>
-            <h1 className="font-serif text-4xl text-brand-black">Welcome, {session?.user?.user_metadata?.full_name || session?.user?.email}</h1>
+            <h1 className="font-serif text-4xl text-brand-black">Welcome, {session?.name}</h1>
           </div>
           <button onClick={onLogout} className="inline-flex items-center gap-2 text-sm font-semibold text-brand-textgrey hover:text-gold-600 transition-colors">
             <LogOut className="h-4 w-4" /> Sign Out
@@ -101,7 +99,7 @@ export default function Dashboard() {
         {/* QUOTE REQUESTS */}
         <div className="mb-12">
           <h2 className="font-serif text-2xl text-brand-black mb-6">Your Quote Requests</h2>
-          {quotes.length === 0 ? (
+          {admissions.length === 0 ? (
             <div className="bg-white rounded-2xl p-12 text-center shadow-lg">
               <FileText className="h-12 w-12 text-brand-softgrey mx-auto mb-4" />
               <p className="text-brand-textgrey mb-4">You haven't submitted any quote requests yet.</p>
@@ -109,20 +107,20 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="space-y-4">
-              {quotes.map((q) => {
-                const status = (q.status as QuoteStatus) || 'pending';
+              {admissions.map((a) => {
+                const status = (a.state as AdmissionState) || 'new';
                 const config = statusConfig[status];
                 const StatusIcon = config.icon;
                 return (
-                  <div key={q.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                  <div key={a.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center flex-shrink-0">
                           <FileText className="h-6 w-6 text-gold-600" />
                         </div>
                         <div>
-                          <h3 className="font-serif text-lg text-brand-black">{q.resident_name}</h3>
-                          <p className="text-sm text-brand-textgrey">{q.care_type_requested.replace('_', ' ')} · Submitted {new Date(q.created_at).toLocaleDateString()}</p>
+                          <h3 className="font-serif text-lg text-brand-black">{a.resident_name}</h3>
+                          <p className="text-sm text-brand-textgrey">{a.care_type_requested.replace('_', ' ')} · Submitted {new Date(a.create_date).toLocaleDateString()}</p>
                         </div>
                       </div>
                       <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${config.color}`}>

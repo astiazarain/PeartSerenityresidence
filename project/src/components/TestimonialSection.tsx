@@ -1,24 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
-import { supabase, type Testimonial } from '../lib/supabase';
+import { fetchTestimonials, type Testimonial } from '../lib/odoo';
 
 export default function TestimonialSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      const { data } = await supabase
-        .from('testimonials')
-        .select('*')
-        .eq('approved', true)
-        .order('created_at', { ascending: false })
-        .limit(6);
-
-      if (data) setTestimonials(data);
-      setLoading(false);
-    };
-    fetchTestimonials();
+    fetchTestimonials(6)
+      .then(setTestimonials)
+      .catch(() => setTestimonials([]))
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading) {

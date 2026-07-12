@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, ArrowRight, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import { registerContact } from '../lib/odoo';
+import { getSession, login, signup } from '../lib/odoo';
 
 export default function Auth() {
   const [mode, setMode] = useState<'login' | 'register'>('login');
@@ -16,8 +15,8 @@ export default function Auth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate('/dashboard');
+    getSession().then((session) => {
+      if (session.uid) navigate('/dashboard');
     });
   }, [navigate]);
 
@@ -39,35 +38,15 @@ export default function Auth() {
     setLoading(true);
     try {
       if (mode === 'register') {
-        const { error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { data: { full_name: fullName } },
-        });
-        if (signUpError) throw signUpError;
-        try {
-          await registerContact(fullName, email);
-        } catch (contactErr) {
-          // Non-blocking: the account was created either way, and this
-          // family will still get an Odoo contact the next time they
-          // submit a quote request.
-          console.error('Failed to register contact in Odoo:', contactErr);
-        }
+        await signup(fullName, email, password);
+        await login(email, password);
         navigate('/dashboard');
       } else {
-        const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-        if (signInError) throw signInError;
+        await login(email, password);
         navigate('/dashboard');
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Authentication failed.';
-      if (msg.includes('Invalid login') || msg.includes('invalid')) {
-        setError('Invalid email or password. Please try again.');
-      } else if (msg.includes('already registered') || msg.includes('already')) {
-        setError('An account with this email already exists. Please sign in instead.');
-      } else {
-        setError(msg);
-      }
+      setError(err instanceof Error ? err.message : 'Authentication failed.');
     } finally {
       setLoading(false);
     }

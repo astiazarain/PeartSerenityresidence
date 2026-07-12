@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tour bookings -->
+    <record id="peart_tour_booking_view_list" model="ir.ui.view">
+        <field name="name">peart.tour.booking.list</field>
+        <field name="model">peart.tour.booking</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="preferred_date"/>
+                <field name="preferred_time"/>
+                <field name="party_size"/>
+                <field name="email"/>
+                <field name="status" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_tour_booking_view_form" model="ir.ui.view">
+        <field name="name">peart.tour.booking.form</field>
+        <field name="model">peart.tour.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="pending,confirmed,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="preferred_date"/>
+                            <field name="preferred_time"/>
+                            <field name="party_size"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_tour_booking_action" model="ir.actions.act_window">
+        <field name="name">Tour Bookings</field>
+        <field name="res_model">peart.tour.booking</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Waitlist -->
+    <record id="peart_waitlist_view_list" model="ir.ui.view">
+        <field name="name">peart.waitlist.list</field>
+        <field name="model">peart.waitlist</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="name"/>
+                <field name="care_type"/>
+                <field name="urgency"/>
+                <field name="country"/>
+                <field name="email"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_waitlist_view_form" model="ir.ui.view">
+        <field name="name">peart.waitlist.form</field>
+        <field name="model">peart.waitlist</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="country"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="care_type"/>
+                            <field name="urgency"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_waitlist_action" model="ir.actions.act_window">
+        <field name="name">Waitlist</field>
+        <field name="res_model">peart.waitlist</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Testimonials -->
+    <record id="peart_testimonial_view_list" model="ir.ui.view">
+        <field name="name">peart.testimonial.list</field>
+        <field name="model">peart.testimonial</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="author_name"/>
+                <field name="relation"/>
+                <field name="location"/>
+                <field name="rating"/>
+                <field name="approved"/>
+                <field name="featured"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_testimonial_view_form" model="ir.ui.view">
+        <field name="name">peart.testimonial.form</field>
+        <field name="model">peart.testimonial</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="author_name"/>
+                            <field name="relation"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="rating"/>
+                            <field name="approved"/>
+                            <field name="featured"/>
+                        </group>
+                    </group>
+                    <group string="Testimonial">
+                        <field name="content" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_testimonial_action" model="ir.actions.act_window">
+        <field name="name">Testimonials</field>
+        <field name="res_model">peart.testimonial</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smart_action">No testimonials yet.</p>
+            <p>Only testimonials with "Approved" checked are shown on the website (max 6, featured first).</p>
+        </field>
+    </record>
+
+    <menuitem id="peart_tour_booking_menu" name="Tour Bookings" parent="peart_admission_menu_root"
+              action="peart_tour_booking_action" sequence="2"/>
+    <menuitem id="peart_waitlist_menu" name="Waitlist" parent="peart_admission_menu_root"
+              action="peart_waitlist_action" sequence="3"/>
+    <menuitem id="peart_testimonial_menu" name="Testimonials" parent="peart_admission_menu_root"
+              action="peart_testimonial_action" sequence="4"/>
+
+</odoo>
