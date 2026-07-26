@@ -67,21 +67,28 @@ export async function getSession(): Promise<SessionInfo> {
   return callOdoo<SessionInfo>('/web/session/get_session_info', {});
 }
 
-export async function signup(name: string, email: string, password: string): Promise<void> {
-  const result = await callApi<ApiResult>('/auth/signup', { name, email, password });
+export async function signup(
+  name: string,
+  email: string,
+  password: string,
+  phone: string,
+  username: string
+): Promise<void> {
+  const result = await callApi<ApiResult>('/auth/signup', { name, email, password, phone, username });
   if (!result.success) {
     throw new Error(result.error || 'Failed to create account.');
   }
 }
 
-export async function login(email: string, password: string): Promise<SessionInfo> {
+/** `identifier` may be the account's email, username or phone number. */
+export async function login(identifier: string, password: string): Promise<SessionInfo> {
   const session = await callOdoo<SessionInfo>('/web/session/authenticate', {
     db: ODOO_DB,
-    login: email,
+    login: identifier,
     password,
   });
   if (!session.uid) {
-    throw new Error('Invalid email or password.');
+    throw new Error('Invalid credentials.');
   }
   notifySessionChanged();
   return session;

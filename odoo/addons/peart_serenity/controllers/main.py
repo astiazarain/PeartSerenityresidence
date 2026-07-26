@@ -117,18 +117,27 @@ class PeartSerenityCareAPI(http.Controller):
         name = payload.get('name')
         email = payload.get('email')
         password = payload.get('password')
-        if not name or not email or not password:
-            return {'success': False, 'error': 'name, email and password are required'}
-        if request.env['res.users'].sudo().search_count([('login', '=', email)]):
-            return {'success': False, 'error': 'An account with this email already exists.'}
+        phone = payload.get('phone')
+        username = payload.get('username')
+        if not name or not email or not password or not phone or not username:
+            return {'success': False, 'error': 'name, email, phone, username and password are required'}
 
-        partner = request.env['res.partner'].sudo().peart_find_or_create(name, email=email)
+        users = request.env['res.users'].sudo()
+        if users.search_count([('login', '=', email)]):
+            return {'success': False, 'error': 'An account with this email already exists.'}
+        if users.search_count([('peart_username', '=', username)]):
+            return {'success': False, 'error': 'This username is already taken.'}
+        if users.search_count([('partner_id.phone', '=', phone)]):
+            return {'success': False, 'error': 'An account with this phone number already exists.'}
+
+        partner = request.env['res.partner'].sudo().peart_find_or_create(name, email=email, phone=phone)
         portal_group = request.env.ref('base.group_portal')
-        request.env['res.users'].sudo().create({
+        users.create({
             'name': name,
             'login': email,
             'email': email,
             'password': password,
+            'peart_username': username,
             'partner_id': partner.id,
             'group_ids': [(6, 0, [portal_group.id])],
         })

@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, User, ArrowRight, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Phone, AtSign, ArrowRight, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react';
 import { getSession, login, signup } from '../lib/odoo';
 
 export default function Auth() {
   const [mode, setMode] = useState<'login' | 'register'>('login');
+  const [identifier, setIdentifier] = useState('');
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [fullName, setFullName] = useState('');
@@ -38,11 +41,11 @@ export default function Auth() {
     setLoading(true);
     try {
       if (mode === 'register') {
-        await signup(fullName, email, password);
+        await signup(fullName, email, password, phone, username);
         await login(email, password);
         navigate('/dashboard');
       } else {
-        await login(email, password);
+        await login(identifier, password);
         navigate('/dashboard');
       }
     } catch (err) {
@@ -125,20 +128,65 @@ export default function Auth() {
               </div>
             )}
 
+            {mode === 'register' && (
+              <div>
+                <label className="label-field">Username</label>
+                <div className="relative">
+                  <AtSign className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-textgrey" />
+                  <input
+                    type="text"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="input-field pl-12"
+                    placeholder="janedoe"
+                  />
+                </div>
+              </div>
+            )}
+
             <div>
-              <label className="label-field">Email</label>
+              <label className="label-field">{mode === 'login' ? 'Email, Username or Phone' : 'Email'}</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-textgrey" />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="input-field pl-12"
-                  placeholder="jane@example.com"
-                />
+                {mode === 'login' ? (
+                  <input
+                    type="text"
+                    required
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    className="input-field pl-12"
+                    placeholder="jane@example.com"
+                  />
+                ) : (
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-field pl-12"
+                    placeholder="jane@example.com"
+                  />
+                )}
               </div>
             </div>
+
+            {mode === 'register' && (
+              <div>
+                <label className="label-field">Phone</label>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-textgrey" />
+                  <input
+                    type="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="input-field pl-12"
+                    placeholder="+1 876 555 0100"
+                  />
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="label-field">Password</label>
