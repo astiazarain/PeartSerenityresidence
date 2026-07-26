@@ -120,7 +120,7 @@ export default function Dashboard() {
                         </div>
                         <div>
                           <h3 className="font-serif text-lg text-brand-black">{a.resident_name}</h3>
-                          <p className="text-sm text-brand-textgrey">{a.care_type_requested.replace('_', ' ')} · Submitted {new Date(a.create_date).toLocaleDateString()}</p>
+                          <p className="text-sm text-brand-textgrey">{a.care_type_requested} · Submitted {new Date(a.create_date).toLocaleDateString()}</p>
                         </div>
                       </div>
                       <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${config.color}`}>

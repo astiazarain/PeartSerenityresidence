@@ -27,7 +27,7 @@ Provides:
     'author': 'Peart Serenity Residence',
     'website': 'https://peartserenityresidence.com',
     'license': 'LGPL-3',
-    'depends': ['sale_management', 'crm', 'website', 'mail', 'portal'],
+    'depends': ['sale_management', 'crm', 'website', 'mail', 'portal', 'hr_recruitment'],
     'data': [
         'security/ir.model.access.csv',
         'data/crm_team_data.xml',
@@ -35,9 +35,26 @@ Provides:
         'data/sale_order_template_data.xml',
         'data/product_data.xml',
         'data/testimonial_data.xml',
+        'data/site_settings_data.xml',
+        'data/nomenclator_data.xml',
+        'report/report_layout.xml',
         'views/peart_admission_views.xml',
         'views/peart_content_views.xml',
+        'views/peart_site_settings_views.xml',
+        'views/peart_nomenclator_views.xml',
+        'views/peart_gallery_views.xml',
+        'views/hr_applicant_views.xml',
+        'views/product_template_views.xml',
     ],
+    'assets': {
+        'web.report_assets_common': [
+            'peart_serenity/static/src/css/report.css',
+        ],
+        'web.report_assets_pdf': [
+            'peart_serenity/static/src/css/report.css',
+        ],
+    },
+    'post_init_hook': '_set_company_branding',
     'installable': True,
     'application': True,
 }

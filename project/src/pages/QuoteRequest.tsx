@@ -17,6 +17,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { submitCareQuote } from '../lib/odoo';
+import { useNomenclators } from '../hooks/useNomenclators';
 
 const STEPS = [
   { id: 0, label: 'Applicant', icon: User },
@@ -42,6 +43,7 @@ const initialForm = {
 };
 
 export default function QuoteRequest() {
+  const { careTypes, urgencyLevels } = useNomenclators();
   const [step, setStep] = useState(0);
   const [form, setForm] = useState(initialForm);
   const [submitting, setSubmitting] = useState(false);
@@ -199,9 +201,9 @@ export default function QuoteRequest() {
                   <p className="text-brand-textgrey text-sm mb-6">What type of care are you looking for and when?</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="md:col-span-2"><label className="label-field">Type of Care Requested *</label><select value={form.care_type_requested} onChange={(e) => update('care_type_requested', e.target.value)} className="input-field"><option value="day_care">Adult Day Care</option><option value="respite">Respite Care</option><option value="long_term">Long-Term Residential</option><option value="private_suite">Private Suite</option><option value="recovery">Post-Surgical Recovery</option><option value="specialized">Specialized Care</option></select></div>
+                  <div className="md:col-span-2"><label className="label-field">Type of Care Requested *</label><select value={form.care_type_requested} onChange={(e) => update('care_type_requested', e.target.value)} className="input-field">{careTypes.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select></div>
                   <div><label className="label-field">Preferred Start Date</label><input type="date" value={form.preferred_start_date} onChange={(e) => update('preferred_start_date', e.target.value)} className="input-field" /></div>
-                  <div><label className="label-field">Urgency</label><select value={form.urgency} onChange={(e) => update('urgency', e.target.value)} className="input-field"><option value="low">Low — Exploring options</option><option value="medium">Medium — Within 3 months</option><option value="high">High — Immediate need</option></select></div>
+                  <div><label className="label-field">Urgency</label><select value={form.urgency} onChange={(e) => update('urgency', e.target.value)} className="input-field">{urgencyLevels.map((u) => <option key={u.code} value={u.code}>{u.name}</option>)}</select></div>
                   <div><label className="label-field">Mobility Level</label><select value={form.mobility_level} onChange={(e) => update('mobility_level', e.target.value)} className="input-field"><option value="independent">Independent</option><option value="assisted">Requires assistance</option><option value="wheelchair">Wheelchair user</option><option value="bedbound">Bedbound</option></select></div>
                   <div className="flex items-center gap-3 pt-8">
                     <input type="checkbox" id="specialized_care" checked={form.requires_specialized_care} onChange={(e) => update('requires_specialized_care', e.target.checked)} className="w-5 h-5 rounded accent-gold-500" />

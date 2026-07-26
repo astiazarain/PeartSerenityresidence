@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
+import { fetchSiteSettings } from '../lib/odoo';
 
-const PHONE = '18765550192';
-const MESSAGE = "Hello! I'm interested in learning more about Peart Serenity Residence.";
+// Fallback values in case Odoo is briefly unreachable - the button should
+// never disappear or go dead just because the settings fetch failed.
+const DEFAULT_PHONE = '18765550192';
+const DEFAULT_MESSAGE = "Hello! I'm interested in learning more about Peart Serenity Residence.";
 
 export default function WhatsAppButton() {
   const [showTooltip, setShowTooltip] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [phone, setPhone] = useState(DEFAULT_PHONE);
+  const [message, setMessage] = useState(DEFAULT_MESSAGE);
+
+  useEffect(() => {
+    fetchSiteSettings()
+      .then((settings) => {
+        if (settings.whatsapp_number) setPhone(settings.whatsapp_number);
+        if (settings.whatsapp_message) setMessage(settings.whatsapp_message);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 2000);
@@ -19,7 +33,7 @@ export default function WhatsAppButton() {
     };
   }, []);
 
-  const link = `https://wa.me/${PHONE}?text=${encodeURIComponent(MESSAGE)}`;
+  const link = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   return (
     <div

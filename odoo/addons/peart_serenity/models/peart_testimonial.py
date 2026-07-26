@@ -11,5 +11,6 @@ class PeartTestimonial(models.Model):
     location = fields.Char()
     content = fields.Text(required=True)
     rating = fields.Integer(default=5)
+    photo = fields.Image(string='Photo', max_width=256, max_height=256)
     approved = fields.Boolean(default=True, help='Only approved testimonials are shown on the website.')
     featured = fields.Boolean(help='Featured testimonials are shown first.')

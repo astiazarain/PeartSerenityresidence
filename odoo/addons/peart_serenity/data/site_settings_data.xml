@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Singleton record. Seeded once with the values the website used to
+             have hardcoded, so behavior doesn't change until staff edit them
+             from Settings > Website Settings. -->
+        <record id="site_settings_default" model="peart.site.settings">
+            <field name="name">Website Settings</field>
+            <field name="whatsapp_number">18765550192</field>
+            <field name="whatsapp_message">Hello! I'm interested in learning more about Peart Serenity Residence.</field>
+        </record>
+
+    </data>
+</odoo>

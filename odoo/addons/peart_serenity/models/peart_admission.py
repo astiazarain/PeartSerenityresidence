@@ -46,18 +46,12 @@ class PeartAdmission(models.Model):
     resident_partner_id = fields.Many2one('res.partner', readonly=True)
 
     # Section C - Care needs
-    care_type_requested = fields.Selection([
-        ('day_care', 'Adult Day Care'),
-        ('respite', 'Respite Care'),
-        ('long_term', 'Long-Term Residential'),
-        ('private_suite', 'Private Suite'),
-        ('recovery', 'Post-Surgical Recovery'),
-        ('specialized', 'Specialized Care'),
-    ], required=True)
+    care_type_requested = fields.Many2one(
+        'peart.care.type', required=True, domain=[('active', '=', True)])
     preferred_start_date = fields.Date()
-    urgency = fields.Selection([
-        ('low', 'Low'), ('medium', 'Medium'), ('high', 'High'),
-    ], default='medium')
+    urgency = fields.Many2one(
+        'peart.urgency.level', domain=[('active', '=', True)],
+        default=lambda self: self.env.ref('peart_serenity.urgency_medium', raise_if_not_found=False))
     mobility_level = fields.Selection([
         ('independent', 'Independent'),
         ('assisted', 'Requires assistance'),
@@ -129,7 +123,7 @@ class PeartAdmission(models.Model):
     @api.depends('care_type_requested')
     def _compute_suggested_product(self):
         for rec in self:
-            xmlid = CARE_TYPE_PRODUCT_XMLID.get(rec.care_type_requested)
+            xmlid = CARE_TYPE_PRODUCT_XMLID.get(rec.care_type_requested.code)
             product = self.env.ref(xmlid, raise_if_not_found=False) if xmlid else False
             rec.suggested_product_id = product.product_variant_id if product else False
 

@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom';
 import {
-  Sun,
-  Clock,
-  Home as HomeIcon,
-  Sparkles,
-  Activity,
-  Stethoscope,
   Check,
   ArrowRight,
   Heart,
@@ -15,110 +9,14 @@ import {
   Pill,
   ShowerHead,
   Users,
+  Stethoscope,
 } from 'lucide-react';
 import CTASection from '../components/CTASection';
+import { useServices } from '../hooks/useServices';
+import { getServiceIcon, formatServicePrice } from '../lib/serviceIcons';
 
 export default function Services() {
-  const services = [
-    {
-      icon: Sun,
-      title: 'Adult Day Care',
-      price: '$45',
-      period: '/day',
-      desc: 'Engaging daytime care for seniors who live at home but need supervised care and social interaction during the day.',
-      features: [
-        '8am - 6pm daily care',
-        'Breakfast, lunch & snacks',
-        'Group activities & social engagement',
-        'Medication management',
-        'Health monitoring',
-        'Transportation assistance available',
-      ],
-      popular: false,
-    },
-    {
-      icon: Clock,
-      title: 'Respite Care',
-      price: '$95',
-      period: '/night',
-      desc: 'Short-term overnight care giving family caregivers a well-deserved break — from a single night to several weeks.',
-      features: [
-        'Flexible duration (1 night to 4 weeks)',
-        'Private or semi-private room',
-        'All meals included',
-        'Full access to amenities',
-        'Personalized care plan',
-        '24/7 nursing supervision',
-      ],
-      popular: false,
-    },
-    {
-      icon: HomeIcon,
-      title: 'Long-Term Residential',
-      price: '$2,800',
-      period: '/month',
-      desc: 'Full-time residential care in a warm, home-like environment with 24/7 nursing supervision and personalized care plans.',
-      features: [
-        '24/7 nursing care & supervision',
-        'Private or shared room options',
-        'All meals (Caribbean & dietary options)',
-        'Daily activities & wellness programs',
-        'Medication management',
-        'Weekly family video updates',
-        'Monthly health assessments',
-      ],
-      popular: true,
-    },
-    {
-      icon: Sparkles,
-      title: 'Private Suites',
-      price: '$4,200',
-      period: '/month',
-      desc: 'Our premium offering — spacious private suites with enhanced amenities and the highest level of personalized attention.',
-      features: [
-        'Everything in Long-Term Residential',
-        'Spacious private suite with en-suite bathroom',
-        'Premium furnishings & linens',
-        'Personal care assistant',
-        'Customized meal planning',
-        'Priority activity scheduling',
-        'Enhanced family communication package',
-      ],
-      popular: false,
-    },
-    {
-      icon: Activity,
-      title: 'Post-Surgical Recovery',
-      price: '$120',
-      period: '/day',
-      desc: 'Clinical-grade nursing care for recovery after surgery, with physician-coordinated rehabilitation and monitoring.',
-      features: [
-        'Wound care & dressing changes',
-        'Medication & pain management',
-        'Physical therapy coordination',
-        'Vital signs monitoring',
-        'Physician coordination',
-        'Discharge planning & family briefing',
-      ],
-      popular: false,
-    },
-    {
-      icon: Stethoscope,
-      title: 'Specialized Care',
-      price: 'Custom',
-      period: '',
-      desc: 'Tailored care programs for residents with specific medical needs including diabetes, dementia, and mobility challenges.',
-      features: [
-        'Diabetes management & glucose monitoring',
-        "Dementia & Alzheimer's care",
-        'Mobility assistance & fall prevention',
-        'Chronic condition management',
-        'Specialized dietary plans',
-        'Cognitive engagement programs',
-      ],
-      popular: false,
-    },
-  ];
+  const { services, loading } = useServices();
 
   const includedServices = [
     { icon: Utensils, label: 'All Meals & Nutrition' },
@@ -155,54 +53,62 @@ export default function Services() {
       {/* PRICING CARDS */}
       <section className="section-padding bg-brand-cream">
         <div className="container-max">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((s, i) => (
-              <div
-                key={s.title}
-                className={`relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up flex flex-col ${
-                  s.popular ? 'ring-2 ring-gold-500 lg:scale-105' : ''
-                }`}
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                {s.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-500 text-brand-black text-xs font-semibold uppercase tracking-wider px-6 py-2 rounded-full shadow-lg">
-                    Most Popular
-                  </div>
-                )}
-                <div className="p-8 flex-1">
-                  <div className="w-14 h-14 rounded-2xl bg-gold-50 flex items-center justify-center mb-6">
-                    <s.icon className="h-7 w-7 text-gold-600" />
-                  </div>
-                  <h3 className="font-serif text-2xl text-brand-black mb-2">{s.title}</h3>
-                  <p className="text-brand-textgrey leading-relaxed mb-6 text-sm">{s.desc}</p>
-                  <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-brand-softgrey">
-                    <span className="font-serif text-4xl font-bold text-gold-600">{s.price}</span>
-                    <span className="text-brand-textgrey">{s.period}</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {s.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-sm text-brand-textgrey">
-                        <Check className="h-4 w-4 text-gold-500 flex-shrink-0 mt-0.5" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="p-8 pt-0">
-                  <Link
-                    to="/quote"
-                    className={`w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
-                      s.popular
-                        ? 'bg-gold-500 text-brand-black hover:bg-gold-600 hover:text-white'
-                        : 'border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-brand-black'
+          {loading ? (
+            <p className="text-center text-brand-textgrey">Loading services...</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((s, i) => {
+                const Icon = getServiceIcon(s.name);
+                const { price, period } = formatServicePrice(s);
+                return (
+                  <div
+                    key={s.id}
+                    className={`relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 animate-slide-up flex flex-col ${
+                      s.is_popular ? 'ring-2 ring-gold-500 lg:scale-105' : ''
                     }`}
+                    style={{ animationDelay: `${i * 80}ms` }}
                   >
-                    Request Quote <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+                    {s.is_popular && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-500 text-brand-black text-xs font-semibold uppercase tracking-wider px-6 py-2 rounded-full shadow-lg">
+                        Most Popular
+                      </div>
+                    )}
+                    <div className="p-8 flex-1">
+                      <div className="w-14 h-14 rounded-2xl bg-gold-50 flex items-center justify-center mb-6">
+                        <Icon className="h-7 w-7 text-gold-600" />
+                      </div>
+                      <h3 className="font-serif text-2xl text-brand-black mb-2">{s.name}</h3>
+                      <p className="text-brand-textgrey leading-relaxed mb-6 text-sm">{s.description_sale}</p>
+                      <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-brand-softgrey">
+                        <span className="font-serif text-4xl font-bold text-gold-600">{price}</span>
+                        <span className="text-brand-textgrey">{period}</span>
+                      </div>
+                      <ul className="space-y-3">
+                        {s.features.map((f) => (
+                          <li key={f} className="flex items-start gap-3 text-sm text-brand-textgrey">
+                            <Check className="h-4 w-4 text-gold-500 flex-shrink-0 mt-0.5" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="p-8 pt-0">
+                      <Link
+                        to="/quote"
+                        className={`w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${
+                          s.is_popular
+                            ? 'bg-gold-500 text-brand-black hover:bg-gold-600 hover:text-white'
+                            : 'border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-brand-black'
+                        }`}
+                      >
+                        Request Quote <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

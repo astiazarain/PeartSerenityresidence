@@ -1,31 +1,13 @@
 import { Link } from 'react-router-dom';
-import {
-  Heart,
-  Shield,
-  Activity,
-  Users,
-  Sun,
-  Stethoscope,
-  Home as HomeIcon,
-  Clock,
-  ArrowRight,
-  CheckCircle2,
-  Plane,
-  Sparkles,
-} from 'lucide-react';
+import { Heart, Shield, Users, ArrowRight, CheckCircle2, Plane } from 'lucide-react';
 import TestimonialSection from '../components/TestimonialSection';
 import CTASection from '../components/CTASection';
 import HeroCarousel from '../components/HeroCarousel';
+import { useServices } from '../hooks/useServices';
+import { getServiceIcon, formatServicePrice } from '../lib/serviceIcons';
 
 export default function Home() {
-  const services = [
-    { icon: Sun, title: 'Adult Day Care', desc: 'Engaging daytime care with activities, meals, and social connection.', price: 'From $45/day' },
-    { icon: Clock, title: 'Respite Care', desc: 'Short-term relief for family caregivers — from a few days to weeks.', price: 'From $95/night' },
-    { icon: HomeIcon, title: 'Long-Term Residential', desc: '24/7 compassionate care in a warm, home-like environment.', price: 'From $2,800/mo' },
-    { icon: Sparkles, title: 'Private Suites', desc: 'Premium private suites with personalized care plans.', price: 'From $4,200/mo' },
-    { icon: Activity, title: 'Post-Surgical Recovery', desc: 'Clinical-grade nursing care for recovery after surgery.', price: 'From $120/day' },
-    { icon: Stethoscope, title: 'Specialized Care', desc: 'Diabetes, dementia, mobility, and chronic condition management.', price: 'Custom' },
-  ];
+  const { services, loading } = useServices();
 
   const features = [
     { icon: Shield, title: 'Clinical-Grade Supervision', desc: '24/7 nursing oversight with personalized care plans reviewed by licensed physicians.' },
@@ -137,28 +119,38 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((s, i) => (
-              <div
-                key={s.title}
-                className="group bg-brand-cream rounded-2xl p-8 hover:bg-white hover:shadow-2xl transition-all duration-500 border border-brand-softgrey hover:border-gold-200 animate-slide-up"
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <div className="w-14 h-14 rounded-2xl bg-gold-500 flex items-center justify-center mb-6 group-hover:bg-gold-600 transition-colors">
-                  <s.icon className="h-7 w-7 text-brand-black" />
-                </div>
-                <h3 className="font-serif text-2xl text-brand-black mb-2">{s.title}</h3>
-                <p className="text-sm text-gold-600 font-semibold mb-3">{s.price}</p>
-                <p className="text-brand-textgrey leading-relaxed mb-4">{s.desc}</p>
-                <Link
-                  to="/services"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-gold-600 hover:gap-3 transition-all"
-                >
-                  Learn More <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
+          {loading ? (
+            <p className="text-center text-brand-textgrey">Loading services...</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((s, i) => {
+                const Icon = getServiceIcon(s.name);
+                const { price, period } = formatServicePrice(s);
+                return (
+                  <div
+                    key={s.id}
+                    className="group bg-brand-cream rounded-2xl p-8 hover:bg-white hover:shadow-2xl transition-all duration-500 border border-brand-softgrey hover:border-gold-200 animate-slide-up"
+                    style={{ animationDelay: `${i * 80}ms` }}
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-gold-500 flex items-center justify-center mb-6 group-hover:bg-gold-600 transition-colors">
+                      <Icon className="h-7 w-7 text-brand-black" />
+                    </div>
+                    <h3 className="font-serif text-2xl text-brand-black mb-2">{s.name}</h3>
+                    <p className="text-sm text-gold-600 font-semibold mb-3">
+                      {price === 'Custom' ? 'Custom' : `From ${price}${period}`}
+                    </p>
+                    <p className="text-brand-textgrey leading-relaxed mb-4">{s.description_sale}</p>
+                    <Link
+                      to="/services"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-gold-600 hover:gap-3 transition-all"
+                    >
+                      Learn More <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

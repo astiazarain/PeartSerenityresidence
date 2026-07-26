@@ -11,16 +11,12 @@ class PeartWaitlist(models.Model):
     phone = fields.Char()
     partner_id = fields.Many2one('res.partner', readonly=True)
     country = fields.Char(default='Jamaica')
-    care_type = fields.Selection([
-        ('long_term', 'Long-Term Residential'),
-        ('private_suite', 'Private Suite'),
-        ('respite', 'Respite Care'),
-        ('recovery', 'Post-Surgical Recovery'),
-        ('specialized', 'Specialized Care'),
-    ], default='long_term', required=True)
-    urgency = fields.Selection([
-        ('low', 'Low'), ('medium', 'Medium'), ('high', 'High'),
-    ], default='medium', required=True)
+    care_type = fields.Many2one(
+        'peart.care.type', required=True, domain=[('active', '=', True)],
+        default=lambda self: self.env.ref('peart_serenity.care_type_long_term', raise_if_not_found=False))
+    urgency = fields.Many2one(
+        'peart.urgency.level', required=True, domain=[('active', '=', True)],
+        default=lambda self: self.env.ref('peart_serenity.urgency_medium', raise_if_not_found=False))
     notes = fields.Text()
     active = fields.Boolean(default=True)
 

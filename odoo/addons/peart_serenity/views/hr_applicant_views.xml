@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Adds the structured fields collected on the public Careers
+         application form, so they're visible on the native applicant form. -->
+    <record id="peart_hr_applicant_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.form.peart.career</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <group name="recruitment_contract" position="after">
+                <group string="Care Experience" name="peart_care_experience">
+                    <field name="years_experience"/>
+                    <field name="nursing_license_number"/>
+                    <field name="references"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

@@ -1,7 +1,21 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Heart } from 'lucide-react';
+import { fetchSiteSettings, type SiteSettings } from '../lib/odoo';
 
 export default function Footer() {
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    fetchSiteSettings().then(setSettings).catch(() => setSettings(null));
+  }, []);
+
+  const socialLinks = [
+    { url: settings?.facebook_url, icon: Facebook },
+    { url: settings?.instagram_url, icon: Instagram },
+    { url: settings?.linkedin_url, icon: Linkedin },
+  ].filter((s): s is { url: string; icon: typeof Facebook } => Boolean(s.url));
+
   return (
     <footer className="bg-brand-black text-brand-softgrey">
       <div className="container-max px-6 py-16 md:px-12 lg:px-20">
@@ -18,17 +32,21 @@ export default function Footer() {
               Premium eldercare in Montego Bay, Jamaica. Where care feels like home —
               trusted by families across Jamaica and the diaspora.
             </p>
-            <div className="flex gap-4 mt-6">
-              <a href="#" className="p-2 rounded-full bg-brand-charcoal hover:bg-gold-500 hover:text-brand-black transition-colors duration-300">
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a href="#" className="p-2 rounded-full bg-brand-charcoal hover:bg-gold-500 hover:text-brand-black transition-colors duration-300">
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a href="#" className="p-2 rounded-full bg-brand-charcoal hover:bg-gold-500 hover:text-brand-black transition-colors duration-300">
-                <Linkedin className="h-4 w-4" />
-              </a>
-            </div>
+            {socialLinks.length > 0 && (
+              <div className="flex gap-4 mt-6">
+                {socialLinks.map(({ url, icon: Icon }) => (
+                  <a
+                    key={url}
+                    href={url as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-brand-charcoal hover:bg-gold-500 hover:text-brand-black transition-colors duration-300"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -38,6 +56,8 @@ export default function Footer() {
               <li><Link to="/services" className="hover:text-gold-400 transition-colors">Services & Pricing</Link></li>
               <li><Link to="/about" className="hover:text-gold-400 transition-colors">About Us</Link></li>
               <li><Link to="/facility" className="hover:text-gold-400 transition-colors">Our Facility</Link></li>
+              <li><Link to="/gallery" className="hover:text-gold-400 transition-colors">Gallery</Link></li>
+              <li><Link to="/careers" className="hover:text-gold-400 transition-colors">Careers</Link></li>
               <li><Link to="/contact" className="hover:text-gold-400 transition-colors">Contact & Tours</Link></li>
               <li><Link to="/quote" className="hover:text-gold-400 transition-colors">Request a Quote</Link></li>
             </ul>
@@ -63,7 +83,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-gold-500 flex-shrink-0" />
-                <span>+1 (876) 555-0192</span>
+                <span>+{settings?.whatsapp_number || '1 (876) 555-0192'}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-gold-500 flex-shrink-0" />

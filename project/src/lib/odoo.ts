@@ -191,6 +191,22 @@ export async function submitWaitlist(payload: WaitlistPayload): Promise<number> 
   return result.id as number;
 }
 
+// ---- Nomenclators (Care Type / Urgency Level) -----------------------------
+
+export type NomenclatorOption = { code: string; name: string };
+
+export async function fetchNomenclators(): Promise<{
+  care_types: NomenclatorOption[];
+  urgency_levels: NomenclatorOption[];
+}> {
+  const result = await callApi<{
+    success: boolean;
+    care_types: NomenclatorOption[];
+    urgency_levels: NomenclatorOption[];
+  }>('/nomenclators', {});
+  return { care_types: result.care_types, urgency_levels: result.urgency_levels };
+}
+
 export type Testimonial = {
   id: number;
   author_name: string;
@@ -198,6 +214,7 @@ export type Testimonial = {
   location?: string;
   content: string;
   rating: number;
+  photo?: string | false;
 };
 
 export async function fetchTestimonials(limit = 6): Promise<Testimonial[]> {
@@ -232,4 +249,87 @@ export async function fetchMyAdmissions(): Promise<MyAdmission[]> {
 export async function fetchMyTours(): Promise<MyTourBooking[]> {
   const result = await callApi<{ success: boolean; records: MyTourBooking[] }>('/my/tours', {});
   return result.records;
+}
+
+// ---- Site settings (social links, WhatsApp) -------------------------------
+
+export type SiteSettings = {
+  whatsapp_number: string;
+  whatsapp_message: string;
+  facebook_url: string | false;
+  instagram_url: string | false;
+  tiktok_url: string | false;
+  linkedin_url: string | false;
+};
+
+export async function fetchSiteSettings(): Promise<SiteSettings> {
+  const result = await callApi<{ success: boolean } & SiteSettings>('/site-settings', {});
+  const { success: _success, ...settings } = result;
+  return settings;
+}
+
+// ---- Gallery ----------------------------------------------------------------
+
+export type GalleryPhoto = {
+  id: number;
+  title: string;
+  category: 'facility' | 'activities' | 'events';
+  image: string | false;
+};
+
+export async function fetchGallery(category?: string): Promise<GalleryPhoto[]> {
+  const result = await callApi<{ success: boolean; records: GalleryPhoto[] }>('/gallery', { category });
+  return result.records;
+}
+
+// ---- Careers / job applications ----------------------------------------------
+
+export type JobPosition = {
+  id: number;
+  name: string;
+  department: string | false;
+  description: string;
+};
+
+export async function fetchJobs(): Promise<JobPosition[]> {
+  const result = await callApi<{ success: boolean; records: JobPosition[] }>('/jobs', {});
+  return result.records;
+}
+
+// ---- Services (published service products) --------------------------------
+
+export type ServicePeriod = 'day' | 'week' | 'month' | 'custom';
+
+export type Service = {
+  id: number;
+  name: string;
+  list_price: number;
+  price_period: ServicePeriod;
+  description_sale: string;
+  features: string[];
+  is_popular: boolean;
+};
+
+export async function fetchServices(): Promise<Service[]> {
+  const result = await callApi<{ success: boolean; records: Service[] }>('/services', {});
+  return result.records;
+}
+
+export type JobApplicationPayload = {
+  name: string;
+  email: string;
+  phone?: string;
+  job_id: number;
+  years_experience?: number;
+  nursing_license_number?: string;
+  references?: string;
+  message?: string;
+  cv_filename?: string;
+  cv_base64?: string;
+};
+
+export async function submitJobApplication(payload: JobApplicationPayload): Promise<number> {
+  const result = await callApi<ApiResult>('/jobs/apply', payload);
+  if (!result.success) throw new Error(result.error || 'Failed to submit your application.');
+  return result.id as number;
 }

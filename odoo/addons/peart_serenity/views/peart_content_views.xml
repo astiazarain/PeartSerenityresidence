@@ -109,6 +109,7 @@
         <field name="model">peart.testimonial</field>
         <field name="arch" type="xml">
             <list>
+                <field name="photo" widget="image" options="{'size': [24, 24]}"/>
                 <field name="author_name"/>
                 <field name="relation"/>
                 <field name="location"/>
@@ -125,6 +126,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="photo" widget="image" class="oe_avatar"/>
                     <group>
                         <group>
                             <field name="author_name"/>

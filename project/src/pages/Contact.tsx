@@ -13,10 +13,12 @@ import {
   Users,
 } from 'lucide-react';
 import { submitTourBooking, submitContact, submitWaitlist } from '../lib/odoo';
+import { useNomenclators } from '../hooks/useNomenclators';
 
 type FormMode = 'tour' | 'inquiry' | 'waitlist';
 
 export default function Contact() {
+  const { careTypes, urgencyLevels } = useNomenclators();
   const [mode, setMode] = useState<FormMode>('tour');
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -188,7 +190,7 @@ export default function Contact() {
                   <div><label className="label-field">Email *</label><input type="email" required value={inquiryForm.email} onChange={(e) => setInquiryForm({ ...inquiryForm, email: e.target.value })} className="input-field" placeholder="jane@example.com" /></div>
                   <div><label className="label-field">Phone</label><input type="tel" value={inquiryForm.phone} onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })} className="input-field" placeholder="+1 (876) 555-0100" /></div>
                   <div><label className="label-field">Country</label><select value={inquiryForm.country} onChange={(e) => setInquiryForm({ ...inquiryForm, country: e.target.value })} className="input-field"><option value="Jamaica">Jamaica</option><option value="USA">United States</option><option value="UK">United Kingdom</option><option value="Canada">Canada</option><option value="Other">Other</option></select></div>
-                  <div><label className="label-field">Service of Interest</label><select value={inquiryForm.service_type} onChange={(e) => setInquiryForm({ ...inquiryForm, service_type: e.target.value })} className="input-field"><option value="general">General Inquiry</option><option value="day_care">Adult Day Care</option><option value="respite">Respite Care</option><option value="long_term">Long-Term Residential</option><option value="private_suite">Private Suite</option><option value="recovery">Post-Surgical Recovery</option><option value="specialized">Specialized Care</option></select></div>
+                  <div><label className="label-field">Service of Interest</label><select value={inquiryForm.service_type} onChange={(e) => setInquiryForm({ ...inquiryForm, service_type: e.target.value })} className="input-field"><option value="general">General Inquiry</option>{careTypes.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select></div>
                   <div><label className="label-field">Preferred Start Date</label><input type="date" min={today} value={inquiryForm.preferred_date} onChange={(e) => setInquiryForm({ ...inquiryForm, preferred_date: e.target.value })} className="input-field" /></div>
                 </div>
                 <div className="mt-6"><label className="label-field">Your Message *</label><textarea rows={5} required value={inquiryForm.message} onChange={(e) => setInquiryForm({ ...inquiryForm, message: e.target.value })} className="input-field resize-none" placeholder="Tell us about your loved one's needs, your timeline, and any questions you have..." /></div>
@@ -205,8 +207,8 @@ export default function Contact() {
                   <div><label className="label-field">Email *</label><input type="email" required value={waitlistForm.email} onChange={(e) => setWaitlistForm({ ...waitlistForm, email: e.target.value })} className="input-field" placeholder="jane@example.com" /></div>
                   <div><label className="label-field">Phone</label><input type="tel" value={waitlistForm.phone} onChange={(e) => setWaitlistForm({ ...waitlistForm, phone: e.target.value })} className="input-field" placeholder="+1 (876) 555-0100" /></div>
                   <div><label className="label-field">Country</label><select value={waitlistForm.country} onChange={(e) => setWaitlistForm({ ...waitlistForm, country: e.target.value })} className="input-field"><option value="Jamaica">Jamaica</option><option value="USA">United States</option><option value="UK">United Kingdom</option><option value="Canada">Canada</option><option value="Other">Other</option></select></div>
-                  <div><label className="label-field">Type of Care Needed</label><select value={waitlistForm.care_type} onChange={(e) => setWaitlistForm({ ...waitlistForm, care_type: e.target.value })} className="input-field"><option value="long_term">Long-Term Residential</option><option value="private_suite">Private Suite</option><option value="respite">Respite Care</option><option value="recovery">Post-Surgical Recovery</option><option value="specialized">Specialized Care</option></select></div>
-                  <div><label className="label-field">Urgency</label><select value={waitlistForm.urgency} onChange={(e) => setWaitlistForm({ ...waitlistForm, urgency: e.target.value })} className="input-field"><option value="low">Low — Exploring options</option><option value="medium">Medium — Within 3 months</option><option value="high">High — Immediate need</option></select></div>
+                  <div><label className="label-field">Type of Care Needed</label><select value={waitlistForm.care_type} onChange={(e) => setWaitlistForm({ ...waitlistForm, care_type: e.target.value })} className="input-field">{careTypes.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}</select></div>
+                  <div><label className="label-field">Urgency</label><select value={waitlistForm.urgency} onChange={(e) => setWaitlistForm({ ...waitlistForm, urgency: e.target.value })} className="input-field">{urgencyLevels.map((u) => <option key={u.code} value={u.code}>{u.name}</option>)}</select></div>
                 </div>
                 <div className="mt-6"><label className="label-field">Additional Notes</label><textarea rows={4} value={waitlistForm.notes} onChange={(e) => setWaitlistForm({ ...waitlistForm, notes: e.target.value })} className="input-field resize-none" placeholder="Any specific needs, conditions, or timing considerations..." /></div>
                 <button type="submit" disabled={submitting} className="btn-primary w-full mt-8 disabled:opacity-60">{submitting ? 'Joining...' : 'Join Waitlist'} <Send className="h-4 w-4" /></button>

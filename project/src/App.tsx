@@ -8,6 +8,8 @@ import Contact from './pages/Contact';
 import Auth from './pages/Auth';
 import QuoteRequest from './pages/QuoteRequest';
 import Dashboard from './pages/Dashboard';
+import Careers from './pages/Careers';
+import Gallery from './pages/Gallery';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/quote" element={<QuoteRequest />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="*" element={<Home />} />
         </Route>
         <Route path="/auth" element={<Auth />} />

@@ -6,13 +6,25 @@
          without an upgrade overwriting their changes. -->
     <data noupdate="1">
 
+        <record id="product_tag_most_popular" model="product.tag">
+            <field name="name">Most Popular</field>
+        </record>
+
         <record id="product_care_day" model="product.template">
             <field name="name">Adult Day Care (per day)</field>
             <field name="type">service</field>
             <field name="list_price">50.00</field>
             <field name="sale_ok">True</field>
             <field name="purchase_ok">False</field>
+            <field name="is_published">True</field>
+            <field name="website_price_period">day</field>
             <field name="description_sale">Daytime supervision, meals and activities. Business plan range: $40–$60/day.</field>
+            <field name="website_features">8am - 6pm daily care
+Breakfast, lunch &amp; snacks
+Group activities &amp; social engagement
+Medication management
+Health monitoring
+Transportation assistance available</field>
         </record>
 
         <record id="product_care_respite_week" model="product.template">
@@ -21,7 +33,15 @@
             <field name="list_price">725.00</field>
             <field name="sale_ok">True</field>
             <field name="purchase_ok">False</field>
+            <field name="is_published">True</field>
+            <field name="website_price_period">week</field>
             <field name="description_sale">Short-term residential stay for family respite. Business plan range: $550–$900/week.</field>
+            <field name="website_features">Flexible duration (1 night to 4 weeks)
+Private or semi-private room
+All meals included
+Full access to amenities
+Personalized care plan
+24/7 nursing supervision</field>
         </record>
 
         <record id="product_care_shared_monthly" model="product.template">
@@ -30,7 +50,17 @@
             <field name="list_price">2250.00</field>
             <field name="sale_ok">True</field>
             <field name="purchase_ok">False</field>
+            <field name="is_published">True</field>
+            <field name="website_price_period">month</field>
+            <field name="product_tag_ids" eval="[(4, ref('product_tag_most_popular'))]"/>
             <field name="description_sale">Long-term residential care, shared room. Business plan range: $1,900–$2,600/month.</field>
+            <field name="website_features">24/7 nursing care &amp; supervision
+Private or shared room options
+All meals (Caribbean &amp; dietary options)
+Daily activities &amp; wellness programs
+Medication management
+Weekly family video updates
+Monthly health assessments</field>
         </record>
 
         <record id="product_care_private_suite_monthly" model="product.template">
@@ -39,7 +69,16 @@
             <field name="list_price">4100.00</field>
             <field name="sale_ok">True</field>
             <field name="purchase_ok">False</field>
+            <field name="is_published">True</field>
+            <field name="website_price_period">month</field>
             <field name="description_sale">Long-term residential care, private suite, premium service level. Business plan range: $3,200–$5,000/month.</field>
+            <field name="website_features">Everything in Long-Term Residential
+Spacious private suite with en-suite bathroom
+Premium furnishings &amp; linens
+Personal care assistant
+Customized meal planning
+Priority activity scheduling
+Enhanced family communication package</field>
         </record>
 
         <record id="product_care_postop_recovery" model="product.template">
@@ -48,7 +87,32 @@
             <field name="list_price">195.00</field>
             <field name="sale_ok">True</field>
             <field name="purchase_ok">False</field>
+            <field name="is_published">True</field>
+            <field name="website_price_period">day</field>
             <field name="description_sale">Intensive short-term recovery support after surgery. Business plan range: $140–$250/day.</field>
+            <field name="website_features">Wound care &amp; dressing changes
+Medication &amp; pain management
+Physical therapy coordination
+Vital signs monitoring
+Physician coordination
+Discharge planning &amp; family briefing</field>
+        </record>
+
+        <record id="product_care_specialized" model="product.template">
+            <field name="name">Specialized Care</field>
+            <field name="type">service</field>
+            <field name="list_price">0.00</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="is_published">True</field>
+            <field name="website_price_period">custom</field>
+            <field name="description_sale">Tailored care programs for residents with specific medical needs including diabetes, dementia, and mobility challenges.</field>
+            <field name="website_features">Diabetes management &amp; glucose monitoring
+Dementia &amp; Alzheimer's care
+Mobility assistance &amp; fall prevention
+Chronic condition management
+Specialized dietary plans
+Cognitive engagement programs</field>
         </record>
 
     </data>

@@ -1,0 +1,161 @@
+/* Peart Serenity Residence -- brand skin for PDF business documents
+   (quotations, orders, invoices, credit notes). Colors and type follow the
+   Brand Identity Manual: gold-on-black, serif headings, generous cream space.
+
+   No CSS custom properties (var(...)) here on purpose: reports are rendered
+   by wkhtmltopdf's bundled WebKit, which does not support them -- rules using
+   var() get silently dropped instead of falling back. */
+
+.o_peart_layout,
+.o_peart_layout .o_peart_header_contact,
+.o_peart_layout #informations,
+.o_peart_layout table {
+    font-family: Calibri, "Segoe UI", Arial, sans-serif;
+}
+
+/* ---------- Header ---------- */
+
+.o_peart_header_bar {
+    background-color: #0D0D0D;
+    color: #FBF6E9;
+    padding: 8px 14px;
+    border-radius: 3px 3px 0 0;
+}
+
+.o_peart_logo {
+    max-height: 58px;
+    width: auto;
+}
+
+.o_peart_company_name {
+    font-family: Cambria, Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    color: #F0C442;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.o_peart_tagline {
+    font-family: Cambria, Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 9px;
+    color: #E7AE25;
+    margin-top: 2px;
+}
+
+.o_peart_header_contact {
+    font-size: 8.5px;
+    line-height: 1.55;
+    color: #EFEADC;
+}
+
+.o_peart_header_contact a {
+    color: #EFEADC;
+}
+
+.o_peart_header_rule {
+    height: 3px;
+    margin-bottom: 8px;
+    background-color: #C8920A;
+}
+
+/* ---------- Body ---------- */
+
+.o_peart_layout.article {
+    color: #26201A;
+}
+
+.o_peart_layout .o_peart_doc_title {
+    font-family: Cambria, Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #0D0D0D;
+    border-bottom: 2px solid #C8920A;
+    padding-bottom: 8px;
+    margin-top: 12px;
+}
+
+.o_peart_layout address strong,
+.o_peart_layout #informations strong,
+.o_peart_layout #payment_term strong {
+    color: #C8920A;
+    font-family: Cambria, Georgia, "Times New Roman", serif;
+}
+
+.o_peart_layout table.o_main_table thead th {
+    background-color: #0D0D0D;
+    color: #F0C442;
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 0.4px;
+    font-weight: 700;
+    padding: 7px 8px;
+    border: none;
+}
+
+.o_peart_layout table.o_main_table tbody td {
+    font-size: 10.5px;
+    color: #26201A;
+    padding: 6px 8px;
+}
+
+.o_peart_layout .o_line_section td {
+    background-color: #EFEADC;
+    color: #26201A;
+    font-weight: 700;
+    border-left: 3px solid #C8920A;
+}
+
+.o_peart_layout .is-subtotal td {
+    border-top: 1px solid #C8920A;
+    color: #26201A;
+}
+
+.o_peart_layout #total table td,
+.o_peart_layout #right-elements table td {
+    font-size: 10.5px;
+}
+
+.o_peart_layout .o_subtotal td {
+    border-top: 1px solid #C8920A;
+}
+
+.o_peart_layout .o_total td {
+    background-color: #0D0D0D;
+    color: #F0C442;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 7px 8px;
+}
+
+.o_peart_layout .o_total td strong {
+    color: #F0C442;
+}
+
+/* ---------- Footer ---------- */
+
+.o_peart_footer_rule {
+    height: 2px;
+    margin-bottom: 4px;
+    background-color: #C8920A;
+}
+
+.o_peart_footer_text,
+.o_peart_footer_page {
+    font-size: 8px;
+    color: #666666;
+}
+
+.o_peart_footer_tagline {
+    font-family: Cambria, Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 8.5px;
+    color: #C8920A;
+}
+
+.o_peart_footer_docname {
+    font-size: 8px;
+    color: #666666;
+}

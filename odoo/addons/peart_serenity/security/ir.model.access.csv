@@ -3,3 +3,7 @@ access_peart_admission_user,peart.admission.user,model_peart_admission,base.grou
 access_peart_testimonial_user,peart.testimonial.user,model_peart_testimonial,base.group_user,1,1,1,1
 access_peart_tour_booking_user,peart.tour.booking.user,model_peart_tour_booking,base.group_user,1,1,1,0
 access_peart_waitlist_user,peart.waitlist.user,model_peart_waitlist,base.group_user,1,1,1,0
+access_peart_site_settings_user,peart.site.settings.user,model_peart_site_settings,base.group_user,1,1,1,0
+access_peart_gallery_photo_user,peart.gallery.photo.user,model_peart_gallery_photo,base.group_user,1,1,1,1
+access_peart_care_type_user,peart.care.type.user,model_peart_care_type,base.group_user,1,1,1,0
+access_peart_urgency_level_user,peart.urgency.level.user,model_peart_urgency_level,base.group_user,1,1,1,0
