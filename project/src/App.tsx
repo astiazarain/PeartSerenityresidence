@@ -10,6 +10,9 @@ import QuoteRequest from './pages/QuoteRequest';
 import Dashboard from './pages/Dashboard';
 import Careers from './pages/Careers';
 import Gallery from './pages/Gallery';
+import FAQ from './pages/FAQ';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<Home />} />
         </Route>
         <Route path="/auth" element={<Auth />} />
