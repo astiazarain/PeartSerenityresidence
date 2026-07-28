@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Peart Serenity: start dev stack",
+      "type": "shell",
+      "command": "${workspaceFolder}/infra/dev-up.sh",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated",
+        "close": false
+      },
+      "problemMatcher": []
+    }
+  ]
+}

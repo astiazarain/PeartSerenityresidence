@@ -38,9 +38,11 @@ Fullstack platform for **Peart Serenity Residence**, a premium elder-care reside
 │   │   └── peart_serenity/           Custom, installable Odoo module (see its own README)
 │   └── config/
 │       └── odoo.conf                 Local Odoo configuration
-└── infra/
-    ├── docker-compose.yml            Local dev environment: Odoo 19 + PostgreSQL 16 + reverse proxy
-    └── nginx/default.conf            Single local entry point (see below)
+├── infra/
+│   ├── docker-compose.yml            Local dev environment: Odoo 19 + PostgreSQL 16 + reverse proxy
+│   ├── nginx/default.conf            Single local entry point (see below)
+│   └── dev-up.sh                     One-command / auto-start script (see Getting started)
+└── .vscode/tasks.json                 Runs dev-up.sh automatically on folder open
 ```
 
 Confidential business documentation (business plan, contracts, financials — the `Business Package/` folder) is kept **local only** and is excluded via `.gitignore`. It is intentionally not part of this repository.
@@ -62,28 +64,30 @@ There is a **single local entry point** for the whole platform, so you never hav
 
 This is handled by an Nginx reverse proxy (`infra/nginx/default.conf`) that ships with the Docker Compose stack. In production the same split happens at the domain/edge level instead (main domain → website, admin subdomain → Odoo).
 
-### 1. Start Odoo + Postgres + the proxy
+### One-command start
 
 ```bash
-cd infra
-docker compose up -d
+./infra/dev-up.sh
 ```
 
-On first run, open **http://localhost:8080/odoo**, create a database (must be named `peartserenity` — see `ODOO_DB` in `project/src/lib/odoo.ts` — or update that constant to match) and install the **Peart Serenity - Care Services** module (`peart_serenity`) from *Apps*.
+Starts Docker Desktop if it isn't running, brings up the Odoo/Postgres/proxy containers, and starts the Vite dev server correctly bound to `0.0.0.0` (a plain `npm run dev` binds to `localhost` only, which the Nginx container can't reach — that's the #1 cause of a 502 on `http://localhost:8080/`). It's idempotent: run it as many times as you want, it only (re)starts what's actually down.
+
+**This also runs automatically whenever you open the project folder in VS Code** — wired via `.vscode/tasks.json` (`runOn: folderOpen`). The first time, VS Code will ask you to confirm *"Allow Automatic Tasks in Folder"*; approve it once and every future folder-open takes care of itself. Output goes to a dedicated terminal panel and to `.dev-logs/vite.log`.
+
+On first run ever, open **http://localhost:8080/odoo**, create a database (must be named `peartserenity` — see `ODOO_DB` in `project/src/lib/odoo.ts` — or update that constant to match) and install the **Peart Serenity - Care Services** module (`peart_serenity`) from *Apps*.
 
 The database manager master password is set in `odoo/config/odoo.conf` — it is a local-dev-only placeholder and **must** be changed before any non-local deployment. Odoo itself is still reachable directly on `http://localhost:8169` if you need to bypass the proxy for debugging.
 
-### 2. Start the website
+### Manual start (if you'd rather not use the script)
 
 ```bash
-cd project
-npm install
-npm run dev -- --host 0.0.0.0
+cd infra && docker compose up -d
+cd project && npm install && npm run dev -- --host 0.0.0.0
 ```
 
-`--host 0.0.0.0` is required so the Nginx container (running in Docker) can reach the Vite dev server on the host — otherwise it only binds to `localhost` and the proxy gets a 502. No `.env` file is needed — the site talks to Odoo via relative paths (`/api`, `/web`) through whatever host it's served from.
+`--host 0.0.0.0` is required so the Nginx container (running in Docker) can reach the Vite dev server on the host. No `.env` file is needed — the site talks to Odoo via relative paths (`/api`, `/web`) through whatever host it's served from.
 
-Once both are running, use **http://localhost:8080** for everything.
+Once everything is running, use **http://localhost:8080** for everything.
 
 ## 5. Public API (`peart_serenity` module)
 

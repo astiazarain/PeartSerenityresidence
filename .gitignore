@@ -30,7 +30,11 @@ __pycache__/
 # Editors
 .vscode/*
 !.vscode/extensions.json
+!.vscode/tasks.json
 .idea
+
+# Local dev stack logs (infra/dev-up.sh)
+.dev-logs/
 
 # Claude Code local settings
 .claude/settings.local.json
