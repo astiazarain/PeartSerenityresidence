@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_social_oauth_app_list" model="ir.ui.view">
+        <field name="name">social.oauth.app.list</field>
+        <field name="model">social.oauth.app</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="platform"/>
+                <field name="client_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_social_oauth_app_form" model="ir.ui.view">
+        <field name="name">social.oauth.app.form</field>
+        <field name="model">social.oauth.app</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Ej: Meta App - Producción"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="platform"/>
+                            <field name="client_id"/>
+                            <field name="client_secret" password="True"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        Configura como <b>Redirect URI / Callback URL</b> autorizada en el
+                        portal de desarrolladores correspondiente:
+                        <br/>
+                        <code>{tu_dominio}/social_agent/oauth/facebook/callback</code> (Facebook/Instagram)
+                        <br/>
+                        <code>{tu_dominio}/social_agent/oauth/linkedin/callback</code> (LinkedIn)
+                        <br/>
+                        <code>{tu_dominio}/social_agent/oauth/twitter/callback</code> (X / Twitter)
+                        <br/>
+                        <code>{tu_dominio}/social_agent/oauth/tiktok/callback</code> (TikTok)
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_social_oauth_app" model="ir.actions.act_window">
+        <field name="name">Apps OAuth</field>
+        <field name="res_model">social.oauth.app</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registra aquí tu Meta App (Facebook/Instagram) y/o tu app de LinkedIn
+                para poder conectar cuentas con un clic.
+            </p>
+        </field>
+    </record>
+</odoo>

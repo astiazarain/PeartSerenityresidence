@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_social_media_post_list" model="ir.ui.view">
+        <field name="name">social.media.post.list</field>
+        <field name="model">social.media.post</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="state == 'error'" decoration-success="state == 'done'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="account_ids" widget="many2many_tags"/>
+                <field name="ai_provider_id"/>
+                <field name="scheduled_date"/>
+                <field name="user_id"/>
+                <field name="total_engagement" string="Interacciones"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_social_media_post_form" model="ir.ui.view">
+        <field name="name">social.media.post.form</field>
+        <field name="model">social.media.post</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_with_ai" type="object"
+                            string="Generar con IA" class="btn-secondary"
+                            invisible="state not in ('draft',)"/>
+                    <button name="action_schedule" type="object"
+                            string="Programar" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_publish_now" type="object"
+                            string="Publicar ahora" class="btn-primary"
+                            invisible="state not in ('draft', 'scheduled')"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancelar"
+                            invisible="state in ('done', 'cancelled')"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Volver a borrador"
+                            invisible="state not in ('scheduled', 'error', 'cancelled')"/>
+                    <button name="action_fetch_metrics" type="object"
+                            string="Actualizar métricas" class="btn-secondary"
+                            invisible="state not in ('done', 'error')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,scheduled,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="topic"/>
+                        <h1><field name="topic" placeholder="Ej: Anuncio de nueva promoción de verano"/></h1>
+                    </div>
+                    <group invisible="state not in ('done', 'error')">
+                        <group string="Analítica">
+                            <field name="success_count" string="Cuentas exitosas"/>
+                            <field name="error_count" string="Cuentas con error"/>
+                        </group>
+                        <group string="Interacciones">
+                            <field name="total_likes" string="Me gusta"/>
+                            <field name="total_comments" string="Comentarios"/>
+                            <field name="total_shares" string="Compartidos"/>
+                            <field name="total_engagement" string="Total"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="ai_provider_id"/>
+                            <field name="ai_generated" readonly="1"/>
+                            <field name="account_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="scheduled_date"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenido">
+                            <field name="content" placeholder="Contenido final que se publicará..."/>
+                            <group>
+                                <field name="image" widget="image" class="oe_avatar"/>
+                                <field name="image_filename" invisible="1"/>
+                                <field name="image_url"/>
+                            </group>
+                        </page>
+                        <page string="Estado por cuenta">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="account_id"/>
+                                    <field name="platform"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="published_date"/>
+                                    <field name="likes_count"/>
+                                    <field name="comments_count"/>
+                                    <field name="shares_count"/>
+                                    <field name="impressions_count"/>
+                                    <field name="metrics_updated_at"/>
+                                    <field name="response_message"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_social_media_post_kanban" model="ir.ui.view">
+        <field name="name">social.media.post.kanban</field>
+        <field name="model">social.media.post</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="account_ids"/>
+                <field name="scheduled_date"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click p-2">
+                            <strong><field name="name"/></strong>
+                            <div>
+                                <field name="account_ids" widget="many2many_tags"/>
+                            </div>
+                            <div t-if="record.scheduled_date.raw_value">
+                                <i class="fa fa-clock-o" title="Programado"/> <field name="scheduled_date"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_social_media_post_search" model="ir.ui.view">
+        <field name="name">social.media.post.search</field>
+        <field name="model">social.media.post</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="topic"/>
+                <field name="account_ids"/>
+                <field name="ai_provider_id"/>
+                <filter string="Borradores" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Programados" name="scheduled" domain="[('state', '=', 'scheduled')]"/>
+                <filter string="Publicados" name="done" domain="[('state', '=', 'done')]"/>
+                <filter string="Con error" name="error" domain="[('state', '=', 'error')]"/>
+                <group name="group_by">
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Proveedor IA" name="group_ai" context="{'group_by': 'ai_provider_id'}"/>
+                    <filter string="Responsable" name="group_user" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_social_media_post" model="ir.actions.act_window">
+        <field name="name">Publicaciones</field>
+        <field name="res_model">social.media.post</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_draft': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primera publicación: escribe el tema, genera el
+                contenido con Claude o Gemini, elige las cuentas destino y
+                programa o publica de inmediato.
+            </p>
+        </field>
+    </record>
+</odoo>

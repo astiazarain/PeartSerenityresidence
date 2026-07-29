@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_publish_scheduled_posts" model="ir.cron">
+        <field name="name">Social Agent: Publicar posts programados</field>
+        <field name="model_id" ref="model_social_media_post"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_publish_scheduled()</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_refresh_short_lived_tokens" model="ir.cron">
+        <field name="name">Social Agent: Renovar tokens de X (Twitter) / TikTok</field>
+        <field name="model_id" ref="model_social_media_account"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_refresh_short_lived_tokens()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_fetch_metrics" model="ir.cron">
+        <field name="name">Social Agent: Actualizar métricas (me gusta, comentarios...)</field>
+        <field name="model_id" ref="model_social_media_post_line"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_fetch_metrics()</field>
+        <field name="interval_number">4</field>
+        <field name="interval_type">hours</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

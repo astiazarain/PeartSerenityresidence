@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ai_provider_config_user,ai.provider.config.user,model_ai_provider_config,group_social_agent_user,1,0,0,0
+access_ai_provider_config_manager,ai.provider.config.manager,model_ai_provider_config,group_social_agent_manager,1,1,1,1
+access_social_media_account_user,social.media.account.user,model_social_media_account,group_social_agent_user,1,0,0,0
+access_social_media_account_manager,social.media.account.manager,model_social_media_account,group_social_agent_manager,1,1,1,1
+access_social_media_post_user,social.media.post.user,model_social_media_post,group_social_agent_user,1,1,1,1
+access_social_media_post_manager,social.media.post.manager,model_social_media_post,group_social_agent_manager,1,1,1,1
+access_social_media_post_line_user,social.media.post.line.user,model_social_media_post_line,group_social_agent_user,1,1,1,1
+access_social_media_post_line_manager,social.media.post.line.manager,model_social_media_post_line,group_social_agent_manager,1,1,1,1
+access_social_oauth_app_user,social.oauth.app.user,model_social_oauth_app,group_social_agent_user,1,0,0,0
+access_social_oauth_app_manager,social.oauth.app.manager,model_social_oauth_app,group_social_agent_manager,1,1,1,1

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_social_agent_root" name="Social Agent" sequence="85"
+              web_icon="social_agent_publisher,static/description/icon.png"/>
+
+    <menuitem id="menu_social_agent_posts" name="Publicaciones"
+              parent="menu_social_agent_root" action="action_social_media_post"
+              sequence="10"/>
+
+    <menuitem id="menu_social_agent_analytics" name="Analítica"
+              parent="menu_social_agent_root" action="action_social_media_analytics"
+              sequence="20"/>
+
+    <menuitem id="menu_social_agent_config" name="Configuración"
+              parent="menu_social_agent_root" sequence="90"
+              groups="group_social_agent_manager"/>
+
+    <menuitem id="menu_social_agent_accounts" name="Cuentas de redes sociales"
+              parent="menu_social_agent_config" action="action_social_media_account"
+              sequence="10"/>
+
+    <menuitem id="menu_social_agent_ai_providers" name="Proveedores de IA"
+              parent="menu_social_agent_config" action="action_ai_provider_config"
+              sequence="20"/>
+
+    <menuitem id="menu_social_agent_oauth_apps" name="Apps OAuth"
+              parent="menu_social_agent_config" action="action_social_oauth_app"
+              sequence="30"/>
+</odoo>

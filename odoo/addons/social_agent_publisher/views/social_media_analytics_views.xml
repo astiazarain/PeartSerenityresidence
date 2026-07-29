@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_social_media_post_line_search" model="ir.ui.view">
+        <field name="name">social.media.post.line.search</field>
+        <field name="model">social.media.post.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="post_id"/>
+                <field name="account_id"/>
+                <field name="platform"/>
+                <filter string="Publicadas" name="success" domain="[('state', '=', 'success')]"/>
+                <filter string="Con error" name="error" domain="[('state', '=', 'error')]"/>
+                <filter string="Pendientes" name="pending" domain="[('state', '=', 'pending')]"/>
+                <separator/>
+                <filter string="Últimos 7 días" name="last_7_days"
+                        domain="[('published_date', '&gt;=', (context_today() - relativedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Últimos 30 días" name="last_30_days"
+                        domain="[('published_date', '&gt;=', (context_today() - relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <group name="group_by">
+                    <filter string="Red social" name="group_platform" context="{'group_by': 'platform'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Cuenta" name="group_account" context="{'group_by': 'account_id'}"/>
+                    <filter string="Fecha de publicación" name="group_date" context="{'group_by': 'published_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_social_media_post_line_pivot" model="ir.ui.view">
+        <field name="name">social.media.post.line.pivot</field>
+        <field name="model">social.media.post.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Analítica de publicaciones">
+                <field name="platform" type="row"/>
+                <field name="state" type="col"/>
+                <field name="likes_count" type="measure"/>
+                <field name="comments_count" type="measure"/>
+                <field name="shares_count" type="measure"/>
+                <field name="impressions_count" type="measure"/>
+                <field name="engagement_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_social_media_post_line_graph" model="ir.ui.view">
+        <field name="name">social.media.post.line.graph</field>
+        <field name="model">social.media.post.line</field>
+        <field name="arch" type="xml">
+            <graph string="Analítica de publicaciones" type="bar">
+                <field name="platform" type="row"/>
+                <field name="engagement_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_social_media_post_line_list_analytics" model="ir.ui.view">
+        <field name="name">social.media.post.line.list.analytics</field>
+        <field name="model">social.media.post.line</field>
+        <field name="arch" type="xml">
+            <list default_order="published_date desc">
+                <field name="post_id"/>
+                <field name="account_id"/>
+                <field name="platform"/>
+                <field name="state" widget="badge"/>
+                <field name="published_date"/>
+                <field name="likes_count" sum="Total"/>
+                <field name="comments_count" sum="Total"/>
+                <field name="shares_count" sum="Total"/>
+                <field name="impressions_count" sum="Total"/>
+                <field name="engagement_count" sum="Total"/>
+                <field name="metrics_updated_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_social_media_analytics" model="ir.actions.act_window">
+        <field name="name">Analítica de publicaciones</field>
+        <field name="res_model">social.media.post.line</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="search_view_id" ref="view_social_media_post_line_search"/>
+        <field name="context">{'search_default_group_platform': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Todavía no hay publicaciones con métricas. En cuanto publiques
+                y las cuentas soporten lectura de estadísticas (Facebook,
+                Instagram, LinkedIn, X), aquí verás me gusta, comentarios,
+                compartidos e impresiones.
+            </p>
+        </field>
+    </record>
+</odoo>

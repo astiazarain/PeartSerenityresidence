@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_social_media_account_list" model="ir.ui.view">
+        <field name="name">social.media.account.list</field>
+        <field name="model">social.media.account</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="platform"/>
+                <field name="account_identifier"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_social_media_account_form" model="ir.ui.view">
+        <field name="name">social.media.account.form</field>
+        <field name="model">social.media.account</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_connect_facebook" type="object"
+                            string="Conectar con Facebook" class="btn-primary"
+                            invisible="platform not in ('facebook', 'instagram')"/>
+                    <button name="action_connect_linkedin" type="object"
+                            string="Conectar con LinkedIn" class="btn-primary"
+                            invisible="platform != 'linkedin'"/>
+                    <button name="action_connect_twitter" type="object"
+                            string="Conectar con X (Twitter)" class="btn-primary"
+                            invisible="platform != 'twitter'"/>
+                    <button name="action_connect_tiktok" type="object"
+                            string="Conectar con TikTok" class="btn-primary"
+                            invisible="platform != 'tiktok'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Ej: Facebook - Página principal"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="platform"/>
+                            <field name="account_identifier"/>
+                            <field name="target_page_id"
+                                   invisible="platform not in ('facebook', 'instagram')"/>
+                            <field name="access_token" password="True"
+                                   invisible="platform == 'generic'"/>
+                            <field name="webhook_url" invisible="platform != 'generic'"/>
+                            <field name="access_token" password="True"
+                                   string="Token (opcional, para Authorization Bearer)"
+                                   invisible="platform != 'generic'"/>
+                            <field name="token_expiry" readonly="1"
+                                   invisible="platform not in ('facebook', 'instagram', 'linkedin', 'twitter', 'tiktok')"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Notas">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_social_media_account" model="ir.actions.act_window">
+        <field name="name">Cuentas de redes sociales</field>
+        <field name="res_model">social.media.account</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Conecta tu primera cuenta de red social (o un webhook genérico
+                para integrarte con cualquier otro sistema).
+            </p>
+        </field>
+    </record>
+</odoo>
