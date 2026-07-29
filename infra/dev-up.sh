@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Starts the whole local dev stack: Docker Desktop, the Odoo/Postgres/proxy
-# containers, and the Vite dev server - bound to 0.0.0.0 so the Nginx proxy
-# container can reach it (a plain `npm run dev` binds to localhost only and
-# breaks http://localhost:8080).
+# containers, and the Vite dev server. Vite's bind address (0.0.0.0, so the
+# Nginx proxy container can reach it) is baked into project/vite.config.ts,
+# not passed as a CLI flag here - that way it's correct no matter what
+# actually starts `npm run dev` (this script, a VS Code task, a plain
+# terminal, ...).
 #
 # Safe to run repeatedly: skips anything that's already up and reachable.
 # Wired to run automatically on folder open via .vscode/tasks.json.
@@ -59,7 +61,7 @@ else
   fi
   if [ -z "$NPM_BIN" ]; then
     echo "!! Could not find npm on this machine. Install Node, then run manually:" >&2
-    echo "   cd project && npm run dev -- --port 5173 --strictPort --host 0.0.0.0" >&2
+    echo "   cd project && npm run dev" >&2
     exit 1
   fi
   export PATH="$(dirname "$NPM_BIN"):$PATH"
@@ -70,7 +72,7 @@ else
   fi
 
   echo "-> Starting Vite dev server..."
-  (cd "$WEB_DIR" && nohup npm run dev -- --port 5173 --strictPort --host 0.0.0.0 > "$LOG_DIR/vite.log" 2>&1 & disown)
+  (cd "$WEB_DIR" && nohup npm run dev > "$LOG_DIR/vite.log" 2>&1 & disown)
 
   for _ in $(seq 1 15); do
     sleep 1

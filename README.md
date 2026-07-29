@@ -82,10 +82,10 @@ The database manager master password is set in `odoo/config/odoo.conf` — it is
 
 ```bash
 cd infra && docker compose up -d
-cd project && npm install && npm run dev -- --host 0.0.0.0
+cd project && npm install && npm run dev
 ```
 
-`--host 0.0.0.0` is required so the Nginx container (running in Docker) can reach the Vite dev server on the host. No `.env` file is needed — the site talks to Odoo via relative paths (`/api`, `/web`) through whatever host it's served from.
+Vite is configured (`project/vite.config.ts`) to always bind to every network interface, not just `localhost` — required so the Nginx container (running in Docker) can reach it — so a plain `npm run dev` is enough no matter how you start it. No `.env` file is needed — the site talks to Odoo via relative paths (`/api`, `/web`) through whatever host it's served from.
 
 Once everything is running, use **http://localhost:8080** for everything.
 
