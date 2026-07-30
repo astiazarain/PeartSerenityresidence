@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_ai_agent" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.ai.agent</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="AI Customer Agent" string="AI Customer Agent" name="ai_customer_agent">
+                    <block title="Agente de Atención al Cliente (Claude)" id="ai_agent_core_settings">
+                        <setting string="Anthropic API Key" help="Se guarda como System Parameter.">
+                            <field name="ai_agent_anthropic_api_key" password="True"/>
+                        </setting>
+                        <setting string="Nombre de la tienda (para el agente)">
+                            <field name="ai_agent_store_name"/>
+                        </setting>
+                        <setting string="Idioma del agente y del widget"
+                                 help="Tiene que coincidir con el idioma del sitio público. Controla en qué idioma responde Claude y los textos fijos del widget (saludo, botones).">
+                            <field name="ai_agent_language" widget="radio" options="{'horizontal': true}"/>
+                        </setting>
+                        <setting string="Política de envíos">
+                            <field name="ai_agent_shipping_policy" widget="text"/>
+                        </setting>
+                        <setting string="Política de devoluciones">
+                            <field name="ai_agent_returns_policy" widget="text"/>
+                        </setting>
+                        <setting string="Métodos de pago">
+                            <field name="ai_agent_payment_methods" widget="text"/>
+                        </setting>
+                        <setting string="FAQs">
+                            <field name="ai_agent_faqs" widget="text"/>
+                        </setting>
+                    </block>
+
+                    <block title="Widget de chat en el sitio web" id="ai_agent_widget_settings">
+                        <setting string="Mostrar el widget en el sitio público">
+                            <field name="ai_agent_widget_enabled"/>
+                        </setting>
+                        <setting string="Color principal">
+                            <field name="ai_agent_primary_color"/>
+                        </setting>
+                        <setting string="Color de acento">
+                            <field name="ai_agent_accent_color"/>
+                        </setting>
+                        <setting string="Mensaje de bienvenida">
+                            <field name="ai_agent_welcome_message" placeholder="¡Hola! ¿En qué puedo ayudarte hoy?"/>
+                        </setting>
+                    </block>
+
+                    <block title="Fases del agente" id="ai_agent_phase_settings">
+                        <setting string="Fase 2: permitir consulta de pedidos reales"
+                                 help="Con esto desactivado, el agente responde solo con FAQs y políticas (Fase 1). Activalo cuando ya validaste el piloto y quieras que consulte sale.order para responder &quot;¿dónde está mi pedido?&quot;.">
+                            <field name="ai_agent_enable_order_lookup"/>
+                        </setting>
+                        <setting string="Fase 3: permitir acciones (cancelar pedido, descuento)"
+                                 help="Requiere que la Fase 2 esté activa. Habilita que el agente proponga cancelar un pedido o aplicar un descuento de compensación.">
+                            <field name="ai_agent_enable_actions"/>
+                        </setting>
+                        <setting string="Requerir aprobación humana antes de ejecutar"
+                                 help="Recomendado dejarlo activado al principio: la acción queda pendiente en Odoo (menú &quot;Acciones pendientes&quot;) hasta que alguien la apruebe.">
+                            <field name="ai_agent_actions_require_approval"/>
+                        </setting>
+                        <setting string="% de descuento que el agente puede ofrecer como compensación">
+                            <field name="ai_agent_discount_percent"/>
+                        </setting>
+                    </block>
+
+                    <block title="Notificaciones a humanos — Canales" id="ai_agent_notifications_settings">
+                        <setting id="ai_agent_notifications_intro" type="header">
+                            <div class="text-muted">Podés activar más de un canal a la vez; el aviso se manda por todos los que estén habilitados.</div>
+                        </setting>
+                        <setting string="WhatsApp vía CallMeBot (no oficial)"
+                                 help="Gratuito, sin cuenta de Meta Business. Pensado para notificar a tu propio número/equipo, no a clientes.">
+                            <field name="ai_agent_whatsapp_callmebot_enabled"/>
+                            <div class="content-group" invisible="not ai_agent_whatsapp_callmebot_enabled">
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Número a notificar" for="ai_agent_whatsapp_callmebot_number"/>
+                                    <field name="ai_agent_whatsapp_callmebot_number" placeholder="+5491122334455"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="API Key de CallMeBot" for="ai_agent_whatsapp_callmebot_apikey"/>
+                                    <field name="ai_agent_whatsapp_callmebot_apikey" password="True"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="WhatsApp Cloud API (oficial, Meta Business)"
+                                 help="Requiere una cuenta de Meta Business con WhatsApp Cloud API ya configurada (Phone Number ID y Access Token desde developers.facebook.com).">
+                            <field name="ai_agent_whatsapp_meta_enabled"/>
+                            <div class="content-group" invisible="not ai_agent_whatsapp_meta_enabled">
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Phone Number ID" for="ai_agent_whatsapp_meta_phone_number_id"/>
+                                    <field name="ai_agent_whatsapp_meta_phone_number_id"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Access Token" for="ai_agent_whatsapp_meta_access_token"/>
+                                    <field name="ai_agent_whatsapp_meta_access_token" password="True"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Número a notificar (sin '+')" for="ai_agent_whatsapp_meta_to_number"/>
+                                    <field name="ai_agent_whatsapp_meta_to_number" placeholder="5491122334455"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Plantilla aprobada (opcional)" for="ai_agent_whatsapp_meta_template_name"/>
+                                    <field name="ai_agent_whatsapp_meta_template_name"/>
+                                </div>
+                                <div class="text-muted">
+                                    Dejalo vacío si el número a notificar te escribió primero (ventana de 24hs de Meta). Si no, es obligatoria una plantilla aprobada.
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Idioma de la plantilla" for="ai_agent_whatsapp_meta_template_lang"/>
+                                    <field name="ai_agent_whatsapp_meta_template_lang"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Telegram"
+                                 help="Oficial, gratuito, sin ventana de 24hs ni plantillas. Requiere crear un bot con @BotFather en Telegram.">
+                            <field name="ai_agent_telegram_enabled"/>
+                            <div class="content-group" invisible="not ai_agent_telegram_enabled">
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Token del bot" for="ai_agent_telegram_bot_token"/>
+                                    <field name="ai_agent_telegram_bot_token" password="True"/>
+                                </div>
+                                <div class="row mt8">
+                                    <label class="col-lg-4" string="Chat ID a notificar" for="ai_agent_telegram_chat_id"/>
+                                    <field name="ai_agent_telegram_chat_id"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

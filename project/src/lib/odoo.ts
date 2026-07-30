@@ -333,3 +333,22 @@ export async function submitJobApplication(payload: JobApplicationPayload): Prom
   if (!result.success) throw new Error(result.error || 'Failed to submit your application.');
   return result.id as number;
 }
+
+// ---- AI customer agent widget -------------------------------------------
+// Endpoints live in odoo/addons/ai_customer_agent/controllers/main.py, not
+// under /api like the rest of this file - that module ships its own prefix.
+
+export type AiWidgetConfig =
+  | { enabled: false }
+  | {
+      enabled: true;
+      language: 'en' | 'es';
+      store_name: string | null;
+      primary_color: string;
+      accent_color: string;
+      welcome_message: string | null;
+    };
+
+export async function fetchAiWidgetConfig(): Promise<AiWidgetConfig> {
+  return callOdoo<AiWidgetConfig>('/ai_agent/widget_config', {});
+}

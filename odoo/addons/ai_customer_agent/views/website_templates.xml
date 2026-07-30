@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ai_agent_widget_injector" inherit_id="website.layout" name="AI Customer Agent Widget">
+        <xpath expr="//body" position="inside">
+            <t t-if="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.widget_enabled', 'True') == 'True'
+                     and env['ir.config_parameter'].sudo().get_param('ai_customer_agent.anthropic_api_key')">
+                <script
+                    t-att-src="'/ai_customer_agent/static/src/js/ai_agent_widget.js'"
+                    data-endpoint="/ai_agent/chat"
+                    t-att-data-store-name="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.store_name', request.website.name)"
+                    t-att-data-primary-color="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.widget_primary_color', '#1E2A4A')"
+                    t-att-data-accent-color="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.widget_accent_color', '#E8A33D')"
+                    t-att-data-welcome="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.widget_welcome_message') or None"
+                    t-att-data-lang="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.agent_language', 'en')"
+                ></script>
+            </t>
+        </xpath>
+    </template>
+</odoo>

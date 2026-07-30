@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_agent_pending_action_list" model="ir.ui.view">
+        <field name="name">ai.agent.pending_action.list</field>
+        <field name="model">ai.agent.pending_action</field>
+        <field name="arch" type="xml">
+            <list string="Acciones del Agente IA" decoration-warning="state=='pending'" decoration-danger="state=='error'" decoration-muted="state=='rejected'">
+                <field name="create_date"/>
+                <field name="order_id"/>
+                <field name="action_type"/>
+                <field name="discount_percent" optional="hide"/>
+                <field name="reason"/>
+                <field name="state"/>
+                <button name="action_approve" type="object" string="Aprobar" icon="fa-check" invisible="state != 'pending'"/>
+                <button name="action_reject" type="object" string="Rechazar" icon="fa-times" invisible="state != 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_pending_action_form" model="ir.ui.view">
+        <field name="name">ai.agent.pending_action.form</field>
+        <field name="model">ai.agent.pending_action</field>
+        <field name="arch" type="xml">
+            <form string="Acción propuesta por el agente">
+                <header>
+                    <button name="action_approve" type="object" string="Aprobar y ejecutar" class="btn-primary" invisible="state != 'pending'"/>
+                    <button name="action_reject" type="object" string="Rechazar" invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="order_id"/>
+                        <field name="action_type"/>
+                        <field name="discount_percent" invisible="action_type != 'apply_discount'"/>
+                        <field name="session_id"/>
+                    </group>
+                    <group>
+                        <field name="reason"/>
+                        <field name="result_note" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_agent_pending_action" model="ir.actions.act_window">
+        <field name="name">Acciones pendientes de aprobación</field>
+        <field name="res_model">ai.agent.pending_action</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+
+    <record id="view_ai_agent_pending_action_search" model="ir.ui.view">
+        <field name="name">ai.agent.pending_action.search</field>
+        <field name="model">ai.agent.pending_action</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="order_id"/>
+                <filter string="Pendientes" name="search_default_pending" domain="[('state','=','pending')]"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_ai_agent_pending_action"
+              name="Acciones pendientes"
+              parent="menu_ai_agent_log_root"
+              action="action_ai_agent_pending_action"
+              sequence="5"/>
+</odoo>

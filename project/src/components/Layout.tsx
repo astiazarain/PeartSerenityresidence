@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import WhatsAppButton from './WhatsAppButton';
+import AiChatWidget from './AiChatWidget';
 
 export default function Layout() {
   const location = useLocation();
@@ -19,6 +20,7 @@ export default function Layout() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <AiChatWidget />
     </div>
   );
 }
