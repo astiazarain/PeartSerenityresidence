@@ -19,10 +19,6 @@
               parent="menu_social_agent_config" action="action_social_media_account"
               sequence="10"/>
 
-    <menuitem id="menu_social_agent_ai_providers" name="Proveedores de IA"
-              parent="menu_social_agent_config" action="action_ai_provider_config"
-              sequence="20"/>
-
     <menuitem id="menu_social_agent_oauth_apps" name="Apps OAuth"
               parent="menu_social_agent_config" action="action_social_oauth_app"
               sequence="30"/>

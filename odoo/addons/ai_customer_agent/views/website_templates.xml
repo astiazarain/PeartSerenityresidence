@@ -3,7 +3,7 @@
     <template id="ai_agent_widget_injector" inherit_id="website.layout" name="AI Customer Agent Widget">
         <xpath expr="//body" position="inside">
             <t t-if="env['ir.config_parameter'].sudo().get_param('ai_customer_agent.widget_enabled', 'True') == 'True'
-                     and env['ir.config_parameter'].sudo().get_param('ai_customer_agent.anthropic_api_key')">
+                     and env['ai.provider.config'].sudo().get_configured_provider('ai_customer_agent.ai_provider_id')">
                 <script
                     t-att-src="'/ai_customer_agent/static/src/js/ai_agent_widget.js'"
                     data-endpoint="/ai_agent/chat"

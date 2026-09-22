@@ -7,15 +7,16 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <app data-string="AI Customer Agent" string="AI Customer Agent" name="ai_customer_agent">
-                    <block title="Agente de Atención al Cliente (Claude)" id="ai_agent_core_settings">
-                        <setting string="Anthropic API Key" help="Se guarda como System Parameter.">
-                            <field name="ai_agent_anthropic_api_key" password="True"/>
+                    <block title="Agente de Atención al Cliente" id="ai_agent_core_settings">
+                        <setting string="Proveedor de IA"
+                                 help="Claude o Gemini, configurado en Agentes de IA → Proveedores de IA. Si se deja vacío, usa el proveedor marcado por defecto.">
+                            <field name="ai_agent_provider_id" options="{'no_create': True, 'no_open': True}"/>
                         </setting>
                         <setting string="Nombre de la tienda (para el agente)">
                             <field name="ai_agent_store_name"/>
                         </setting>
                         <setting string="Idioma del agente y del widget"
-                                 help="Tiene que coincidir con el idioma del sitio público. Controla en qué idioma responde Claude y los textos fijos del widget (saludo, botones).">
+                                 help="Tiene que coincidir con el idioma del sitio público. Controla en qué idioma responde el agente y los textos fijos del widget (saludo, botones).">
                             <field name="ai_agent_language" widget="radio" options="{'horizontal': true}"/>
                         </setting>
                         <setting string="Política de envíos">
@@ -29,6 +30,18 @@
                         </setting>
                         <setting string="FAQs">
                             <field name="ai_agent_faqs" widget="text"/>
+                        </setting>
+                    </block>
+
+                    <block title="Límite de uso (rate limiting)" id="ai_agent_rate_limit_settings">
+                        <setting id="ai_agent_rate_limit_intro" type="header">
+                            <div class="text-muted">El endpoint del chat es público (lo usan clientes no logueados). Estos límites lo protegen de abuso y de agotar la cuota del proveedor de IA.</div>
+                        </setting>
+                        <setting string="Mensajes por sesión (por minuto)">
+                            <field name="ai_agent_rate_limit_per_session"/>
+                        </setting>
+                        <setting string="Mensajes globales (por minuto)">
+                            <field name="ai_agent_rate_limit_global"/>
                         </setting>
                     </block>
 

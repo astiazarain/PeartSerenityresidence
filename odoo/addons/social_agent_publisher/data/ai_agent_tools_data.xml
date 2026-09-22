@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="tool_generar_contenido_ia" model="ai.agent.tool">
+        <field name="name">generar_contenido_ia</field>
+        <field name="label">Generar contenido con IA</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">0</field>
+        <field name="target_model">social.media.post</field>
+        <field name="target_method">action_generate_with_ai</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Genera el contenido de una publicación ya creada (en borrador) usando
+            el proveedor de IA configurado en ella. Requiere target_res_id =
+            id de un social.media.post existente con topic y ai_provider_id ya definidos.
+        </field>
+    </record>
+
+    <record id="tool_crear_publicacion_borrador" model="ai.agent.tool">
+        <field name="name">crear_publicacion_borrador</field>
+        <field name="label">Crear publicación en borrador</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">1</field>
+        <field name="target_model">social.media.post</field>
+        <field name="target_method">action_create_draft</field>
+        <field name="idempotent">False</field>
+        <field name="description">
+            Crea una publicación en estado borrador. Parámetros: topic (str),
+            account_ids (list[int]), ai_provider_id (int, opcional). Se invoca
+            sin target_res_id (es un método de modelo, no de un registro).
+        </field>
+    </record>
+
+    <record id="tool_programar_publicacion" model="ai.agent.tool">
+        <field name="name">programar_publicacion</field>
+        <field name="label">Programar publicación</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">1</field>
+        <field name="target_model">social.media.post</field>
+        <field name="target_method">action_schedule_at</field>
+        <field name="idempotent">True</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Programa una publicación existente para una fecha/hora. Parámetros:
+            scheduled_date (str, '%Y-%m-%d %H:%M:%S'). Requiere target_res_id.
+        </field>
+    </record>
+
+    <record id="tool_publicar_ahora" model="ai.agent.tool">
+        <field name="name">publicar_ahora</field>
+        <field name="label">Publicar ahora</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">2</field>
+        <field name="target_model">social.media.post</field>
+        <field name="target_method">action_publish_now</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Publica de inmediato en todas las cuentas destino de la publicación.
+            Acción sensible: requiere aprobación. Requiere target_res_id.
+        </field>
+    </record>
+
+    <record id="tool_consultar_metricas" model="ai.agent.tool">
+        <field name="name">consultar_metricas</field>
+        <field name="label">Consultar métricas</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">0</field>
+        <field name="target_model">social.media.post</field>
+        <field name="target_method">action_fetch_metrics</field>
+        <field name="idempotent">True</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Actualiza y devuelve las métricas de engagement de una publicación
+            (me gusta, comentarios, compartidos) por cuenta. Requiere target_res_id.
+        </field>
+    </record>
+
+    <!-- Conectar cuenta OAuth: una herramienta por plataforma, todas nivel 2
+         (otorgar acceso a una cuenta externa es sensible por definición). -->
+
+    <record id="tool_conectar_facebook" model="ai.agent.tool">
+        <field name="name">conectar_facebook</field>
+        <field name="label">Conectar cuenta de Facebook/Instagram</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">2</field>
+        <field name="target_model">social.media.account</field>
+        <field name="target_method">action_connect_facebook</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">Inicia el flujo OAuth2 de Facebook/Instagram para la cuenta indicada en target_res_id.</field>
+    </record>
+
+    <record id="tool_conectar_linkedin" model="ai.agent.tool">
+        <field name="name">conectar_linkedin</field>
+        <field name="label">Conectar cuenta de LinkedIn</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">2</field>
+        <field name="target_model">social.media.account</field>
+        <field name="target_method">action_connect_linkedin</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">Inicia el flujo OAuth2 de LinkedIn para la cuenta indicada en target_res_id.</field>
+    </record>
+
+    <record id="tool_conectar_twitter" model="ai.agent.tool">
+        <field name="name">conectar_twitter</field>
+        <field name="label">Conectar cuenta de X (Twitter)</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">2</field>
+        <field name="target_model">social.media.account</field>
+        <field name="target_method">action_connect_twitter</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">Inicia el flujo OAuth2 (PKCE) de X para la cuenta indicada en target_res_id.</field>
+    </record>
+
+    <record id="tool_conectar_tiktok" model="ai.agent.tool">
+        <field name="name">conectar_tiktok</field>
+        <field name="label">Conectar cuenta de TikTok</field>
+        <field name="agent_id" ref="ai_agent_core.agent_social_media"/>
+        <field name="risk_level">2</field>
+        <field name="target_model">social.media.account</field>
+        <field name="target_method">action_connect_tiktok</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">Inicia el flujo OAuth2 de TikTok para la cuenta indicada en target_res_id.</field>
+    </record>
+
+</odoo>

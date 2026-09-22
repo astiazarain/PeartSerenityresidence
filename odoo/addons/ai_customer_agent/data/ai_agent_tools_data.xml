@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!--
+        Estado de la integración (ver ARIA_Especificacion_Tecnica.md §5.3):
+
+        - FAQ y consulta de pedido siguen clasificadas por el propio
+          protocolo NECESITA_* de Claude dentro de controllers/main.py, NO
+          por el enrutador genérico de ai.coordinator. Se decidió así a
+          propósito: ese protocolo ya está probado y es más preciso para
+          este caso que el clasificador por palabras clave del Coordinador.
+          Sí quedan auditadas: cada turno de chat escribe en ai.audit.log y
+          en ai.conversation/ai.conversation.message (ver main.py,
+          _log_conversation / _audit_log), así que aparecen en el HUD igual.
+
+        - La acción sensible sobre pedidos (cancelar / aplicar descuento)
+          SÍ pasa por el motor de aprobación real de ai_agent_core: cuando
+          se requiere aprobación, main.py crea una ai.approval.request
+          contra la herramienta de abajo en vez de solo un registro interno
+          del módulo. Al aprobarse en el Vault, se ejecuta
+          ai_agent_execute_order_action, que crea el
+          ai.agent.pending_action ya resuelto.
+
+        - El escalado a humano (Helpdesk/actividad + WhatsApp/Telegram) se
+          extrajo a un modelo propio (ai.agent.notifier) para que sea una
+          herramienta invocable de verdad, no solo lógica interna del
+          controlador.
+    -->
+
+    <record id="tool_ejecutar_accion_pedido" model="ai.agent.tool">
+        <field name="name">ejecutar_accion_pedido</field>
+        <field name="label">Ejecutar acción sobre pedido (cancelar / descuento)</field>
+        <field name="agent_id" ref="ai_agent_core.agent_customer_service"/>
+        <field name="risk_level">2</field>
+        <field name="target_model">ai.agent.pending_action</field>
+        <field name="target_method">ai_agent_execute_order_action</field>
+        <field name="idempotent">False</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Cancela un pedido o aplica un descuento de compensación. Parámetros:
+            order_id (int), action_type ('cancel_order' | 'apply_discount'),
+            reason (str, opcional), discount_percent (float, solo para
+            apply_discount). Se invoca sin target_res_id (es un método de
+            modelo). Corresponde a la Fase 3 del agente (ver
+            res_config_settings: ai_agent_enable_actions). Cuando
+            ai_agent_actions_require_approval está activo, esta herramienta
+            se ejecuta a través de una ai.approval.request en el Vault; si
+            no, controllers/main.py la invoca de forma directa vía
+            execute_immediately().
+        </field>
+    </record>
+
+    <!-- noupdate="0": este bloque sobrescribe un registro que pertenece a
+         ai_agent_core (mismo xmlid del placeholder), no uno propio de este
+         módulo. Con noupdate="1" (el default heredado del <odoo> de arriba)
+         Odoo protege ese registro por ser de otro módulo y el write() se
+         saltea en cada -u, dejando el placeholder genérico sin reemplazar.
+         Iniciando este bloque en noupdate="0" nos aseguramos de que la
+         sobrescritura se aplique siempre, sin crear una herramienta nueva
+         y sin dejar un 'escalar_a_humano' duplicado en el catálogo de
+         skills del HUD. -->
+    <data noupdate="0">
+        <record id="ai_agent_core.tool_escalate_to_human_placeholder" model="ai.agent.tool">
+            <field name="label">Escalar a humano (Helpdesk + WhatsApp/Telegram)</field>
+            <field name="target_model">ai.agent.notifier</field>
+            <field name="target_method">escalate_to_human</field>
+            <field name="description">
+                Crea un ticket de Helpdesk (o una actividad de seguimiento si el
+                módulo Helpdesk no está instalado) y notifica al equipo por los
+                canales activados (WhatsApp CallMeBot, WhatsApp Cloud API, o
+                Telegram). Parámetros: original_message (str), summary (str),
+                session_id (str, opcional). Reemplaza al placeholder genérico
+                que ai_agent_core trae por defecto (action_escalate sobre
+                ai.conversation, que solo cambiaba el estado sin notificar a
+                nadie).
+            </field>
+        </record>
+    </data>
+
+</odoo>

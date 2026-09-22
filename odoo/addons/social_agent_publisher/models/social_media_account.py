@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+import json
 import logging
 import urllib.parse
 
@@ -7,6 +8,8 @@ import requests
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+
+from ._ai_audit_helper import log_agent_audit
 
 _logger = logging.getLogger(__name__)
 
@@ -84,7 +87,12 @@ class SocialMediaAccount(models.Model):
             [('platform', '=', 'facebook'), ('active', '=', True)], limit=1
         )
         if not app:
-            from odoo.exceptions import UserError
+            log_agent_audit(
+                self.env, 'conectar_facebook', status='error',
+                request_json=json.dumps({'account_id': self.id}),
+                error_type='UserError',
+                error_message='No hay ninguna Meta App configurada.',
+            )
             raise UserError(
                 'No hay ninguna Meta App configurada en Social Agent → '
                 'Configuración → Apps OAuth.'
@@ -107,6 +115,10 @@ class SocialMediaAccount(models.Model):
             'https://www.facebook.com/v21.0/dialog/oauth?'
             + urllib.parse.urlencode(params)
         )
+        log_agent_audit(
+            self.env, 'conectar_facebook', status='success',
+            request_json=json.dumps({'account_id': self.id}),
+        )
         return {'type': 'ir.actions.act_url', 'url': url, 'target': 'self'}
 
     def action_connect_linkedin(self):
@@ -119,6 +131,12 @@ class SocialMediaAccount(models.Model):
             [('platform', '=', 'linkedin'), ('active', '=', True)], limit=1
         )
         if not app:
+            log_agent_audit(
+                self.env, 'conectar_linkedin', status='error',
+                request_json=json.dumps({'account_id': self.id}),
+                error_type='UserError',
+                error_message='No hay ninguna app de LinkedIn configurada.',
+            )
             from odoo.exceptions import UserError
             raise UserError(
                 'No hay ninguna app de LinkedIn configurada en Social Agent → '
@@ -137,6 +155,10 @@ class SocialMediaAccount(models.Model):
         url = (
             'https://www.linkedin.com/oauth/v2/authorization?'
             + urllib.parse.urlencode(params)
+        )
+        log_agent_audit(
+            self.env, 'conectar_linkedin', status='success',
+            request_json=json.dumps({'account_id': self.id}),
         )
         return {'type': 'ir.actions.act_url', 'url': url, 'target': 'self'}
 
@@ -160,6 +182,12 @@ class SocialMediaAccount(models.Model):
             [('platform', '=', 'twitter'), ('active', '=', True)], limit=1
         )
         if not app:
+            log_agent_audit(
+                self.env, 'conectar_twitter', status='error',
+                request_json=json.dumps({'account_id': self.id}),
+                error_type='UserError',
+                error_message='No hay ninguna app de X (Twitter) configurada.',
+            )
             raise UserError(
                 'No hay ninguna app de X (Twitter) configurada en Social Agent → '
                 'Configuración → Apps OAuth.'
@@ -175,6 +203,10 @@ class SocialMediaAccount(models.Model):
             'code_challenge_method': 'S256',
         }
         url = 'https://twitter.com/i/oauth2/authorize?' + urllib.parse.urlencode(params)
+        log_agent_audit(
+            self.env, 'conectar_twitter', status='success',
+            request_json=json.dumps({'account_id': self.id}),
+        )
         return {'type': 'ir.actions.act_url', 'url': url, 'target': 'self'}
 
     def action_connect_tiktok(self):
@@ -190,6 +222,12 @@ class SocialMediaAccount(models.Model):
             [('platform', '=', 'tiktok'), ('active', '=', True)], limit=1
         )
         if not app:
+            log_agent_audit(
+                self.env, 'conectar_tiktok', status='error',
+                request_json=json.dumps({'account_id': self.id}),
+                error_type='UserError',
+                error_message='No hay ninguna app de TikTok configurada.',
+            )
             raise UserError(
                 'No hay ninguna app de TikTok configurada en Social Agent → '
                 'Configuración → Apps OAuth.'
@@ -205,6 +243,10 @@ class SocialMediaAccount(models.Model):
         url = (
             'https://www.tiktok.com/v2/auth/authorize/?'
             + urllib.parse.urlencode(params)
+        )
+        log_agent_audit(
+            self.env, 'conectar_tiktok', status='success',
+            request_json=json.dumps({'account_id': self.id}),
         )
         return {'type': 'ir.actions.act_url', 'url': url, 'target': 'self'}
 

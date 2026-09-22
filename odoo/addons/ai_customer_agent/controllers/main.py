@@ -1,16 +1,11 @@
 import json
 import logging
+from datetime import timedelta
 
-import requests
-
-from odoo import http
+from odoo import fields, http
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
-
-CLAUDE_API_URL = "https://api.anthropic.com/v1/messages"
-CLAUDE_MODEL = "claude-sonnet-4-6"
-CLAUDE_MAX_TOKENS = 500
 
 DEFAULT_LANG = "en"
 
@@ -25,6 +20,7 @@ STRINGS = {
         "language_name": "English",
         "not_configured": "The agent isn't set up yet. Please contact our team.",
         "technical_error": "We had a technical issue answering your message. A team member will reach out.",
+        "rate_limited": "You're sending messages a bit too fast — please wait a moment and try again.",
         "order_lookup_disabled": "I can't look up orders automatically yet, but I've already notified our team.",
         "actions_disabled": "I'll pass your order along to our team to sort out.",
         "escalated_default": "I'm passing your question along to our team, they'll be in touch shortly.",
@@ -48,6 +44,7 @@ STRINGS = {
         "language_name": "español",
         "not_configured": "El agente no está configurado todavía. Contacta al equipo de la tienda.",
         "technical_error": "Tuvimos un problema técnico respondiendo tu mensaje. Un humano te va a contactar.",
+        "rate_limited": "Estás enviando mensajes muy rápido — esperá un momento y probá de nuevo.",
         "order_lookup_disabled": "Por ahora no puedo consultar pedidos automáticamente, pero ya avisé a nuestro equipo.",
         "actions_disabled": "Voy a derivar tu pedido a nuestro equipo para que lo resuelvan.",
         "escalated_default": "Voy a derivar tu consulta a nuestro equipo, te van a contactar a la brevedad.",
@@ -84,10 +81,10 @@ class AICustomerAgentController(http.Controller):
         renderizado por Odoo, ej. una SPA aparte) sepa si debe mostrar el
         widget y con qué configuración. Nunca devuelve la API key."""
         icp = request.env["ir.config_parameter"].sudo()
-        api_key = icp.get_param("ai_customer_agent.anthropic_api_key")
+        provider = self._get_provider()
         widget_enabled = icp.get_param("ai_customer_agent.widget_enabled", "True") == "True"
 
-        if not (widget_enabled and api_key):
+        if not (widget_enabled and provider):
             return {"enabled": False}
 
         return {
@@ -116,17 +113,22 @@ class AICustomerAgentController(http.Controller):
         if not user_message:
             return {"error": "Falta el campo 'message'."}
 
-        api_key = icp.get_param("ai_customer_agent.anthropic_api_key")
-        if not api_key:
-            _logger.error("AI Customer Agent: falta configurar la API key de Anthropic.")
+        if not self._check_rate_limit(icp, session_id):
+            _logger.warning("AI Customer Agent: rate limit alcanzado para session_id=%s", session_id)
+            return {"reply": _t(lang, "rate_limited"), "route": "rate_limited"}
+
+        provider = self._get_provider()
+        if not provider:
+            _logger.error("AI Customer Agent: no hay un proveedor de IA configurado (ai.provider.config).")
             return {"reply": _t(lang, "not_configured"), "route": "error"}
 
         system_prompt = self._build_system_prompt(icp, lang)
 
         try:
-            claude_text = self._call_claude(api_key, system_prompt, user_message)
+            ai_reply_text = provider.generate_content(user_message, system_prompt=system_prompt)
         except Exception:
-            _logger.exception("AI Customer Agent: error llamando a Claude")
+            _logger.exception("AI Customer Agent: error llamando al proveedor de IA (%s)", provider.name)
+            self._log_conversation(session_id, user_message, _t(lang, "technical_error"), "error")
             return {"reply": _t(lang, "technical_error"), "route": "error"}
 
         order_lookup_enabled = icp.get_param("ai_customer_agent.enable_order_lookup") == "True"
@@ -135,7 +137,7 @@ class AICustomerAgentController(http.Controller):
         discount_percent = float(icp.get_param("ai_customer_agent.discount_percent", "10.0") or 10.0)
 
         route, reply_text, extra = self._interpret_and_act(
-            claude_text,
+            ai_reply_text,
             user_message,
             session_id=session_id,
             lang=lang,
@@ -148,6 +150,110 @@ class AICustomerAgentController(http.Controller):
         self._log_conversation(session_id, user_message, reply_text, route)
 
         return {"reply": reply_text, "route": route, **extra}
+
+    # ------------------------------------------------------------------
+    # Proveedor de IA (ai_agent_core): Claude o Gemini, intercambiable sin
+    # tocar código — ver ai_customer_agent.ai_provider_id en Ajustes.
+    # ------------------------------------------------------------------
+
+    def _get_provider(self):
+        """Proveedor de IA configurado para este agente. Si no se eligió uno
+        explícitamente en Ajustes, cae al proveedor marcado por defecto en
+        Agentes de IA → Proveedores de IA (mismo registro que usa
+        social_agent_publisher)."""
+        return request.env["ai.provider.config"].sudo().get_configured_provider(
+            "ai_customer_agent.ai_provider_id"
+        )
+
+    # ------------------------------------------------------------------
+    # Rate limiting: el endpoint es auth="public", sin esto cualquiera puede
+    # agotar la cuota gratuita del proveedor de IA (o generar costo si es de
+    # pago) a fuerza de pegarle al endpoint. Se apoya en ai.agent.log, que ya
+    # registra cada turno de chat con session_id y create_date — no hace
+    # falta un modelo nuevo.
+    # ------------------------------------------------------------------
+
+    def _check_rate_limit(self, icp, session_id):
+        Log = request.env["ai.agent.log"].sudo()
+        window_start = fields.Datetime.now() - timedelta(seconds=60)
+
+        per_session_limit = int(icp.get_param("ai_customer_agent.rate_limit_per_session", "8") or 8)
+        session_count = Log.search_count([
+            ("session_id", "=", session_id), ("create_date", ">=", window_start),
+        ])
+        if session_count >= per_session_limit:
+            return False
+
+        global_limit = int(icp.get_param("ai_customer_agent.rate_limit_global", "60") or 60)
+        global_count = Log.search_count([("create_date", ">=", window_start)])
+        if global_count >= global_limit:
+            return False
+
+        return True
+
+    # ------------------------------------------------------------------
+    # Integración con ai_agent_core (ARIA): conversación, auditoría
+    # ------------------------------------------------------------------
+
+    def _get_or_create_conversation(self, session_id, lang=None):
+        """Devuelve la ai.conversation de ARIA para esta sesión del widget,
+        creándola si no existe. Nunca lanza excepción: si ai_agent_core no
+        está instalado o falla por cualquier motivo, el chat debe seguir
+        funcionando igual (esto es trazabilidad adicional, no una
+        dependencia dura del flujo de respuesta al cliente)."""
+        try:
+            Conversation = request.env['ai.conversation'].sudo()
+            conversation = Conversation.search([
+                ('external_contact', '=', session_id),
+                ('state', '=', 'active'),
+            ], limit=1, order='write_date desc')
+            if conversation:
+                return conversation
+            agent = request.env.ref('ai_agent_core.agent_customer_service', raise_if_not_found=False)
+            if not agent:
+                return False
+            return Conversation.create({
+                'agent_id': agent.id,
+                'external_contact': session_id,
+            })
+        except Exception:
+            _logger.exception("AI Customer Agent: no se pudo crear/obtener la conversación ARIA")
+            return False
+
+    ROUTE_TOOL_MAP = {
+        "respuesta_directa": "responder_faq",
+        "consultar_pedido": "consultar_estado_pedido",
+        "escalar_humano": "escalar_a_humano",
+        "accion_ejecutada": "ejecutar_accion_pedido",
+        "error": "chat",
+    }
+
+    def _audit_log(self, conversation, route, user_message, reply_text, status="success"):
+        """Registra la interacción en ai.audit.log de ai_agent_core, para
+        que se refleje en el HUD y en el histórico de auditoría general.
+        No reemplaza a ai.agent.log (que se conserva tal cual, es el log
+        propio de este módulo); esto es adicional. 'accion_pendiente_aprobacion'
+        no pasa por aquí: esa se audita sola cuando ai.approval.request la
+        ejecuta al ser aprobada."""
+        tool_name = self.ROUTE_TOOL_MAP.get(route)
+        if not tool_name:
+            return
+        try:
+            agent = request.env.ref('ai_agent_core.agent_customer_service', raise_if_not_found=False)
+            if not agent:
+                return
+            request.env['ai.audit.log'].sudo().create({
+                'agent_id': agent.id,
+                'tool_name': tool_name,
+                'user_id': request.env.user.id,
+                'company_id': request.env.company.id,
+                'conversation_id': conversation.id if conversation else False,
+                'status': status,
+                'request_json': json.dumps({'message': user_message}),
+                'response_json': json.dumps({'reply': reply_text, 'route': route}),
+            })
+        except Exception:
+            _logger.exception("AI Customer Agent: no se pudo escribir en ai.audit.log")
 
     # ------------------------------------------------------------------
     # Helpers
@@ -268,31 +374,12 @@ Tono cordial, cercano, profesional. Respuestas breves.
 
 IMPORTANTE: Responde siempre en {language_name}, sin importar en qué idioma escriba el cliente."""
 
-    def _call_claude(self, api_key, system_prompt, user_message):
-        headers = {
-            "x-api-key": api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        }
-        body = {
-            "model": CLAUDE_MODEL,
-            "max_tokens": CLAUDE_MAX_TOKENS,
-            "system": system_prompt,
-            "messages": [{"role": "user", "content": user_message}],
-        }
-        resp = requests.post(CLAUDE_API_URL, headers=headers, data=json.dumps(body), timeout=20)
-        if resp.status_code >= 400:
-            _logger.error("AI Customer Agent: Claude respondió %s: %s", resp.status_code, resp.text[:500])
-        resp.raise_for_status()
-        data = resp.json()
-        return data["content"][0]["text"]
-
-    def _interpret_and_act(self, claude_text, original_message, session_id=None, lang=DEFAULT_LANG,
+    def _interpret_and_act(self, ai_reply_text, original_message, session_id=None, lang=DEFAULT_LANG,
                             order_lookup_enabled=False, actions_enabled=False,
                             approval_required=True, discount_percent=10.0):
         """Decide si hay que consultar un pedido, proponer una acción,
         escalar a humano, o responder directo."""
-        if claude_text.startswith("NECESITA_CONSULTA_PEDIDO"):
+        if ai_reply_text.startswith("NECESITA_CONSULTA_PEDIDO"):
             if not order_lookup_enabled:
                 # Red de seguridad: Fase 2 apagada, no se ejecuta la consulta
                 # aunque el modelo la haya pedido. Se escala a humano.
@@ -300,34 +387,34 @@ IMPORTANTE: Responde siempre en {language_name}, sin importar en qué idioma esc
                     original_message, "Cliente pregunta por estado de pedido (Fase 2 desactivada)")
                 reply = _t(lang, "order_lookup_disabled")
                 return "escalar_humano", reply, {"ticket_ref": ticket_ref}
-            query = claude_text.split(":", 1)[-1].strip()
+            query = ai_reply_text.split(":", 1)[-1].strip()
             reply = self._lookup_order(query, lang)
             return "consultar_pedido", reply, {}
 
-        if claude_text.startswith("NECESITA_ACCION"):
+        if ai_reply_text.startswith("NECESITA_ACCION"):
             if not actions_enabled:
                 # Red de seguridad: Fase 3 apagada, no se ejecuta nada.
                 ticket_ref = self._escalate_to_human(
                     original_message, "Cliente pide una acción sobre su pedido (Fase 3 desactivada)")
                 reply = _t(lang, "actions_disabled")
                 return "escalar_humano", reply, {"ticket_ref": ticket_ref}
-            return self._handle_action(claude_text, original_message, session_id,
+            return self._handle_action(ai_reply_text, original_message, session_id,
                                         approval_required, discount_percent, lang)
 
-        if claude_text.startswith("NECESITA_HUMANO"):
-            summary = claude_text.split(":", 1)[-1].strip()
+        if ai_reply_text.startswith("NECESITA_HUMANO"):
+            summary = ai_reply_text.split(":", 1)[-1].strip()
             ticket_ref = self._escalate_to_human(original_message, summary)
             reply = (_t(lang, "escalated_with_ref", ref=ticket_ref) if ticket_ref
                      else _t(lang, "escalated_default"))
             return "escalar_humano", reply, {"ticket_ref": ticket_ref}
 
-        return "respuesta_directa", claude_text, {}
+        return "respuesta_directa", ai_reply_text, {}
 
-    def _handle_action(self, claude_text, original_message, session_id, approval_required,
+    def _handle_action(self, ai_reply_text, original_message, session_id, approval_required,
                         discount_percent, lang):
         """Parsea NECESITA_ACCION: TIPO | pedido | motivo y crea/ejecuta la
         acción según si requiere aprobación humana o no."""
-        payload = claude_text.split(":", 1)[-1].strip()
+        payload = ai_reply_text.split(":", 1)[-1].strip()
         parts = [p.strip() for p in payload.split("|")]
         if len(parts) < 2:
             ticket_ref = self._escalate_to_human(original_message, "Acción mal formada por el agente")
@@ -345,14 +432,53 @@ IMPORTANTE: Responde siempre en {language_name}, sin importar en qué idioma esc
         PendingAction = request.env["ai.agent.pending_action"].sudo()
 
         if approval_required:
-            PendingAction.create({
-                "session_id": session_id,
-                "order_id": order.id,
-                "action_type": action_type,
-                "reason": reason,
-                "discount_percent": discount_percent if action_type == "apply_discount" else 0.0,
-                "state": "pending",
-            })
+            tool = request.env['ai.agent.tool'].sudo().search(
+                [('name', '=', 'ejecutar_accion_pedido')], limit=1)
+            if not tool:
+                # Red de seguridad: si por alguna razón el catálogo no tiene
+                # la herramienta registrada (módulo ai_agent_core desactualizado
+                # o no instalado todavía), no se pierde la solicitud: se
+                # guarda como antes, directo en este módulo.
+                _logger.warning(
+                    "AI Customer Agent: herramienta 'ejecutar_accion_pedido' no "
+                    "encontrada en ai.agent.tool; se crea la acción sin pasar "
+                    "por el Vault de ai_agent_core."
+                )
+                PendingAction = request.env["ai.agent.pending_action"].sudo()
+                PendingAction.create({
+                    "session_id": session_id,
+                    "order_id": order.id,
+                    "action_type": action_type,
+                    "reason": reason,
+                    "discount_percent": discount_percent if action_type == "apply_discount" else 0.0,
+                    "state": "pending",
+                })
+            else:
+                conversation = self._get_or_create_conversation(session_id, lang)
+                payload = {
+                    "order_id": order.id,
+                    "action_type": action_type,
+                    "reason": reason,
+                    "discount_percent": discount_percent if action_type == "apply_discount" else 0.0,
+                }
+                # Clave estable por (pedido, tipo de acción): si esta MISMA
+                # acción ya se ejecutó con éxito para este pedido, un
+                # reintento (doble clic, POST reenviado por la red) no la
+                # vuelve a proponer/ejecutar — ver ai.approval.request._execute.
+                idempotency_key = "ai_customer_agent:%s:%s" % (order.id, action_type)
+                approval = request.env['ai.approval.request'].sudo().create({
+                    'agent_id': tool.agent_id.id,
+                    'tool_id': tool.id,
+                    'conversation_id': conversation.id if conversation else False,
+                    'payload_json': json.dumps(payload),
+                    'preview_text': "%s sobre %s. Motivo: %s" % (
+                        "Cancelar pedido" if action_type == "cancel_order" else "Aplicar descuento",
+                        order.name, reason,
+                    ),
+                    'idempotency_key': idempotency_key,
+                })
+                approval.action_submit()
+
             action_label_es = "Cancelar pedido" if action_type == "cancel_order" else "Aplicar descuento"
             self._notify_humans(
                 "🔔 Agente IA - Acción pendiente de aprobación\n\n"
@@ -360,7 +486,7 @@ IMPORTANTE: Responde siempre en {language_name}, sin importar en qué idioma esc
                 f"Acción propuesta: {action_label_es}"
                 + (f" ({discount_percent}%)" if action_type == "apply_discount" else "") +
                 f"\nMotivo: {reason}\n\n"
-                "Revisala en Odoo → AI Customer Agent → Acciones pendientes."
+                "Revisala en Odoo → Agentes de IA → Vault - Aprobaciones."
             )
             reply = _t(lang, "action_pending_approval", order=order.name)
             return "accion_pendiente_aprobacion", reply, {}
@@ -398,129 +524,18 @@ IMPORTANTE: Responde siempre en {language_name}, sin importar en qué idioma esc
         return _t(lang, "order_status_reply", order=order.name, status=estado,
                    total=order.amount_total, currency=order.currency_id.name)
 
-    def _notify_humans(self, message):
-        """Envía el aviso por todos los canales que estén activados.
-        Cada canal está aislado en su propio try/except: si uno falla,
-        no debe afectar a los demás ni al flujo del chat."""
-        icp = request.env["ir.config_parameter"].sudo()
-
-        if icp.get_param("ai_customer_agent.whatsapp_callmebot_enabled") == "True":
-            self._send_whatsapp_callmebot(icp, message)
-
-        if icp.get_param("ai_customer_agent.whatsapp_meta_enabled") == "True":
-            self._send_whatsapp_meta(icp, message)
-
-        if icp.get_param("ai_customer_agent.telegram_enabled") == "True":
-            self._send_telegram(icp, message)
-
-    def _send_whatsapp_callmebot(self, icp, message):
-        """Canal no oficial, gratuito, vía CallMeBot."""
-        number = icp.get_param("ai_customer_agent.whatsapp_callmebot_number")
-        apikey = icp.get_param("ai_customer_agent.whatsapp_callmebot_apikey")
-        if not number or not apikey:
-            _logger.warning("AI Customer Agent: CallMeBot activado pero falta número o apikey.")
-            return
-        try:
-            requests.get(
-                "https://api.callmebot.com/whatsapp.php",
-                params={"phone": number, "text": message, "apikey": apikey},
-                timeout=10,
-            )
-        except Exception:
-            _logger.exception("AI Customer Agent: error enviando notificación por CallMeBot")
-
-    def _send_whatsapp_meta(self, icp, message):
-        """Canal oficial, WhatsApp Cloud API (Meta Business)."""
-        phone_number_id = icp.get_param("ai_customer_agent.whatsapp_meta_phone_number_id")
-        access_token = icp.get_param("ai_customer_agent.whatsapp_meta_access_token")
-        to_number = icp.get_param("ai_customer_agent.whatsapp_meta_to_number")
-        if not phone_number_id or not access_token or not to_number:
-            _logger.warning("AI Customer Agent: WhatsApp Meta activado pero falta configuración.")
-            return
-
-        template_name = icp.get_param("ai_customer_agent.whatsapp_meta_template_name")
-        url = f"https://graph.facebook.com/v20.0/{phone_number_id}/messages"
-        headers = {
-            "Authorization": f"Bearer {access_token}",
-            "Content-Type": "application/json",
-        }
-        if template_name:
-            # Fuera de la ventana de 24hs, Meta exige una plantilla aprobada.
-            template_lang = icp.get_param("ai_customer_agent.whatsapp_meta_template_lang", "es")
-            body = {
-                "messaging_product": "whatsapp",
-                "to": to_number,
-                "type": "template",
-                "template": {
-                    "name": template_name,
-                    "language": {"code": template_lang},
-                    "components": [{
-                        "type": "body",
-                        "parameters": [{"type": "text", "text": message[:1024]}],
-                    }],
-                },
-            }
-        else:
-            # Texto libre: solo funciona si el destinatario escribió al
-            # número de negocio en las últimas 24hs.
-            body = {
-                "messaging_product": "whatsapp",
-                "to": to_number,
-                "type": "text",
-                "text": {"body": message},
-            }
-        try:
-            resp = requests.post(url, headers=headers, data=json.dumps(body), timeout=15)
-            if resp.status_code >= 400:
-                _logger.warning("AI Customer Agent: WhatsApp Meta respondió %s: %s",
-                                 resp.status_code, resp.text[:500])
-        except Exception:
-            _logger.exception("AI Customer Agent: error enviando notificación por WhatsApp Meta")
-
-    def _send_telegram(self, icp, message):
-        """Canal oficial, gratuito, sin ventana de 24hs ni plantillas."""
-        token = icp.get_param("ai_customer_agent.telegram_bot_token")
-        chat_id = icp.get_param("ai_customer_agent.telegram_chat_id")
-        if not token or not chat_id:
-            _logger.warning("AI Customer Agent: Telegram activado pero falta token o chat_id.")
-            return
-        try:
-            requests.post(
-                f"https://api.telegram.org/bot{token}/sendMessage",
-                data={"chat_id": chat_id, "text": message},
-                timeout=10,
-            )
-        except Exception:
-            _logger.exception("AI Customer Agent: error enviando notificación por Telegram")
-
-    def _escalate_to_human(self, original_message, summary):
-        """Crea un ticket de Helpdesk si el módulo está instalado; si no, una actividad."""
-        env = request.env
-        HelpdeskTicket = env.get("helpdesk.ticket")
-        if HelpdeskTicket is not None:
-            ticket = HelpdeskTicket.sudo().create({
-                "name": f"Consulta de agente IA: {summary[:80]}",
-                "description": f"Mensaje original del cliente:\n{original_message}\n\nResumen: {summary}",
-            })
-            ticket_ref = ticket.name if hasattr(ticket, "name") else str(ticket.id)
-        else:
-            # Fallback si no está instalado el módulo Helpdesk: actividad para el admin.
-            env["mail.activity"].sudo().create({
-                "res_model_id": env["ir.model"].sudo().search([("model", "=", "res.partner")], limit=1).id,
-                "res_id": env.ref("base.main_partner").id,
-                "activity_type_id": env.ref("mail.mail_activity_data_todo").id,
-                "summary": f"Consulta escalada por agente IA: {summary[:80]}",
-                "note": original_message,
-            })
-            ticket_ref = None
-
-        self._notify_humans(
-            "🔔 Agente IA - Se necesita una persona\n\n"
-            f"Resumen: {summary}\n"
-            f"Mensaje del cliente: {original_message}"
-            + (f"\nRef: {ticket_ref}" if ticket_ref else "")
+    def _escalate_to_human(self, original_message, summary, session_id=None):
+        """Delegado a ai.agent.notifier (compartido con ai_agent_core, ver
+        modelo ai_agent_notifier.py). Se conserva este método como wrapper
+        fino para no tener que cambiar todas las llamadas existentes más
+        abajo en este archivo."""
+        result = request.env['ai.agent.notifier'].sudo().escalate_to_human(
+            original_message, summary, session_id=session_id,
         )
-        return ticket_ref
+        return result.get('ticket_ref')
+
+    def _notify_humans(self, message):
+        request.env['ai.agent.notifier'].sudo()._notify_humans(message)
 
     def _log_conversation(self, session_id, user_message, reply_text, route):
         request.env["ai.agent.log"].sudo().create({
@@ -529,3 +544,11 @@ IMPORTANTE: Responde siempre en {language_name}, sin importar en qué idioma esc
             "reply_text": reply_text,
             "route": route,
         })
+        conversation = self._get_or_create_conversation(session_id)
+        if conversation:
+            conversation.add_message('user', user_message)
+            conversation.add_message('agent', reply_text)
+            if route == 'escalar_humano':
+                conversation.action_escalate()
+        status = 'error' if route == 'error' else 'success'
+        self._audit_log(conversation, route, user_message, reply_text, status=status)

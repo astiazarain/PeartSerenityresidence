@@ -3,7 +3,6 @@
     <record id="ai_provider_claude" model="ai.provider.config">
         <field name="name">Claude (Anthropic)</field>
         <field name="provider">anthropic</field>
-        <field name="model_name">claude-sonnet-4-6</field>
         <field name="api_key">CAMBIA_ESTA_API_KEY</field>
         <field name="active">False</field>
     </record>
@@ -11,7 +10,13 @@
     <record id="ai_provider_gemini" model="ai.provider.config">
         <field name="name">Gemini (Google)</field>
         <field name="provider">google</field>
-        <field name="model_name">gemini-2.5-flash</field>
+        <field name="api_key">CAMBIA_ESTA_API_KEY</field>
+        <field name="active">False</field>
+    </record>
+
+    <record id="ai_provider_openai" model="ai.provider.config">
+        <field name="name">ChatGPT (OpenAI)</field>
+        <field name="provider">openai</field>
         <field name="api_key">CAMBIA_ESTA_API_KEY</field>
         <field name="active">False</field>
     </record>

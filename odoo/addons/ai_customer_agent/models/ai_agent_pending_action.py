@@ -80,3 +80,24 @@ class AIAgentPendingAction(models.Model):
         })
         rec.action_approve()
         return rec
+
+    # ------------------------------------------------------------------
+    # Wrapper para el catálogo de herramientas de ai_agent_core (ARIA).
+    # execute_immediately() espera un recordset de sale.order; ai.agent.tool
+    # invoca métodos con parámetros JSON-serializables (kwargs simples), así
+    # que este wrapper resuelve order_id a recordset antes de delegar. No
+    # reemplaza execute_immediately(), que sigue siendo usado directamente
+    # por controllers/main.py cuando no se requiere aprobación.
+    # ------------------------------------------------------------------
+
+    @api.model
+    def ai_agent_execute_order_action(self, order_id, action_type, reason=None,
+                                       discount_percent=0.0):
+        order = self.env['sale.order'].browse(order_id)
+        if not order.exists():
+            raise UserError("No se encontró el pedido con id %s." % order_id)
+        rec = self.execute_immediately(
+            order=order, action_type=action_type, reason=reason,
+            discount_percent=discount_percent,
+        )
+        return {'pending_action_id': rec.id, 'state': rec.state, 'result_note': rec.result_note}

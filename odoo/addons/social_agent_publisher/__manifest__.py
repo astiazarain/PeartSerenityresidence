@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Social Agent Publisher',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.1.0',
     'category': 'Marketing',
     'summary': 'Agente para generar y publicar contenido en redes sociales usando Claude o Gemini',
     'description': """
@@ -26,13 +26,13 @@ No depende de ningún módulo de Odoo Enterprise.
 """,
     'author': 'Custom Development',
     'license': 'LGPL-3',
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'ai_agent_core'],
     'data': [
         'security/social_agent_security.xml',
         'security/ir.model.access.csv',
         'data/ai_provider_data.xml',
         'data/ir_cron_data.xml',
-        'views/ai_provider_config_views.xml',
+        'data/ai_agent_tools_data.xml',
         'views/social_oauth_app_views.xml',
         'views/social_media_account_views.xml',
         'views/social_media_post_views.xml',

@@ -4,10 +4,15 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    ai_agent_anthropic_api_key = fields.Char(
-        string="Anthropic API Key",
-        config_parameter="ai_customer_agent.anthropic_api_key",
-        help="API key de Claude (Anthropic). Se guarda en System Parameters.",
+    ai_agent_provider_id = fields.Many2one(
+        "ai.provider.config",
+        string="Proveedor de IA",
+        config_parameter="ai_customer_agent.ai_provider_id",
+        help="Proveedor de IA (Claude o Gemini) que usa el agente de atención "
+             "al cliente. Se configura en Agentes de IA → Proveedores de IA. "
+             "Si se deja vacío acá, se usa el que esté marcado como "
+             "'Proveedor por defecto' — el mismo registro que ya usa Social "
+             "Agent Publisher, no hace falta duplicar credenciales.",
     )
     ai_agent_store_name = fields.Char(
         string="Nombre de la tienda (para el agente)",
@@ -70,6 +75,22 @@ class ResConfigSettings(models.TransientModel):
         string="% de descuento que el agente puede ofrecer como compensación",
         config_parameter="ai_customer_agent.discount_percent",
         default=10.0,
+    )
+    ai_agent_rate_limit_per_session = fields.Integer(
+        string="Límite de mensajes por sesión (por minuto)",
+        config_parameter="ai_customer_agent.rate_limit_per_session",
+        default=8,
+        help="Máximo de mensajes que una misma sesión de chat puede enviar "
+             "por minuto antes de que el agente responda con un aviso de "
+             "'esperá un momento' en vez de llamar al proveedor de IA.",
+    )
+    ai_agent_rate_limit_global = fields.Integer(
+        string="Límite de mensajes global (por minuto)",
+        config_parameter="ai_customer_agent.rate_limit_global",
+        default=60,
+        help="Máximo de mensajes combinados de todas las sesiones por "
+             "minuto. Protege la cuota (gratuita o de pago) del proveedor "
+             "de IA configurado ante un pico de tráfico o abuso.",
     )
     ai_agent_whatsapp_callmebot_enabled = fields.Boolean(
         string="Canal: WhatsApp vía CallMeBot (no oficial)",
