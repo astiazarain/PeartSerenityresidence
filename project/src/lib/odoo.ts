@@ -352,3 +352,100 @@ export type AiWidgetConfig =
 export async function fetchAiWidgetConfig(): Promise<AiWidgetConfig> {
   return callOdoo<AiWidgetConfig>('/ai_agent/widget_config', {});
 }
+
+// ---- Family portal (resident record) ------------------------------------
+// Endpoints live in odoo/addons/peart_clinical_record/controllers/portal.py.
+// The server only ever returns what staff flagged as visible to the family
+// and only for residents the logged-in user is linked to.
+
+export type FamilyLang = 'en' | 'es';
+
+export type MyResident = {
+  id: number;
+  code: string;
+  name: string;
+  state: string;
+  preferred_lang: FamilyLang;
+  photo: string | false;
+  ai_enabled: boolean;
+};
+
+export type ShiftUpdate = {
+  id: number;
+  date: string;
+  shift: 'day' | 'night';
+  family_note: string;
+  vitals: Partial<Record<'bp_systolic' | 'bp_diastolic' | 'heart_rate' | 'resp_rate' | 'temperature' | 'spo2' | 'glucose' | 'weight', number>>;
+  care: Partial<Record<'intake_pct' | 'fluids_ml' | 'hygiene' | 'mobility' | 'sleep' | 'mood' | 'activities' | 'visitors', string | number>>;
+};
+
+export type PortalMedication = {
+  id: number; name: string; dose: string; route: string; frequency: string;
+  schedule_times: string; prn_reason: string; state: 'active' | 'stopped';
+  start_date: string; end_date: string | false;
+};
+export type PortalAllergy = { id: number; name: string; category: string; reaction: string; severity: string };
+export type PortalCarePlan = { id: number; name: string; goal: string; intervention: string; state: string; review_date: string | false };
+export type PortalIncident = { id: number; name: string; kind: string; date: string; summary: string };
+export type PortalCondition = { id: number; kind: string; name: string; status: string; onset_date: string | false };
+export type PortalAssessment = { id: number; date: string; scale: string; total: number; max_score: number; result: string };
+export type PortalDocument = { id: number; name: string; category: string; date: string | false; filename: string };
+
+export type ResidentSummary = {
+  id: number; code: string; name: string; age: number; gender: string | false; state: string;
+  room: string; admission_date: string | false; preferred_lang: FamilyLang; photo: string | false;
+  latest_update: ShiftUpdate | null;
+  medications: PortalMedication[];
+  allergies: PortalAllergy[];
+  care_plan: PortalCarePlan[];
+  incidents: PortalIncident[];
+  ai_enabled: boolean;
+};
+
+export type ResidentRecord = {
+  conditions: PortalCondition[];
+  allergies: PortalAllergy[];
+  medications: PortalMedication[];
+  care_plan: PortalCarePlan[];
+  assessments: PortalAssessment[];
+  incidents: PortalIncident[];
+};
+
+export type AriaTurn = { role: 'user' | 'aria'; content: string };
+export type AriaReply = { reply: string; route: 'answered' | 'escalated' | 'error' | 'rate_limited' };
+
+async function familyCall<T>(path: string, params: Record<string, unknown>): Promise<T> {
+  const result = await callApi<{ success: boolean; error?: string } & T>(path, params);
+  if (!result.success) throw new Error(result.error || 'request_failed');
+  return result;
+}
+
+export async function fetchMyResidents(): Promise<MyResident[]> {
+  return (await familyCall<{ records: MyResident[] }>('/my/residents', {})).records;
+}
+
+export async function fetchResidentSummary(residentId: number, lang: FamilyLang): Promise<ResidentSummary> {
+  return (await familyCall<{ resident: ResidentSummary }>('/my/resident/summary', { resident_id: residentId, lang })).resident;
+}
+
+export async function fetchResidentTimeline(
+  residentId: number, lang: FamilyLang, offset = 0, limit = 20
+): Promise<{ total: number; items: ShiftUpdate[] }> {
+  return familyCall('/my/resident/timeline', { resident_id: residentId, lang, offset, limit });
+}
+
+export async function fetchResidentRecord(residentId: number, lang: FamilyLang): Promise<ResidentRecord> {
+  return familyCall('/my/resident/record', { resident_id: residentId, lang });
+}
+
+export async function fetchResidentDocuments(residentId: number, lang: FamilyLang): Promise<PortalDocument[]> {
+  return (await familyCall<{ records: PortalDocument[] }>('/my/resident/documents', { resident_id: residentId, lang })).records;
+}
+
+export const residentDocumentUrl = (documentId: number) => `/api/my/resident/document/${documentId}`;
+
+export async function askAria(
+  residentId: number, message: string, history: AriaTurn[], lang: FamilyLang
+): Promise<AriaReply> {
+  return familyCall('/my/resident/aria', { resident_id: residentId, message, history, lang });
+}

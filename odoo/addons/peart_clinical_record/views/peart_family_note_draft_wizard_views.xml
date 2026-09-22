@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="peart_family_note_draft_wizard_view_form" model="ir.ui.view">
+        <field name="name">peart.family.note.draft.wizard.form</field>
+        <field name="model">peart.family.note.draft.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="source_kind" invisible="1"/>
+                    <field name="daily_log_id" invisible="1"/>
+                    <field name="incident_id" invisible="1"/>
+                    <group>
+                        <field name="resident_name" readonly="1"/>
+                    </group>
+                    <group string="Internal note (source)">
+                        <field name="source_text" readonly="1" nolabel="1"/>
+                    </group>
+                    <div class="alert alert-warning" role="alert" invisible="not info">
+                        <field name="info" nolabel="1" class="d-inline"/>
+                    </div>
+                    <group string="Draft for the family (edit before saving)">
+                        <field name="draft" nolabel="1" placeholder="Click 'Generate with ARIA' or write it yourself..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate with ARIA"/>
+                    <button name="action_save" type="object" string="Save" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,1217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="scale_barthel" model="peart.scale">
+        <field name="name">Barthel Index (ADL independence)</field>
+        <field name="code">barthel</field>
+        <field name="frequency_days">90</field>
+    </record>
+    <record id="scale_barthel_i01" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">10</field>
+        <field name="name">Feeding</field>
+    </record>
+    <record id="scale_barthel_i01_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i01"/>
+        <field name="sequence">10</field>
+        <field name="name">Unable</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i01_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i01"/>
+        <field name="sequence">20</field>
+        <field name="name">Needs help (cutting, spreading)</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i01_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i01"/>
+        <field name="sequence">30</field>
+        <field name="name">Independent</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i02" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">20</field>
+        <field name="name">Bathing</field>
+    </record>
+    <record id="scale_barthel_i02_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i02"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i02_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i02"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i03" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">30</field>
+        <field name="name">Grooming (face, hair, teeth, shaving)</field>
+    </record>
+    <record id="scale_barthel_i03_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i03"/>
+        <field name="sequence">10</field>
+        <field name="name">Needs help</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i03_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i03"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i04" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">40</field>
+        <field name="name">Dressing</field>
+    </record>
+    <record id="scale_barthel_i04_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i04"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i04_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i04"/>
+        <field name="sequence">20</field>
+        <field name="name">Needs help, does about half unaided</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i04_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i04"/>
+        <field name="sequence">30</field>
+        <field name="name">Independent</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i05" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">50</field>
+        <field name="name">Bowels</field>
+    </record>
+    <record id="scale_barthel_i05_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i05"/>
+        <field name="sequence">10</field>
+        <field name="name">Incontinent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i05_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i05"/>
+        <field name="sequence">20</field>
+        <field name="name">Occasional accident</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i05_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i05"/>
+        <field name="sequence">30</field>
+        <field name="name">Continent</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i06" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">60</field>
+        <field name="name">Bladder</field>
+    </record>
+    <record id="scale_barthel_i06_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i06"/>
+        <field name="sequence">10</field>
+        <field name="name">Incontinent or catheterised, unable to manage</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i06_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i06"/>
+        <field name="sequence">20</field>
+        <field name="name">Occasional accident</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i06_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i06"/>
+        <field name="sequence">30</field>
+        <field name="name">Continent</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i07" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">70</field>
+        <field name="name">Toilet use</field>
+    </record>
+    <record id="scale_barthel_i07_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i07"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i07_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i07"/>
+        <field name="sequence">20</field>
+        <field name="name">Needs some help</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i07_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i07"/>
+        <field name="sequence">30</field>
+        <field name="name">Independent</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i08" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">80</field>
+        <field name="name">Transfers (bed to chair)</field>
+    </record>
+    <record id="scale_barthel_i08_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i08"/>
+        <field name="sequence">10</field>
+        <field name="name">Unable, no sitting balance</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i08_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i08"/>
+        <field name="sequence">20</field>
+        <field name="name">Major help (one or two people), can sit</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i08_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i08"/>
+        <field name="sequence">30</field>
+        <field name="name">Minor help (verbal or physical)</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i08_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i08"/>
+        <field name="sequence">40</field>
+        <field name="name">Independent</field>
+        <field name="points">15</field>
+    </record>
+    <record id="scale_barthel_i09" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">90</field>
+        <field name="name">Mobility on level surfaces</field>
+    </record>
+    <record id="scale_barthel_i09_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i09"/>
+        <field name="sequence">10</field>
+        <field name="name">Immobile or &lt; 50 yards</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i09_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i09"/>
+        <field name="sequence">20</field>
+        <field name="name">Wheelchair independent &gt; 50 yards</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i09_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i09"/>
+        <field name="sequence">30</field>
+        <field name="name">Walks with help of one person &gt; 50 yards</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_i09_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i09"/>
+        <field name="sequence">40</field>
+        <field name="name">Independent (may use an aid) &gt; 50 yards</field>
+        <field name="points">15</field>
+    </record>
+    <record id="scale_barthel_i10" model="peart.scale.item">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="sequence">100</field>
+        <field name="name">Stairs</field>
+    </record>
+    <record id="scale_barthel_i10_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i10"/>
+        <field name="sequence">10</field>
+        <field name="name">Unable</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_barthel_i10_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i10"/>
+        <field name="sequence">20</field>
+        <field name="name">Needs help</field>
+        <field name="points">5</field>
+    </record>
+    <record id="scale_barthel_i10_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_barthel_i10"/>
+        <field name="sequence">30</field>
+        <field name="name">Independent</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_barthel_b1" model="peart.scale.band">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="score_min">0</field>
+        <field name="score_max">20</field>
+        <field name="name">Total dependency</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_barthel_b2" model="peart.scale.band">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="score_min">21</field>
+        <field name="score_max">60</field>
+        <field name="name">Severe dependency</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_barthel_b3" model="peart.scale.band">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="score_min">61</field>
+        <field name="score_max">90</field>
+        <field name="name">Moderate dependency</field>
+        <field name="severity">warn</field>
+    </record>
+    <record id="scale_barthel_b4" model="peart.scale.band">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="score_min">91</field>
+        <field name="score_max">99</field>
+        <field name="name">Slight dependency</field>
+        <field name="severity">ok</field>
+    </record>
+    <record id="scale_barthel_b5" model="peart.scale.band">
+        <field name="scale_id" ref="scale_barthel"/>
+        <field name="score_min">100</field>
+        <field name="score_max">100</field>
+        <field name="name">Independent</field>
+        <field name="severity">ok</field>
+    </record>
+
+    <record id="scale_katz" model="peart.scale">
+        <field name="name">Katz Index (ADL)</field>
+        <field name="code">katz</field>
+        <field name="frequency_days">90</field>
+    </record>
+    <record id="scale_katz_i01" model="peart.scale.item">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="sequence">10</field>
+        <field name="name">Bathing</field>
+    </record>
+    <record id="scale_katz_i01_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i01"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_katz_i01_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i01"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_katz_i02" model="peart.scale.item">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="sequence">20</field>
+        <field name="name">Dressing</field>
+    </record>
+    <record id="scale_katz_i02_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i02"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_katz_i02_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i02"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_katz_i03" model="peart.scale.item">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="sequence">30</field>
+        <field name="name">Toileting</field>
+    </record>
+    <record id="scale_katz_i03_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i03"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_katz_i03_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i03"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_katz_i04" model="peart.scale.item">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="sequence">40</field>
+        <field name="name">Transferring</field>
+    </record>
+    <record id="scale_katz_i04_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i04"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_katz_i04_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i04"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_katz_i05" model="peart.scale.item">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="sequence">50</field>
+        <field name="name">Continence</field>
+    </record>
+    <record id="scale_katz_i05_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i05"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_katz_i05_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i05"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_katz_i06" model="peart.scale.item">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="sequence">60</field>
+        <field name="name">Feeding</field>
+    </record>
+    <record id="scale_katz_i06_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i06"/>
+        <field name="sequence">10</field>
+        <field name="name">Dependent</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_katz_i06_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_katz_i06"/>
+        <field name="sequence">20</field>
+        <field name="name">Independent</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_katz_b1" model="peart.scale.band">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="score_min">0</field>
+        <field name="score_max">2</field>
+        <field name="name">Severe functional impairment</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_katz_b2" model="peart.scale.band">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="score_min">3</field>
+        <field name="score_max">5</field>
+        <field name="name">Moderate impairment</field>
+        <field name="severity">warn</field>
+    </record>
+    <record id="scale_katz_b3" model="peart.scale.band">
+        <field name="scale_id" ref="scale_katz"/>
+        <field name="score_min">6</field>
+        <field name="score_max">6</field>
+        <field name="name">Independent</field>
+        <field name="severity">ok</field>
+    </record>
+
+    <record id="scale_morse" model="peart.scale">
+        <field name="name">Morse Fall Scale</field>
+        <field name="code">morse</field>
+        <field name="frequency_days">30</field>
+    </record>
+    <record id="scale_morse_i01" model="peart.scale.item">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="sequence">10</field>
+        <field name="name">History of falling (now or within 3 months)</field>
+    </record>
+    <record id="scale_morse_i01_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i01"/>
+        <field name="sequence">10</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_morse_i01_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i01"/>
+        <field name="sequence">20</field>
+        <field name="name">Yes</field>
+        <field name="points">25</field>
+    </record>
+    <record id="scale_morse_i02" model="peart.scale.item">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="sequence">20</field>
+        <field name="name">Secondary diagnosis</field>
+    </record>
+    <record id="scale_morse_i02_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i02"/>
+        <field name="sequence">10</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_morse_i02_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i02"/>
+        <field name="sequence">20</field>
+        <field name="name">Yes</field>
+        <field name="points">15</field>
+    </record>
+    <record id="scale_morse_i03" model="peart.scale.item">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="sequence">30</field>
+        <field name="name">Ambulatory aid</field>
+    </record>
+    <record id="scale_morse_i03_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i03"/>
+        <field name="sequence">10</field>
+        <field name="name">None, bed rest or nurse assist</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_morse_i03_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i03"/>
+        <field name="sequence">20</field>
+        <field name="name">Crutches, cane or walker</field>
+        <field name="points">15</field>
+    </record>
+    <record id="scale_morse_i03_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i03"/>
+        <field name="sequence">30</field>
+        <field name="name">Furniture</field>
+        <field name="points">30</field>
+    </record>
+    <record id="scale_morse_i04" model="peart.scale.item">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="sequence">40</field>
+        <field name="name">IV therapy / heparin lock</field>
+    </record>
+    <record id="scale_morse_i04_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i04"/>
+        <field name="sequence">10</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_morse_i04_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i04"/>
+        <field name="sequence">20</field>
+        <field name="name">Yes</field>
+        <field name="points">20</field>
+    </record>
+    <record id="scale_morse_i05" model="peart.scale.item">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="sequence">50</field>
+        <field name="name">Gait</field>
+    </record>
+    <record id="scale_morse_i05_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i05"/>
+        <field name="sequence">10</field>
+        <field name="name">Normal, bed rest or immobile</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_morse_i05_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i05"/>
+        <field name="sequence">20</field>
+        <field name="name">Weak</field>
+        <field name="points">10</field>
+    </record>
+    <record id="scale_morse_i05_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i05"/>
+        <field name="sequence">30</field>
+        <field name="name">Impaired</field>
+        <field name="points">20</field>
+    </record>
+    <record id="scale_morse_i06" model="peart.scale.item">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="sequence">60</field>
+        <field name="name">Mental status</field>
+    </record>
+    <record id="scale_morse_i06_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i06"/>
+        <field name="sequence">10</field>
+        <field name="name">Oriented to own ability</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_morse_i06_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_morse_i06"/>
+        <field name="sequence">20</field>
+        <field name="name">Overestimates or forgets limitations</field>
+        <field name="points">15</field>
+    </record>
+    <record id="scale_morse_b1" model="peart.scale.band">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="score_min">0</field>
+        <field name="score_max">24</field>
+        <field name="name">Low risk</field>
+        <field name="severity">ok</field>
+    </record>
+    <record id="scale_morse_b2" model="peart.scale.band">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="score_min">25</field>
+        <field name="score_max">44</field>
+        <field name="name">Moderate risk</field>
+        <field name="severity">warn</field>
+    </record>
+    <record id="scale_morse_b3" model="peart.scale.band">
+        <field name="scale_id" ref="scale_morse"/>
+        <field name="score_min">45</field>
+        <field name="score_max">125</field>
+        <field name="name">High risk</field>
+        <field name="severity">danger</field>
+    </record>
+
+    <record id="scale_norton" model="peart.scale">
+        <field name="name">Norton Scale (pressure ulcer risk)</field>
+        <field name="code">norton</field>
+        <field name="frequency_days">7</field>
+    </record>
+    <record id="scale_norton_i01" model="peart.scale.item">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="sequence">10</field>
+        <field name="name">Physical condition</field>
+    </record>
+    <record id="scale_norton_i01_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i01"/>
+        <field name="sequence">10</field>
+        <field name="name">Very bad</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_norton_i01_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i01"/>
+        <field name="sequence">20</field>
+        <field name="name">Poor</field>
+        <field name="points">2</field>
+    </record>
+    <record id="scale_norton_i01_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i01"/>
+        <field name="sequence">30</field>
+        <field name="name">Fair</field>
+        <field name="points">3</field>
+    </record>
+    <record id="scale_norton_i01_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i01"/>
+        <field name="sequence">40</field>
+        <field name="name">Good</field>
+        <field name="points">4</field>
+    </record>
+    <record id="scale_norton_i02" model="peart.scale.item">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="sequence">20</field>
+        <field name="name">Mental condition</field>
+    </record>
+    <record id="scale_norton_i02_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i02"/>
+        <field name="sequence">10</field>
+        <field name="name">Stuporous</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_norton_i02_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i02"/>
+        <field name="sequence">20</field>
+        <field name="name">Confused</field>
+        <field name="points">2</field>
+    </record>
+    <record id="scale_norton_i02_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i02"/>
+        <field name="sequence">30</field>
+        <field name="name">Apathetic</field>
+        <field name="points">3</field>
+    </record>
+    <record id="scale_norton_i02_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i02"/>
+        <field name="sequence">40</field>
+        <field name="name">Alert</field>
+        <field name="points">4</field>
+    </record>
+    <record id="scale_norton_i03" model="peart.scale.item">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="sequence">30</field>
+        <field name="name">Activity</field>
+    </record>
+    <record id="scale_norton_i03_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i03"/>
+        <field name="sequence">10</field>
+        <field name="name">Bedbound</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_norton_i03_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i03"/>
+        <field name="sequence">20</field>
+        <field name="name">Chairbound</field>
+        <field name="points">2</field>
+    </record>
+    <record id="scale_norton_i03_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i03"/>
+        <field name="sequence">30</field>
+        <field name="name">Walks with help</field>
+        <field name="points">3</field>
+    </record>
+    <record id="scale_norton_i03_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i03"/>
+        <field name="sequence">40</field>
+        <field name="name">Ambulant</field>
+        <field name="points">4</field>
+    </record>
+    <record id="scale_norton_i04" model="peart.scale.item">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="sequence">40</field>
+        <field name="name">Mobility</field>
+    </record>
+    <record id="scale_norton_i04_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i04"/>
+        <field name="sequence">10</field>
+        <field name="name">Immobile</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_norton_i04_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i04"/>
+        <field name="sequence">20</field>
+        <field name="name">Very limited</field>
+        <field name="points">2</field>
+    </record>
+    <record id="scale_norton_i04_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i04"/>
+        <field name="sequence">30</field>
+        <field name="name">Slightly limited</field>
+        <field name="points">3</field>
+    </record>
+    <record id="scale_norton_i04_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i04"/>
+        <field name="sequence">40</field>
+        <field name="name">Full</field>
+        <field name="points">4</field>
+    </record>
+    <record id="scale_norton_i05" model="peart.scale.item">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="sequence">50</field>
+        <field name="name">Incontinence</field>
+    </record>
+    <record id="scale_norton_i05_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i05"/>
+        <field name="sequence">10</field>
+        <field name="name">Urinary and faecal</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_norton_i05_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i05"/>
+        <field name="sequence">20</field>
+        <field name="name">Usually urinary</field>
+        <field name="points">2</field>
+    </record>
+    <record id="scale_norton_i05_o3" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i05"/>
+        <field name="sequence">30</field>
+        <field name="name">Occasional</field>
+        <field name="points">3</field>
+    </record>
+    <record id="scale_norton_i05_o4" model="peart.scale.option">
+        <field name="item_id" ref="scale_norton_i05"/>
+        <field name="sequence">40</field>
+        <field name="name">None</field>
+        <field name="points">4</field>
+    </record>
+    <record id="scale_norton_b1" model="peart.scale.band">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="score_min">5</field>
+        <field name="score_max">9</field>
+        <field name="name">Very high risk</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_norton_b2" model="peart.scale.band">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="score_min">10</field>
+        <field name="score_max">12</field>
+        <field name="name">High risk</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_norton_b3" model="peart.scale.band">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="score_min">13</field>
+        <field name="score_max">14</field>
+        <field name="name">Medium risk</field>
+        <field name="severity">warn</field>
+    </record>
+    <record id="scale_norton_b4" model="peart.scale.band">
+        <field name="scale_id" ref="scale_norton"/>
+        <field name="score_min">15</field>
+        <field name="score_max">20</field>
+        <field name="name">Minimal risk</field>
+        <field name="severity">ok</field>
+    </record>
+
+    <record id="scale_spmsq" model="peart.scale">
+        <field name="name">SPMSQ (cognition - errors)</field>
+        <field name="code">spmsq</field>
+        <field name="frequency_days">180</field>
+    </record>
+    <record id="scale_spmsq_i01" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">10</field>
+        <field name="name">What is the date today (month, day, year)?</field>
+    </record>
+    <record id="scale_spmsq_i01_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i01"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i01_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i01"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i02" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">20</field>
+        <field name="name">What day of the week is it?</field>
+    </record>
+    <record id="scale_spmsq_i02_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i02"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i02_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i02"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i03" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">30</field>
+        <field name="name">What is the name of this place?</field>
+    </record>
+    <record id="scale_spmsq_i03_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i03"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i03_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i03"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i04" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">40</field>
+        <field name="name">What is your telephone number (or address if none)?</field>
+    </record>
+    <record id="scale_spmsq_i04_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i04"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i04_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i04"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i05" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">50</field>
+        <field name="name">How old are you?</field>
+    </record>
+    <record id="scale_spmsq_i05_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i05"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i05_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i05"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i06" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">60</field>
+        <field name="name">When were you born (month, day, year)?</field>
+    </record>
+    <record id="scale_spmsq_i06_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i06"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i06_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i06"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i07" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">70</field>
+        <field name="name">Who is the current Prime Minister?</field>
+    </record>
+    <record id="scale_spmsq_i07_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i07"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i07_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i07"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i08" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">80</field>
+        <field name="name">Who was the previous Prime Minister?</field>
+    </record>
+    <record id="scale_spmsq_i08_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i08"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i08_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i08"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i09" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">90</field>
+        <field name="name">What was your mother's maiden name?</field>
+    </record>
+    <record id="scale_spmsq_i09_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i09"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i09_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i09"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_i10" model="peart.scale.item">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="sequence">100</field>
+        <field name="name">Subtract 3 from 20, then keep subtracting 3 from each new number</field>
+    </record>
+    <record id="scale_spmsq_i10_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i10"/>
+        <field name="sequence">10</field>
+        <field name="name">Correct</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_spmsq_i10_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_spmsq_i10"/>
+        <field name="sequence">20</field>
+        <field name="name">Error</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_spmsq_b1" model="peart.scale.band">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="score_min">0</field>
+        <field name="score_max">2</field>
+        <field name="name">Intact cognition</field>
+        <field name="severity">ok</field>
+    </record>
+    <record id="scale_spmsq_b2" model="peart.scale.band">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="score_min">3</field>
+        <field name="score_max">4</field>
+        <field name="name">Mild impairment</field>
+        <field name="severity">warn</field>
+    </record>
+    <record id="scale_spmsq_b3" model="peart.scale.band">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="score_min">5</field>
+        <field name="score_max">7</field>
+        <field name="name">Moderate impairment</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_spmsq_b4" model="peart.scale.band">
+        <field name="scale_id" ref="scale_spmsq"/>
+        <field name="score_min">8</field>
+        <field name="score_max">10</field>
+        <field name="name">Severe impairment</field>
+        <field name="severity">danger</field>
+    </record>
+
+    <record id="scale_gds15" model="peart.scale">
+        <field name="name">Geriatric Depression Scale (GDS-15)</field>
+        <field name="code">gds15</field>
+        <field name="frequency_days">180</field>
+    </record>
+    <record id="scale_gds15_i01" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">10</field>
+        <field name="name">Are you basically satisfied with your life?</field>
+    </record>
+    <record id="scale_gds15_i01_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i01"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i01_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i01"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i02" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">20</field>
+        <field name="name">Have you dropped many of your activities and interests?</field>
+    </record>
+    <record id="scale_gds15_i02_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i02"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i02_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i02"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i03" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">30</field>
+        <field name="name">Do you feel that your life is empty?</field>
+    </record>
+    <record id="scale_gds15_i03_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i03"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i03_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i03"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i04" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">40</field>
+        <field name="name">Do you often get bored?</field>
+    </record>
+    <record id="scale_gds15_i04_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i04"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i04_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i04"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i05" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">50</field>
+        <field name="name">Are you in good spirits most of the time?</field>
+    </record>
+    <record id="scale_gds15_i05_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i05"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i05_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i05"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i06" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">60</field>
+        <field name="name">Are you afraid that something bad is going to happen to you?</field>
+    </record>
+    <record id="scale_gds15_i06_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i06"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i06_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i06"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i07" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">70</field>
+        <field name="name">Do you feel happy most of the time?</field>
+    </record>
+    <record id="scale_gds15_i07_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i07"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i07_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i07"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i08" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">80</field>
+        <field name="name">Do you often feel helpless?</field>
+    </record>
+    <record id="scale_gds15_i08_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i08"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i08_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i08"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i09" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">90</field>
+        <field name="name">Do you prefer to stay at home rather than go out and do new things?</field>
+    </record>
+    <record id="scale_gds15_i09_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i09"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i09_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i09"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i10" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">100</field>
+        <field name="name">Do you feel you have more problems with memory than most?</field>
+    </record>
+    <record id="scale_gds15_i10_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i10"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i10_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i10"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i11" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">110</field>
+        <field name="name">Do you think it is wonderful to be alive now?</field>
+    </record>
+    <record id="scale_gds15_i11_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i11"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i11_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i11"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i12" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">120</field>
+        <field name="name">Do you feel pretty worthless the way you are now?</field>
+    </record>
+    <record id="scale_gds15_i12_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i12"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i12_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i12"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i13" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">130</field>
+        <field name="name">Do you feel full of energy?</field>
+    </record>
+    <record id="scale_gds15_i13_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i13"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i13_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i13"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i14" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">140</field>
+        <field name="name">Do you feel that your situation is hopeless?</field>
+    </record>
+    <record id="scale_gds15_i14_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i14"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i14_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i14"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_i15" model="peart.scale.item">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="sequence">150</field>
+        <field name="name">Do you think that most people are better off than you are?</field>
+    </record>
+    <record id="scale_gds15_i15_o1" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i15"/>
+        <field name="sequence">10</field>
+        <field name="name">Yes</field>
+        <field name="points">1</field>
+    </record>
+    <record id="scale_gds15_i15_o2" model="peart.scale.option">
+        <field name="item_id" ref="scale_gds15_i15"/>
+        <field name="sequence">20</field>
+        <field name="name">No</field>
+        <field name="points">0</field>
+    </record>
+    <record id="scale_gds15_b1" model="peart.scale.band">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="score_min">0</field>
+        <field name="score_max">4</field>
+        <field name="name">Normal</field>
+        <field name="severity">ok</field>
+    </record>
+    <record id="scale_gds15_b2" model="peart.scale.band">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="score_min">5</field>
+        <field name="score_max">8</field>
+        <field name="name">Mild depression</field>
+        <field name="severity">warn</field>
+    </record>
+    <record id="scale_gds15_b3" model="peart.scale.band">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="score_min">9</field>
+        <field name="score_max">11</field>
+        <field name="name">Moderate depression</field>
+        <field name="severity">danger</field>
+    </record>
+    <record id="scale_gds15_b4" model="peart.scale.band">
+        <field name="scale_id" ref="scale_gds15"/>
+        <field name="score_min">12</field>
+        <field name="score_max">15</field>
+        <field name="name">Severe depression</field>
+        <field name="severity">danger</field>
+    </record>
+
+</odoo>

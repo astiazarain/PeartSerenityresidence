@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="peart_nursing_task_wizard_view_form" model="ir.ui.view">
+        <field name="name">peart.nursing.task.wizard.form</field>
+        <field name="model">peart.nursing.task.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="resident_id" readonly="1"/>
+                        <field name="title"/>
+                        <field name="assignee_id"/>
+                    </group>
+                    <field name="note" placeholder="Details for whoever does the task..."/>
+                </sheet>
+                <footer>
+                    <button name="action_request" type="object" string="Request approval" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,4076 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260619\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-21 13:27+0000\n"
+"PO-Revision-Date: 2026-09-21 13:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_family_portal.py:0
+msgid "%(who)s asked ARIA: %(q)s (summary: %(s)s)"
+msgstr "%(who)s preguntó a ARIA: %(q)s (resumen: %(s)s)"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "%s new doses scheduled."
+msgstr "%s dosis nuevas programadas."
+
+#. module: peart_clinical_record
+#: model:ir.actions.report,print_report_name:peart_clinical_record.action_report_resident_record
+msgid "'Resident Record - %s' % object.name"
+msgstr "'Expediente del residente - %s' % object.name"
+
+#. module: peart_clinical_record
+#: model:ir.actions.report,print_report_name:peart_clinical_record.action_report_shift_summary
+msgid "'Shift Summary'"
+msgstr "'Resumen de turno'"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__pain_score
+msgid "-1 = not assessed"
+msgstr "-1 = no evaluado"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "<strong>Allergies:</strong>"
+msgstr "<strong>Alergias:</strong>"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+msgid "<strong>Out of range:</strong>"
+msgstr "<strong>Fuera de rango:</strong>"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_incident.py:0
+msgid "A closed incident cannot be modified."
+msgstr "Un incidente cerrado no se puede modificar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "A closed log cannot be deleted."
+msgstr "Un registro cerrado no se puede eliminar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "A closed log cannot be modified. Add an addendum instead."
+msgstr "Un registro cerrado no se puede modificar. Agregue un addendum."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_form
+msgid "A completed assessment can no longer be edited. Continue?"
+msgstr "Una valoración completada ya no se puede editar. ¿Continuar?"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_assessment.py:0
+msgid "A completed assessment cannot be deleted."
+msgstr "Una valoración completada no se puede eliminar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_assessment.py:0
+msgid "A completed assessment cannot be modified."
+msgstr "Una valoración completada no se puede modificar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_assessment.py:0
+msgid ""
+"A completed assessment cannot be modified. Record a new assessment instead."
+msgstr ""
+"Una valoración completada no se puede modificar. Registre una nueva "
+"valoración."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "A recorded dose cannot be changed."
+msgstr "Una dosis registrada no se puede cambiar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "A recorded dose cannot be deleted."
+msgstr "Una dosis registrada no se puede eliminar."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__a+
+msgid "A+"
+msgstr "A+"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__a-
+msgid "A-"
+msgstr "A-"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__ab+
+msgid "AB+"
+msgstr "AB+"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__ab-
+msgid "AB-"
+msgstr "AB-"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__kind__ai_assistant
+msgid "AI assistant (ARIA) processing"
+msgstr "Procesamiento por el asistente de IA (ARIA)"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.res_config_settings_view_form_clinical
+msgid "AI provider for families"
+msgstr "Proveedor de IA para familias"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_res_config_settings__peart_family_ai_provider_id
+msgid ""
+"AI provider that answers family questions about a resident. Resident data is"
+" sent to this provider, so pick one that is approved for health data. There "
+"is no fallback: while this is empty, ARIA does not answer families."
+msgstr ""
+"Proveedor de IA que responde las preguntas de las familias sobre un "
+"residente. Los datos del residente se envían a este proveedor, así que elija"
+" uno aprobado para datos de salud. No hay respaldo: mientras esté vacío, "
+"ARIA no responde a las familias."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_res_config_settings__peart_family_ai_provider_id
+msgid "ARIA provider for families"
+msgstr "Proveedor de ARIA para familias"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__aria
+msgid "ARIA question"
+msgstr "Pregunta a ARIA"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_family_access_log_view_search
+msgid "ARIA questions"
+msgstr "Preguntas a ARIA"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__access_enabled
+msgid "Access Enabled"
+msgstr "Acceso habilitado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__action
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_family_access_log_view_search
+msgid "Action"
+msgstr "Acción"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_needaction
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_needaction
+msgid "Action Needed"
+msgstr "Requiere acción"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__active
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__active
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_care_plan__state__active
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__status__active
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__state__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__activities
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_norton_i03
+msgid "Activity"
+msgstr "Actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_exception_decoration
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_type_icon
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono del tipo de actividad"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+msgid "Addenda"
+msgstr "Addenda"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__addendum_ids
+msgid "Addendum"
+msgstr "Addendum"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__administration_ids
+msgid "Administration"
+msgstr "Administración"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__schedule_times
+msgid "Administration times, e.g. 08:00, 20:00"
+msgstr "Horas de administración, p. ej. 08:00, 20:00"
+
+#. module: peart_clinical_record
+#: model:res.groups,name:peart_clinical_record.group_clinical_admin
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__admission_id
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_intake_view_form
+msgid "Admission"
+msgstr "Ingreso"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__admission_date
+msgid "Admission Date"
+msgstr "Fecha de ingreso"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Admitted"
+msgstr "Ingresado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__advance_directive
+msgid "Advance Directive"
+msgstr "Voluntad anticipada"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Advance directive"
+msgstr "Voluntad anticipada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__age
+msgid "Age"
+msgstr "Edad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__agitated
+msgid "Agitated"
+msgstr "Agitado/a"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i02_o4
+msgid "Alert"
+msgstr "Alerta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__alert_flags
+msgid "Alert Flags"
+msgstr "Alertas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_care_plan__responsible__all
+msgid "All care staff"
+msgstr "Todo el personal de cuidados"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__name
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Allergen"
+msgstr "Alérgeno"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Allergies"
+msgstr "Alergias"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__allergy_ids
+msgid "Allergy"
+msgstr "Alergia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__allergy_summary
+msgid "Allergy Summary"
+msgstr "Resumen de alergias"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i03_o4
+msgid "Ambulant"
+msgstr "Deambula"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_morse_i03
+msgid "Ambulatory aid"
+msgstr "Ayuda para caminar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__answer
+msgid "Answer"
+msgstr "Respuesta"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_assessment.py:0
+msgid "Answer every item before completing the assessment."
+msgstr "Responda todos los ítems antes de completar la valoración."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__anxious
+msgid "Anxious"
+msgstr "Ansioso/a"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i02_o3
+msgid "Apathetic"
+msgstr "Apático"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i06
+msgid "Are you afraid that something bad is going to happen to you?"
+msgstr "¿Teme que le vaya a pasar algo malo?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i01
+msgid "Are you basically satisfied with your life?"
+msgstr "¿Está básicamente satisfecho/a con su vida?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i05
+msgid "Are you in good spirits most of the time?"
+msgstr "¿Está de buen ánimo la mayor parte del tiempo?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__prn
+msgid "As needed (PRN)"
+msgstr "Si es necesario (PRN)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__assessor_id
+msgid "Assessed by"
+msgstr "Valorado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__assessment_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__assessment_id
+msgid "Assessment"
+msgstr "Valoración"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_scale
+msgid "Assessment Scale"
+msgstr "Escala de valoración"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_scale_option
+msgid "Assessment Scale Answer Option"
+msgstr "Opción de respuesta de la escala"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_scale_band
+msgid "Assessment Scale Interpretation Band"
+msgstr "Rango de interpretación de la escala"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_scale_item
+msgid "Assessment Scale Item"
+msgstr "Ítem de la escala"
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_scale_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_scale
+msgid "Assessment Scales"
+msgstr "Escalas de valoración"
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_assessment_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_assessment
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Assessments"
+msgstr "Valoraciones"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mobility__assisted
+msgid "Assisted"
+msgstr "Con ayuda"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_attachment_count
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__author_id
+msgid "Author"
+msgstr "Autor"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__b+
+msgid "B+"
+msgstr "B+"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__b-
+msgid "B-"
+msgstr "B-"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "BP"
+msgstr "TA"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__band_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__band_ids
+msgid "Band"
+msgstr "Rango"
+
+#. module: peart_clinical_record
+#: model:peart.scale,name:peart_clinical_record.scale_barthel
+msgid "Barthel Index (ADL independence)"
+msgstr "Índice de Barthel (independencia en AVD)"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i02
+#: model:peart.scale.item,name:peart_clinical_record.scale_katz_i01
+msgid "Bathing"
+msgstr "Baño"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__bed
+msgid "Bed"
+msgstr "Cama"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mobility__bed
+msgid "Bed / chair-bound"
+msgstr "Encamado/a o en silla"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i03_o1
+msgid "Bedbound"
+msgstr "Encamado/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__behaviour
+msgid "Behaviour"
+msgstr "Conducta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__billing
+msgid "Billing"
+msgstr "Facturación"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i06
+msgid "Bladder"
+msgstr "Control vesical"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__vision__blind
+msgid "Blind"
+msgstr "Ciego/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__blood_type
+msgid "Blood Type"
+msgstr "Grupo sanguíneo"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Blood type"
+msgstr "Grupo sanguíneo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__bowel_movements
+msgid "Bowel Movements"
+msgstr "Deposiciones"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i05
+msgid "Bowels"
+msgstr "Control intestinal"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "By"
+msgstr "Por"
+
+#. module: peart_clinical_record
+#: model:res.groups,name:peart_clinical_record.group_clinical_ceo
+msgid "CEO (read-only)"
+msgstr "CEO (solo lectura)"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "CONFIDENTIAL - contains protected health information. Printed by"
+msgstr "CONFIDENCIAL - contiene información de salud protegida. Impreso por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__calm
+msgid "Calm"
+msgstr "Tranquilo/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_medication_administration__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__mobility_aid
+msgid "Cane, walker, wheelchair..."
+msgstr "Bastón, andador, silla de ruedas..."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+msgid "Care"
+msgstr "Cuidados"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_admission
+msgid "Care Admission Request"
+msgstr "Solicitud de ingreso"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__care_level
+msgid "Care Level"
+msgstr "Nivel de cuidado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__care_plan_ids
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Care Plan"
+msgstr "Plan de cuidados"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__kind__treatment
+msgid "Care and treatment"
+msgstr "Cuidados y tratamiento"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Care level"
+msgstr "Nivel de cuidado"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Care plan"
+msgstr "Plan de cuidados"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__category
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__category
+msgid "Category"
+msgstr "Categoría"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_urine__catheter
+msgid "Catheter"
+msgstr "Sonda"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i03_o2
+msgid "Chairbound"
+msgstr "En silla"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__cheerful
+msgid "Cheerful"
+msgstr "Alegre"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__choking
+msgid "Choking"
+msgstr "Atragantamiento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__status__chronic
+msgid "Chronic"
+msgstr "Crónico"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Clinical Intake"
+msgstr "Ingreso clínico"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Clinical intake"
+msgstr "Ingreso clínico"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "Close incident"
+msgstr "Cerrar incidente"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+msgid "Close log"
+msgstr "Cerrar registro"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+msgid "Close this log? It can no longer be edited (only addenda)."
+msgstr "¿Cerrar este registro? Ya no se podrá editar (solo agregar addenda)."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__state__closed
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__state__closed
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__closed_by_id
+msgid "Closed By"
+msgstr "Cerrado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__closed_date
+msgid "Closed Date"
+msgstr "Fecha de cierre"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__code
+msgid "Code"
+msgstr "Código"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__code_status
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__code_status
+msgid "Code Status"
+msgstr "Estado de reanimación"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Code status"
+msgstr "Estado de reanimación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__cognition_baseline
+msgid "Cognition Baseline"
+msgstr "Estado cognitivo basal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__code_status__comfort
+msgid "Comfort care only"
+msgstr "Solo cuidados de confort"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_form
+msgid "Complete"
+msgstr "Completar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__hygiene__full
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_assessment__state__done
+msgid "Completed"
+msgstr "Completado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__condition_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__name
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Condition"
+msgstr "Condición"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_intake_view_form
+msgid "Condition on arrival"
+msgstr "Estado al llegar"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: peart_clinical_record
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_clinical_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__confused
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i02_o2
+msgid "Confused"
+msgstr "Confuso/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__consent_ids
+msgid "Consent"
+msgstr "Consentimiento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__consent_count
+msgid "Consent Count"
+msgstr "Número de consentimientos"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Consents"
+msgstr "Consentimientos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__partner_id
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_katz_i05
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_intake_view_form
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Continence"
+msgstr "Continencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__continence_bowel
+msgid "Continence Bowel"
+msgstr "Continencia intestinal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__continence_urine
+msgid "Continence Urine"
+msgstr "Continencia urinaria"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_bowel__continent
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_urine__continent
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i05_o3
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i06_o3
+msgid "Continent"
+msgstr "Continente"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i01_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i02_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i03_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i04_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i05_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i06_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i07_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i08_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i09_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i10_o1
+msgid "Correct"
+msgstr "Correcto"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__create_date
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__create_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__create_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i03_o2
+msgid "Crutches, cane or walker"
+msgstr "Muletas, bastón o andador"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_care
+msgid "DBP"
+msgstr "TAD"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__code_status__dnr_dni
+msgid "DNR / do not intubate"
+msgstr "DNR / no intubar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__daily_log_ids
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_care
+msgid "Daily Log"
+msgstr "Registro diario"
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_daily_log_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_daily_logs
+msgid "Daily Logs"
+msgstr "Registros diarios"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__timeline
+msgid "Daily updates"
+msgstr "Novedades diarias"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__date
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Date"
+msgstr "Fecha"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__date_of_birth
+msgid "Date Of Birth"
+msgstr "Fecha de nacimiento"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Date of birth"
+msgstr "Fecha de nacimiento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__shift__day
+msgid "Day (07:00-19:00)"
+msgstr "Día (07:00-19:00)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__hearing__deaf
+msgid "Deaf"
+msgstr "Sordo/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__state__deceased
+msgid "Deceased"
+msgstr "Fallecido/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__dentures
+msgid "Dentures"
+msgstr "Prótesis dental"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i02_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i04_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i07_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i01_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i02_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i03_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i04_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i05_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i06_o1
+msgid "Dependent"
+msgstr "Dependiente"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_incident.py:0
+msgid "Describe the follow-up before closing."
+msgstr "Describa el seguimiento antes de cerrar."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__description
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Description"
+msgstr "Descripción"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__detail
+msgid "Detail"
+msgstr "Detalle"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__diabetic
+msgid "Diabetic"
+msgstr "Diabética"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Diagnoses"
+msgstr "Diagnósticos"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Diagnoses and history"
+msgstr "Diagnósticos y antecedentes"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__kind__diagnosis
+msgid "Diagnosis"
+msgstr "Diagnóstico"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__bp_diastolic
+msgid "Diastolic BP"
+msgstr "TA diastólica"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Diet"
+msgstr "Dieta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__diet_notes
+msgid "Diet Notes"
+msgstr "Notas de dieta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__diet_type
+msgid "Diet Type"
+msgstr "Tipo de dieta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__discharge_date
+msgid "Discharge Date"
+msgstr "Fecha de alta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__state__discharged
+msgid "Discharged"
+msgstr "De alta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_care_plan__state__discontinued
+msgid "Discontinued"
+msgstr "Suspendido"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_ir_actions_report__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_admission__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__display_name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__code_status__dnr
+msgid "Do not resuscitate (DNR)"
+msgstr "No reanimar (DNR)"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i13
+msgid "Do you feel full of energy?"
+msgstr "¿Se siente lleno/a de energía?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i07
+msgid "Do you feel happy most of the time?"
+msgstr "¿Se siente feliz la mayor parte del tiempo?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i12
+msgid "Do you feel pretty worthless the way you are now?"
+msgstr "¿Se siente bastante inútil tal como está ahora?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i03
+msgid "Do you feel that your life is empty?"
+msgstr "¿Siente que su vida está vacía?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i14
+msgid "Do you feel that your situation is hopeless?"
+msgstr "¿Siente que su situación es desesperada?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i10
+msgid "Do you feel you have more problems with memory than most?"
+msgstr "¿Siente que tiene más problemas de memoria que la mayoría?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i08
+msgid "Do you often feel helpless?"
+msgstr "¿Se siente desamparado/a con frecuencia?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i04
+msgid "Do you often get bored?"
+msgstr "¿Se aburre con frecuencia?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i09
+msgid "Do you prefer to stay at home rather than go out and do new things?"
+msgstr "¿Prefiere quedarse en casa en lugar de salir y hacer cosas nuevas?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i11
+msgid "Do you think it is wonderful to be alive now?"
+msgstr "¿Piensa que es maravilloso estar vivo/a ahora?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i15
+msgid "Do you think that most people are better off than you are?"
+msgstr "¿Piensa que la mayoría de la gente está mejor que usted?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_care_plan__responsible__doctor
+#: model:res.groups,name:peart_clinical_record.group_clinical_doctor
+msgid "Doctor"
+msgstr "Médico"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__document_ids
+msgid "Document"
+msgstr "Documento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__document_filename
+msgid "Document Filename"
+msgstr "Nombre del archivo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__download
+msgid "Document download"
+msgstr "Descarga de documento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__documents
+msgid "Document list"
+msgstr "Lista de documentos"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__dose
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__dose
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Dose"
+msgstr "Dosis"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__state__draft
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_assessment__state__draft
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_search
+msgid "Drafts"
+msgstr "Borradores"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i04
+#: model:peart.scale.item,name:peart_clinical_record.scale_katz_i02
+msgid "Dressing"
+msgstr "Vestido"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__drug
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__name
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__category__drug
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Drug"
+msgstr "Medicamento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__email
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__family_notified_method__email
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Emergency Contact"
+msgstr "Contacto de emergencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__emergency_contact_email
+msgid "Emergency Contact Email"
+msgstr "Correo del contacto de emergencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__emergency_contact_name
+msgid "Emergency Contact Name"
+msgstr "Nombre del contacto de emergencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__emergency_contact_phone
+msgid "Emergency Contact Phone"
+msgstr "Teléfono del contacto de emergencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__emergency_contact_relationship
+msgid "Emergency Contact Relationship"
+msgstr "Parentesco del contacto de emergencia"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Emergency contact"
+msgstr "Contacto de emergencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__end_date
+msgid "End Date"
+msgstr "Fecha de fin"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__preferred_lang__en
+msgid "English"
+msgstr "English"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "Enter the reason the dose was %s."
+msgstr "Indique el motivo por el que la dosis fue %s."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__category__environment
+msgid "Environmental"
+msgstr "Ambiental"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__error
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i01_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i02_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i03_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i04_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i05_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i06_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i07_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i08_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i09_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_spmsq_i10_o2
+msgid "Error"
+msgstr "Error"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__escalated
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_family_access_log_view_search
+msgid "Escalated"
+msgstr "Escalado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__preferred_lang__es
+msgid "Español"
+msgstr "Español"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__q8h
+msgid "Every 8 hours"
+msgstr "Cada 8 horas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__eye
+msgid "Eye / ear"
+msgstr "Ojo / oído"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i01_o3
+msgid "Fair"
+msgstr "Regular"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__fall
+msgid "Fall"
+msgstr "Caída"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Family Access"
+msgstr "Acceso familiar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__family_link_ids
+msgid "Family Link"
+msgstr "Vínculo familiar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__family_link_count
+msgid "Family Link Count"
+msgstr "Número de vínculos familiares"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__family_notified
+msgid "Family Notified"
+msgstr "Familia avisada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__family_notified_at
+msgid "Family Notified At"
+msgstr "Familia avisada el"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__family_notified_method
+msgid "Family Notified Method"
+msgstr "Medio de aviso a la familia"
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_family_access_log_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_family_log
+msgid "Family Portal Activity"
+msgstr "Actividad del portal familiar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__family_summary
+msgid "Family Summary"
+msgstr "Resumen para la familia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__kind__family_access
+msgid "Family access to the record"
+msgstr "Acceso de la familia al expediente"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.res_config_settings_view_form_clinical
+msgid "Family assistant (ARIA)"
+msgstr "Asistente para familias (ARIA)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__access_enabled
+msgid ""
+"Family can only see the record while this is enabled. It can only be enabled"
+" once a family-access consent is on file."
+msgstr ""
+"La familia solo ve el expediente mientras esto esté habilitado. Solo se "
+"puede habilitar cuando hay un consentimiento de acceso familiar registrado."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__kind__family
+msgid "Family history"
+msgstr "Antecedentes familiares"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_family_access_log_view_search
+msgid "Family member"
+msgstr "Familiar"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "Family portal"
+msgstr "Portal familiar"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_family_portal.py:0
+msgid "Family question: %s"
+msgstr "Pregunta de la familia: %s"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i01
+#: model:peart.scale.item,name:peart_clinical_record.scale_katz_i06
+msgid "Feeding"
+msgstr "Alimentación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__gender__female
+msgid "Female"
+msgstr "Femenino"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__file
+msgid "File"
+msgstr "Archivo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__filename
+msgid "Filename"
+msgstr "Nombre del archivo"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Flags"
+msgstr "Alertas"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Fluids"
+msgstr "Líquidos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__fluids_ml
+msgid "Fluids (ml)"
+msgstr "Líquidos (ml)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__follow_up
+msgid "Follow Up"
+msgstr "Seguimiento"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "Follow-up"
+msgstr "Seguimiento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_follower_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_partner_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__activity_type_icon
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font Awesome, p. ej. fa-tasks"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__category__food
+msgid "Food"
+msgstr "Alimento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__qid
+msgid "Four times daily"
+msgstr "Cuatro veces al día"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__frequency
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Frequency"
+msgstr "Frecuencia"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i04_o4
+msgid "Full"
+msgstr "Total"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__code_status__full
+msgid "Full resuscitation"
+msgstr "Reanimación completa"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i03_o3
+msgid "Furniture"
+msgstr "Se apoya en muebles"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_morse_i05
+msgid "Gait"
+msgstr "Marcha"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__gender
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Gender"
+msgstr "Sexo"
+
+#. module: peart_clinical_record
+#: model:peart.scale,name:peart_clinical_record.scale_gds15
+msgid "Geriatric Depression Scale (GDS-15)"
+msgstr "Escala de Depresión Geriátrica (GDS-15)"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_list
+msgid "Give"
+msgstr "Dar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_medication_administration__state__given
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_form
+msgid "Given"
+msgstr "Administrada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__given_at
+msgid "Given At"
+msgstr "Administrada el"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__vision__glasses
+msgid "Glasses"
+msgstr "Gafas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__glucose
+msgid "Glucose (mg/dL)"
+msgstr "Glucosa (mg/dL)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__goal
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Goal"
+msgstr "Objetivo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_care_plan__state__achieved
+msgid "Goal achieved"
+msgstr "Objetivo logrado"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i01_o4
+msgid "Good"
+msgstr "Bueno"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__state__granted
+msgid "Granted"
+msgstr "Otorgado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__granted_by_id
+msgid "Granted By"
+msgstr "Otorgado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__granted_date
+msgid "Granted Date"
+msgstr "Fecha de otorgamiento"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i03
+msgid "Grooming (face, hair, teeth, shaving)"
+msgstr "Aseo personal (cara, pelo, dientes, afeitado)"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_care
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "HR"
+msgstr "FC"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__has_alert
+msgid "Has Alert"
+msgstr "Tiene alerta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__has_message
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_gds15_i02
+msgid "Have you dropped many of your activities and interests?"
+msgstr "¿Ha abandonado muchas de sus actividades e intereses?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__kind__data_processing
+msgid "Health data processing"
+msgstr "Tratamiento de datos de salud"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__record
+msgid "Health record"
+msgstr "Expediente de salud"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__hearing
+msgid "Hearing"
+msgstr "Audición"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__hearing__aid
+msgid "Hearing aid"
+msgstr "Audífono"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__heart_rate
+msgid "Heart Rate"
+msgstr "Frecuencia cardíaca"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_medication_administration__state__held
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_form
+msgid "Held"
+msgstr "Retenida"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__care_level__3
+msgid "High"
+msgstr "Alto"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_scale_band__severity__danger
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_search
+msgid "High concern"
+msgstr "Alta preocupación"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_morse_b3
+#: model:peart.scale.band,name:peart_clinical_record.scale_norton_b2
+msgid "High risk"
+msgstr "Riesgo alto"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_morse_i01
+msgid "History of falling (now or within 3 months)"
+msgstr "Antecedente de caídas (ahora o en los últimos 3 meses)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__state__hospitalized
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_search
+msgid "Hospitalized"
+msgstr "Hospitalizado/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_scale__frequency_days
+msgid "How often this assessment should be repeated."
+msgstr "Cada cuánto debe repetirse esta valoración."
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i05
+msgid "How old are you?"
+msgstr "¿Cuántos años tiene?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__hygiene
+msgid "Hygiene"
+msgstr "Aseo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__icd10
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "ICD-10"
+msgstr "CIE-10"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_ir_actions_report__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_admission__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_res_config_settings__id
+msgid "ID"
+msgstr "ID"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__id_document
+msgid "ID document"
+msgstr "Documento de identidad"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_morse_i04
+msgid "IV therapy / heparin lock"
+msgstr "Terapia IV / heparinizado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_exception_icon
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__activity_exception_icon
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono que indica una actividad de excepción."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Identity"
+msgstr "Identidad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_assessment__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_condition__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__message_needaction
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay mensajes nuevos que requieren su atención."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_assessment__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_assessment__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_condition__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_condition__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__message_has_sms_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__message_has_error
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__image_1920
+msgid "Image"
+msgstr "Imagen"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__imaging
+msgid "Imaging"
+msgstr "Imagen diagnóstica"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__immediate_action
+msgid "Immediate Action"
+msgstr "Acción inmediata"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i04_o1
+msgid "Immobile"
+msgstr "Inmóvil"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i09_o1
+msgid "Immobile or < 50 yards"
+msgstr "Inmóvil o < 45 m"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__hearing__impaired
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__vision__impaired
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i05_o3
+msgid "Impaired"
+msgstr "Alterada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__family_notified_method__in_person
+msgid "In person"
+msgstr "En persona"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__state__active
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_search
+msgid "In residence"
+msgstr "En residencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__incident_ids
+msgid "Incident"
+msgstr "Incidente"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_incident.py:0
+msgid "Incident reports cannot be deleted."
+msgstr "Los reportes de incidentes no se pueden eliminar."
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_incident_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_incident
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_care
+msgid "Incidents"
+msgstr "Incidentes"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Incidents - last 90 days"
+msgstr "Incidentes - últimos 90 días"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_norton_i05
+msgid "Incontinence"
+msgstr "Incontinencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__incontinence_episodes
+msgid "Incontinence Episodes"
+msgstr "Episodios de incontinencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_bowel__incontinent
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_urine__incontinent
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i05_o1
+msgid "Incontinent"
+msgstr "Incontinente"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i06_o1
+msgid "Incontinent or catheterised, unable to manage"
+msgstr "Incontinente o sondado, no lo maneja"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mobility__independent
+#: model:peart.scale.band,name:peart_clinical_record.scale_barthel_b5
+#: model:peart.scale.band,name:peart_clinical_record.scale_katz_b3
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i01_o3
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i02_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i03_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i04_o3
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i07_o3
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i08_o4
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i10_o3
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i01_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i02_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i03_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i04_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i05_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_katz_i06_o2
+msgid "Independent"
+msgstr "Independiente"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i09_o4
+msgid "Independent (may use an aid) > 50 yards"
+msgstr "Independiente (puede usar ayuda técnica) > 45 m"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__infection
+msgid "Infection / illness"
+msgstr "Infección / enfermedad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__inhaled
+msgid "Inhaled"
+msgstr "Inhalada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__injury
+msgid "Injury"
+msgstr "Lesión"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__injury_description
+msgid "Injury Description"
+msgstr "Descripción de la lesión"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__instructions
+msgid "Instructions"
+msgstr "Indicaciones"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__insurance
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__insurance
+msgid "Insurance"
+msgstr "Seguro"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_spmsq_b1
+msgid "Intact cognition"
+msgstr "Cognición intacta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__intake_ids
+msgid "Intake"
+msgstr "Ingreso"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__notes
+msgid "Internal notes"
+msgstr "Notas internas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__name
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_scale_view_form
+msgid "Interpretation"
+msgstr "Interpretación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__intervention
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Intervention"
+msgstr "Intervención"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__im
+msgid "Intramuscular"
+msgstr "Intramuscular"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__iv
+msgid "Intravenous"
+msgstr "Intravenosa"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "Invalid time \"%s\". Use 24-hour HH:MM, e.g. 08:00, 20:00."
+msgstr ""
+"Hora no válida «%s». Use el formato de 24 horas HH:MM, p. ej. 08:00, 20:00."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_is_follower
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__is_late
+msgid "Is Late"
+msgstr "Está retrasada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__item_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__item_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__item_id
+msgid "Item"
+msgstr "Ítem"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_scale_view_form
+msgid "Items"
+msgstr "Ítems"
+
+#. module: peart_clinical_record
+#: model:peart.scale,name:peart_clinical_record.scale_katz
+msgid "Katz Index (ADL)"
+msgstr "Índice de Katz (AVD)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__kind
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__kind
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__kind
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__kind
+msgid "Kind"
+msgstr "Tipo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__lab
+msgid "Laboratory result"
+msgstr "Resultado de laboratorio"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Last 14 days - shift logs"
+msgstr "Últimos 14 días - registros de turno"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__write_uid
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__write_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Latest assessments"
+msgstr "Últimas valoraciones"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__legal
+msgid "Legal"
+msgstr "Legal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__legal
+msgid "Legal representative"
+msgstr "Representante legal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__line_ids
+msgid "Line"
+msgstr "Línea"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__advance_directive
+msgid "Living will, health-care proxy, wishes about hospital transfer."
+msgstr ""
+"Testamento vital, representante sanitario, deseos sobre traslado al "
+"hospital."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__location
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__log_id
+msgid "Log"
+msgstr "Registro"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__care_level__1
+msgid "Low"
+msgstr "Bajo"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_morse_b1
+msgid "Low risk"
+msgstr "Riesgo bajo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__low_sodium
+msgid "Low sodium"
+msgstr "Baja en sodio"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i08_o2
+msgid "Major help (one or two people), can sit"
+msgstr "Mucha ayuda (una o dos personas), puede sentarse"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__gender__male
+msgid "Male"
+msgstr "Masculino"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__max_score
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__max_score
+msgid "Max Score"
+msgstr "Puntaje máximo"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Meals"
+msgstr "Comidas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__intake_pct
+msgid "Meals eaten"
+msgstr "Comidas ingeridas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__contact_ids
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Medical Contacts"
+msgstr "Contactos médicos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__medical_report
+msgid "Medical report"
+msgstr "Informe médico"
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_medication_action
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__medication_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__medication_ids
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_medication
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Medication"
+msgstr "Medicación"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_medication_administration
+msgid "Medication Administration Record (MAR) entry"
+msgstr "Registro de administración de medicación (MAR)"
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_mar_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_mar
+msgid "Medication Round"
+msgstr "Ronda de medicación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__medication
+msgid "Medication error"
+msgstr "Error de medicación"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "Medication round"
+msgstr "Ronda de medicación"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_norton_b3
+msgid "Medium risk"
+msgstr "Riesgo medio"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_norton_i02
+msgid "Mental condition"
+msgstr "Estado mental"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_morse_i06
+msgid "Mental status"
+msgstr "Estado mental"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_has_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__severity__mild
+msgid "Mild"
+msgstr "Leve"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_gds15_b2
+msgid "Mild depression"
+msgstr "Depresión leve"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_spmsq_b2
+msgid "Mild impairment"
+msgstr "Deterioro leve"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_norton_b4
+msgid "Minimal risk"
+msgstr "Riesgo mínimo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__severity__minor
+msgid "Minor - no harm"
+msgstr "Menor - sin daño"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i08_o3
+msgid "Minor help (verbal or physical)"
+msgstr "Poca ayuda (verbal o física)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__mobility
+#: model:peart.scale.item,name:peart_clinical_record.scale_norton_i04
+msgid "Mobility"
+msgstr "Movilidad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__mobility_aid
+msgid "Mobility Aid"
+msgstr "Ayuda técnica"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Mobility aid"
+msgstr "Ayuda técnica"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i09
+msgid "Mobility on level surfaces"
+msgstr "Movilidad en superficie plana"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__care_level__2
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__severity__moderate
+msgid "Moderate"
+msgstr "Moderada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__severity__moderate
+msgid "Moderate - first aid / monitoring"
+msgstr "Moderado - primeros auxilios / vigilancia"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_barthel_b3
+msgid "Moderate dependency"
+msgstr "Dependencia moderada"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_gds15_b3
+msgid "Moderate depression"
+msgstr "Depresión moderada"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_katz_b2
+#: model:peart.scale.band,name:peart_clinical_record.scale_spmsq_b3
+msgid "Moderate impairment"
+msgstr "Deterioro moderado"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_morse_b2
+msgid "Moderate risk"
+msgstr "Riesgo moderado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__mood
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Mood"
+msgstr "Ánimo"
+
+#. module: peart_clinical_record
+#: model:peart.scale,name:peart_clinical_record.scale_morse
+msgid "Morse Fall Scale"
+msgstr "Escala de caídas de Morse"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__my_activity_date_deadline
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi fecha límite de actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__name
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Need"
+msgstr "Necesidad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__name
+msgid "Need / problem"
+msgstr "Necesidad / problema"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i03_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i10_o2
+msgid "Needs help"
+msgstr "Necesita ayuda"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i01_o2
+msgid "Needs help (cutting, spreading)"
+msgstr "Necesita ayuda (cortar, untar)"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i04_o2
+msgid "Needs help, does about half unaided"
+msgstr "Necesita ayuda, hace la mitad solo/a"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i07_o2
+msgid "Needs some help"
+msgstr "Necesita alguna ayuda"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "New Assessment"
+msgstr "Nueva valoración"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_calendar_event_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Próximo evento de calendario"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_date_deadline
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la próxima actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_summary
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_type_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la próxima actividad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__shift__night
+msgid "Night (19:00-07:00)"
+msgstr "Noche (19:00-07:00)"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i01_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i02_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i03_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i04_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i05_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i06_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i07_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i08_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i09_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i10_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i11_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i12_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i13_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i14_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i15_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i01_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i02_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i04_o1
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No"
+msgstr "No"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No active care plan."
+msgstr "Sin plan de cuidados activo."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No active medication."
+msgstr "Sin medicación activa."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No completed assessments."
+msgstr "Sin valoraciones completadas."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No incidents in this period."
+msgstr "Sin incidentes en este período."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_clinical.py:0
+msgid "No known allergies recorded"
+msgstr "No constan alergias conocidas"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No known allergies recorded."
+msgstr "No constan alergias conocidas."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "No shift logs in this period."
+msgstr "Sin registros de turno en este período."
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i05_o4
+msgid "None"
+msgstr "Ninguna"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "None recorded."
+msgstr "Sin registros."
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i03_o1
+msgid "None, bed rest or nurse assist"
+msgstr "Ninguna, reposo en cama o ayuda de enfermería"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__hearing__normal
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__vision__normal
+#: model:peart.scale.band,name:peart_clinical_record.scale_gds15_b1
+msgid "Normal"
+msgstr "Normal"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i05_o1
+msgid "Normal, bed rest or immobile"
+msgstr "Normal, reposo en cama o inmóvil"
+
+#. module: peart_clinical_record
+#: model:peart.scale,name:peart_clinical_record.scale_norton
+msgid "Norton Scale (pressure ulcer risk)"
+msgstr "Escala de Norton (riesgo de úlceras por presión)"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_search
+msgid "Not closed"
+msgstr "No cerrados"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_search
+msgid "Not given"
+msgstr "No administradas"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__code_status__not_set
+msgid "Not yet discussed"
+msgstr "Aún no conversado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__family_note
+msgid "Note for the family"
+msgstr "Nota para la familia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__notes
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__notes
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__notes
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__notes
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__notes
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Notes"
+msgstr "Notas"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_form
+msgid "Notes..."
+msgstr "Notas..."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "Notifications"
+msgstr "Notificaciones"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_needaction_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_has_error_counter
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_assessment__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_condition__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__message_needaction_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_assessment__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_condition__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__message_has_error_counter
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_care_plan__responsible__nurse
+#: model:res.groups,name:peart_clinical_record.group_clinical_nurse
+msgid "Nurse"
+msgstr "Enfermera"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_intake_view_form
+msgid "Nutrition"
+msgstr "Nutrición"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__o+
+msgid "O+"
+msgstr "O+"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__o-
+msgid "O-"
+msgstr "O-"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_scale_band__severity__ok
+msgid "OK"
+msgstr "Normal"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_form
+msgid "Observations..."
+msgstr "Observaciones..."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_bowel__occasional
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_urine__occasional
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i05_o3
+msgid "Occasional"
+msgstr "Ocasional"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i05_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i06_o2
+msgid "Occasional accident"
+msgstr "Accidente ocasional"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__occurred_at
+msgid "Occurred At"
+msgstr "Ocurrió el"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_medication_administration__state__omitted
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_form
+msgid "Omitted"
+msgstr "Omitida"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__od
+msgid "Once daily"
+msgstr "Una vez al día"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_family_link.py:0
+msgid ""
+"Only portal (family) users can be linked; staff already have their own "
+"roles."
+msgstr ""
+"Solo se pueden vincular usuarios del portal (familiares); el personal ya "
+"tiene sus propios roles."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Onset"
+msgstr "Inicio"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__onset_date
+msgid "Onset Date"
+msgstr "Fecha de inicio"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__state__open
+msgid "Open"
+msgstr "Abierto"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_admission_view_form_resident
+msgid "Open Resident File"
+msgstr "Abrir ficha del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__option_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__option_ids
+msgid "Option"
+msgstr "Opción"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__oral
+msgid "Oral"
+msgstr "Oral"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__organization
+msgid "Organization"
+msgstr "Organización"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__cognition_baseline
+msgid "Orientation, memory, behaviour on arrival."
+msgstr "Orientación, memoria y conducta al llegar."
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i06_o1
+msgid "Oriented to own ability"
+msgstr "Consciente de su capacidad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__gender__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__category__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__other
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__other
+msgid "Other"
+msgstr "Otro"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_search
+msgid "Out of range"
+msgstr "Fuera de rango"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_search
+msgid "Overdue (>60 min)"
+msgstr "Retrasadas (>60 min)"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i06_o2
+msgid "Overestimates or forgets limitations"
+msgstr "Sobrestima o olvida sus limitaciones"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__prn_reason
+msgid "PRN indication"
+msgstr "Indicación PRN"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__pain_score
+msgid "Pain (0-10)"
+msgstr "Dolor (0-10)"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "Pain score must be between 0 and 10."
+msgstr "El dolor debe estar entre 0 y 10."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__hygiene__partial
+msgid "Partial"
+msgstr "Parcial"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__kind__history
+msgid "Past medical history"
+msgstr "Antecedentes médicos"
+
+#. module: peart_clinical_record
+#: model:res.groups.privilege,name:peart_clinical_record.privilege_peart_clinical
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.res_config_settings_view_form_clinical
+msgid "Peart Clinical Record"
+msgstr "Expediente clínico Peart"
+
+#. module: peart_clinical_record
+#: model:ir.actions.server,name:peart_clinical_record.cron_generate_medication_round_ir_actions_server
+msgid "Peart: schedule medication doses"
+msgstr "Peart: programar dosis de medicación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_medication_administration__state__pending
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__pharmacy
+msgid "Pharmacy"
+msgstr "Farmacia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__phone
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__family_notified_method__phone
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__kind__photo
+msgid "Photos / media"
+msgstr "Fotos / multimedia"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_norton_i01
+msgid "Physical condition"
+msgstr "Estado físico"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__physician_notified
+msgid "Physician Notified"
+msgstr "Médico avisado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__physician_notified_at
+msgid "Physician Notified At"
+msgstr "Médico avisado el"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__family_summary
+msgid ""
+"Plain-language account for the family portal. Only shown when \"Share with "
+"family\" is on."
+msgstr ""
+"Relato en lenguaje sencillo para el portal familiar. Solo se muestra si "
+"«Compartir con la familia» está activado."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "Plain-language account for the family..."
+msgstr "Relato en lenguaje sencillo para la familia..."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__family_note
+msgid "Plain-language summary the family can read."
+msgstr "Resumen en lenguaje sencillo que la familia puede leer."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__review_date
+msgid "Plans are reviewed at least every 3 months."
+msgstr "Los planes se revisan al menos cada 3 meses."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__points
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__points
+msgid "Points"
+msgstr "Puntos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__policy_number
+msgid "Policy Number"
+msgstr "Número de póliza"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i01_o2
+msgid "Poor"
+msgstr "Malo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__sleep__poor
+msgid "Poor / awake"
+msgstr "Mal / despierto/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__user_id
+msgid "Portal User"
+msgstr "Usuario del portal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__preferred_lang
+msgid "Preferred Language"
+msgstr "Idioma preferido"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__prescriber_id
+msgid "Prescribed by"
+msgstr "Prescrito por"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Prescriber"
+msgstr "Prescriptor"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__prescription
+msgid "Prescription"
+msgstr "Receta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__is_primary
+msgid "Primary contact"
+msgstr "Contacto principal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__physician
+msgid "Primary physician"
+msgstr "Médico de cabecera"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__pureed
+msgid "Pureed"
+msgstr "Triturada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__question
+msgid "Question"
+msgstr "Pregunta"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__reaction
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Reaction"
+msgstr "Reacción"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__reason
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__reason_for_admission
+msgid "Reason For Admission"
+msgstr "Motivo de ingreso"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Reason for admission"
+msgstr "Motivo de ingreso"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_family_access_log
+msgid "Record Access Log"
+msgstr "Registro de accesos"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_family_link.py:0
+msgid "Record a family-access consent for %s before enabling family access."
+msgstr ""
+"Registre un consentimiento de acceso familiar para %s antes de habilitar el "
+"acceso."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "Record at least one observation for %s before closing."
+msgstr "Registre al menos una observación para %s antes de cerrar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_incident.py:0
+msgid "Record that the family was notified before closing."
+msgstr "Registre que se avisó a la familia antes de cerrar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_incident.py:0
+msgid "Record that the physician was notified before closing."
+msgstr "Registre que se avisó al médico antes de cerrar."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__recorded_by_id
+msgid "Recorded By"
+msgstr "Registrado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__author_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__given_by_id
+msgid "Recorded by"
+msgstr "Registrado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__rectal
+msgid "Rectal"
+msgstr "Rectal"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Ref."
+msgstr "Ref."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__name
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__hospital
+msgid "Referral hospital"
+msgstr "Hospital de referencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__hygiene__refused
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_medication_administration__state__refused
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_form
+msgid "Refused"
+msgstr "Rechazada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__regular
+msgid "Regular"
+msgstr "Normal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__relationship
+msgid "Relationship"
+msgstr "Parentesco"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale__frequency_days
+msgid "Repeat every (days)"
+msgstr "Repetir cada (días)"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_ir_actions_report
+msgid "Report Action"
+msgstr "Acción de informe"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__report
+msgid "Report printed"
+msgstr "Informe impreso"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__reported_by_id
+msgid "Reported By"
+msgstr "Reportado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__repositioned
+msgid "Repositioned as per plan"
+msgstr "Cambio de posición según plan"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_form
+msgid "Required for refused / omitted / held; indication for PRN"
+msgstr "Obligatorio si se rechaza, omite o retiene; indicación si es PRN"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_medication_administration__reason
+msgid ""
+"Required when the dose is refused, omitted or held (or the PRN indication)."
+msgstr ""
+"Obligatorio cuando la dosis se rechaza, omite o retiene (o la indicación si "
+"es PRN)."
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_admission__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_contact__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__resident_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__resident_id
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Resident"
+msgstr "Residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_allergy
+msgid "Resident Allergy"
+msgstr "Alergia del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_assessment
+msgid "Resident Assessment"
+msgstr "Valoración del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_assessment_line
+msgid "Resident Assessment Answer"
+msgstr "Respuesta de valoración del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_care_plan
+msgid "Resident Care Plan Item"
+msgstr "Elemento del plan de cuidados"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_intake
+msgid "Resident Clinical Intake"
+msgstr "Ingreso clínico del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__code
+msgid "Resident Code"
+msgstr "Código del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_consent
+msgid "Resident Consent"
+msgstr "Consentimiento del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_condition
+msgid "Resident Diagnosis / History"
+msgstr "Diagnóstico / antecedente del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_document
+msgid "Resident Document"
+msgstr "Documento del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_family_link
+msgid "Resident Family Access Link"
+msgstr "Vínculo de acceso familiar"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_incident
+msgid "Resident Incident Report"
+msgstr "Reporte de incidente del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_contact
+msgid "Resident Medical Contact"
+msgstr "Contacto médico del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_resident_medication
+msgid "Resident Medication Order"
+msgstr "Orden de medicación del residente"
+
+#. module: peart_clinical_record
+#: model:ir.actions.report,name:peart_clinical_record.action_report_resident_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Resident Record"
+msgstr "Expediente del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_daily_log
+msgid "Resident Shift Log"
+msgstr "Registro de turno del residente"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.res_config_settings_view_form_clinical
+msgid ""
+"Resident data is sent to this provider when a family member asks ARIA a "
+"question. Choose one approved for health data. There is no fallback "
+"provider."
+msgstr ""
+"Los datos del residente se envían a este proveedor cuando un familiar le "
+"hace una pregunta a ARIA. Elija uno aprobado para datos de salud. No hay "
+"proveedor de respaldo."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Resident name"
+msgstr "Nombre del residente"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__signed_by
+msgid "Resident, or legal representative if the resident cannot sign."
+msgstr "El residente o su representante legal si no puede firmar."
+
+#. module: peart_clinical_record
+#: model:ir.actions.act_window,name:peart_clinical_record.peart_resident_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_clinical_root
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_resident
+msgid "Residents"
+msgstr "Residentes"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__status__resolved
+msgid "Resolved"
+msgstr "Resuelto"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__resp_rate
+msgid "Respiratory rate"
+msgstr "Frecuencia respiratoria"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__responsible
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__activity_user_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__sleep__fair
+msgid "Restless"
+msgstr "Inquieto/a"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Result"
+msgstr "Resultado"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Review"
+msgstr "Revisión"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_incident.py:0
+msgid "Review %(severity)s incident: %(resident)s"
+msgstr "Revisar incidente %(severity)s: %(resident)s"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__review_date
+msgid "Review Date"
+msgstr "Fecha de revisión"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Revoke"
+msgstr "Revocar"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid ""
+"Revoke this consent? Family access is removed if no other family-access "
+"consent remains."
+msgstr ""
+"¿Revocar este consentimiento? Se quita el acceso familiar si no queda otro "
+"consentimiento de acceso familiar."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_consent__state__revoked
+msgid "Revoked"
+msgstr "Revocado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__revoked_date
+msgid "Revoked Date"
+msgstr "Fecha de revocación"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__room
+msgid "Room"
+msgstr "Habitación"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Room / bed"
+msgstr "Habitación / cama"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__route
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__route
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Route"
+msgstr "Vía"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_care
+msgid "SBP"
+msgstr "TAS"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__message_has_sms_error
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega de SMS"
+
+#. module: peart_clinical_record
+#: model:peart.scale,name:peart_clinical_record.scale_spmsq
+msgid "SPMSQ (cognition - errors)"
+msgstr "SPMSQ (cognición - errores)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__sad
+msgid "Sad"
+msgstr "Triste"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__scale_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__scale_id
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__scale_id
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_assessment_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Scale"
+msgstr "Escala"
+
+#. module: peart_clinical_record
+#: model:ir.model.constraint,message:peart_clinical_record.constraint_peart_scale_code_uniq
+msgid "Scale code must be unique."
+msgstr "El código de la escala debe ser único."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__schedule_times
+msgid "Schedule Times"
+msgstr "Horarios"
+
+#. module: peart_clinical_record
+#: model:ir.actions.server,name:peart_clinical_record.peart_mar_generate_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_mar_generate
+msgid "Schedule today's doses"
+msgstr "Programar las dosis de hoy"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__scheduled_datetime
+msgid "Scheduled Datetime"
+msgstr "Fecha y hora programadas"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Score"
+msgstr "Puntaje"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__score_max
+msgid "Score Max"
+msgstr "Puntaje máximo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__score_min
+msgid "Score Min"
+msgstr "Puntaje mínimo"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_morse_i02
+msgid "Secondary diagnosis"
+msgstr "Diagnóstico secundario"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_intake_view_form
+msgid "Senses and mobility"
+msgstr "Sentidos y movilidad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__severity__sentinel
+msgid "Sentinel - hospital / death"
+msgstr "Centinela - hospital / fallecimiento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment_line__item_sequence
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_item__sequence
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_option__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__severity__serious
+msgid "Serious - medical treatment"
+msgstr "Grave - tratamiento médico"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_search
+msgid "Serious / sentinel"
+msgstr "Grave / centinela"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_allergy__severity__severe
+msgid "Severe / anaphylaxis"
+msgstr "Grave / anafilaxia"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_barthel_b2
+msgid "Severe dependency"
+msgstr "Dependencia severa"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_gds15_b4
+msgid "Severe depression"
+msgstr "Depresión severa"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_katz_b1
+msgid "Severe functional impairment"
+msgstr "Deterioro funcional severo"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_spmsq_b4
+msgid "Severe impairment"
+msgstr "Deterioro severo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__severity
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__severity
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__severity
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_scale_band__severity
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Severity"
+msgstr "Gravedad"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__family_visible
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__family_visible
+msgid "Share with family"
+msgstr "Compartir con la familia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__shift
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Shift"
+msgstr "Turno"
+
+#. module: peart_clinical_record
+#: model:ir.actions.server,name:peart_clinical_record.peart_daily_log_shift_action
+#: model:ir.ui.menu,name:peart_clinical_record.menu_peart_shift_log
+msgid "Shift Log"
+msgstr "Registro de turno"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "Shift Log - %(date)s %(shift)s"
+msgstr "Registro de turno - %(date)s %(shift)s"
+
+#. module: peart_clinical_record
+#: model:ir.model,name:peart_clinical_record.model_peart_daily_log_addendum
+msgid "Shift Log Addendum"
+msgstr "Addendum del registro de turno"
+
+#. module: peart_clinical_record
+#: model:ir.actions.report,name:peart_clinical_record.action_report_shift_summary
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Shift Summary"
+msgstr "Resumen de turno"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "Shift log %(shift)s %(date)s flagged: %(flags)s"
+msgstr "Registro de turno %(shift)s %(date)s con alertas: %(flags)s"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__signed_by
+msgid "Signed By"
+msgstr "Firmado por"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_document__category__consent
+msgid "Signed consent"
+msgstr "Consentimiento firmado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__document
+msgid "Signed document"
+msgstr "Documento firmado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__signer_relationship
+msgid "Signer relationship"
+msgstr "Parentesco del firmante"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Since"
+msgstr "Desde"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__skin
+msgid "Skin / pressure injury"
+msgstr "Piel / úlcera por presión"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__skin_on_admission
+msgid "Skin On Admission"
+msgstr "Piel al ingreso"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__sleep
+msgid "Sleep"
+msgstr "Sueño"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__sleep__good
+msgid "Slept well"
+msgstr "Durmió bien"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_barthel_b4
+msgid "Slight dependency"
+msgstr "Dependencia leve"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i04_o3
+msgid "Slightly limited"
+msgstr "Ligeramente limitada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__soft
+msgid "Soft / minced"
+msgstr "Blanda / picada"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "SpO2"
+msgstr "SpO2"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__spo2
+msgid "SpO2 (%)"
+msgstr "SpO2 (%)"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "SpO2 must be between 0 and 100."
+msgstr "La SpO2 debe estar entre 0 y 100."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_contact__kind__specialist
+msgid "Specialist"
+msgstr "Especialista"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident__care_level__4
+msgid "Specialized"
+msgstr "Especializado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__spiritual_preferences
+msgid "Spiritual Preferences"
+msgstr "Preferencias espirituales"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__notes
+msgid "Staff only - never shown to the family."
+msgstr "Solo personal - nunca se muestra a la familia."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__staff_view
+msgid "Staff opened the record"
+msgstr "El personal abrió el expediente"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i10
+msgid "Stairs"
+msgstr "Escaleras"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__start_date
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__start_date
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "Start review"
+msgstr "Iniciar revisión"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_medication_administration__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__state
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__state
+msgid "State"
+msgstr "Estado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__status
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Status"
+msgstr "Estado"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__activity_state
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado según las actividades\n"
+"Vencida: la fecha límite ya pasó\n"
+"Hoy: la actividad es hoy\n"
+"Planificada: actividades futuras."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form
+msgid "Stay"
+msgstr "Estancia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__continence_bowel__stoma
+msgid "Stoma"
+msgstr "Estoma"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Stop"
+msgstr "Suspender"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__stop_reason
+msgid "Stop Reason"
+msgstr "Motivo de suspensión"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_resident_view_form_clinical
+msgid "Stop this medication?"
+msgstr "¿Suspender esta medicación?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__state__stopped
+msgid "Stopped"
+msgstr "Suspendida"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i02_o1
+msgid "Stuporous"
+msgstr "Estuporoso"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__sc
+msgid "Subcutaneous"
+msgstr "Subcutánea"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__sl
+msgid "Sublingual"
+msgstr "Sublingual"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i10
+msgid "Subtract 3 from 20, then keep subtracting 3 from each new number"
+msgstr "Reste 3 de 20 y siga restando 3 de cada nuevo número"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_family_access_log__action__summary
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_condition__kind__surgery
+msgid "Surgery / procedure"
+msgstr "Cirugía / procedimiento"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__swallowing_difficulty
+msgid "Swallowing Difficulty"
+msgstr "Dificultad para tragar"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Swallowing difficulty"
+msgstr "Dificultad para tragar"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__bp_systolic
+msgid "Systolic BP"
+msgstr "TA sistólica"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_list
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "Temp"
+msgstr "Temp."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__temperature
+msgid "Temperature (°C)"
+msgstr "Temperatura (°C)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log_addendum__text
+msgid "Text"
+msgstr "Texto"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_clinical.py:0
+msgid "The end date cannot be before the start date."
+msgstr "La fecha de fin no puede ser anterior a la de inicio."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_resident_assessment.py:0
+msgid "The selected answer does not belong to this item."
+msgstr "La respuesta seleccionada no pertenece a este ítem."
+
+#. module: peart_clinical_record
+#: model:ir.model.constraint,message:peart_clinical_record.constraint_peart_daily_log_resident_shift_uniq
+msgid "There is already a log for this resident and shift."
+msgstr "Ya existe un registro para este residente y turno."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__diet_type__thickened
+msgid "Thickened fluids"
+msgstr "Líquidos espesados"
+
+#. module: peart_clinical_record
+#: model:ir.model.constraint,message:peart_clinical_record.constraint_peart_resident_partner_uniq
+msgid "This contact is already registered as a resident."
+msgstr "Este contacto ya está registrado como residente."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_medication_administration.py:0
+msgid "This dose has already been recorded."
+msgstr "Esta dosis ya fue registrada."
+
+#. module: peart_clinical_record
+#: model:ir.model.constraint,message:peart_clinical_record.constraint_peart_medication_administration_dose_uniq
+msgid "This dose is already scheduled."
+msgstr "Esta dosis ya está programada."
+
+#. module: peart_clinical_record
+#: model:ir.model.constraint,message:peart_clinical_record.constraint_peart_resident_intake_resident_uniq
+msgid "This resident already has a clinical intake."
+msgstr "Este residente ya tiene un ingreso clínico."
+
+#. module: peart_clinical_record
+#: model:ir.model.constraint,message:peart_clinical_record.constraint_peart_resident_family_link_resident_user_uniq
+msgid "This user is already linked to the resident."
+msgstr "Este usuario ya está vinculado al residente."
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__tid
+msgid "Three times daily"
+msgstr "Tres veces al día"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Times"
+msgstr "Horarios"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_mar_view_search
+msgid "Today"
+msgstr "Hoy"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i07
+msgid "Toilet use"
+msgstr "Uso del retrete"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_katz_i03
+msgid "Toileting"
+msgstr "Uso del retrete"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__route__topical
+msgid "Topical"
+msgstr "Tópica"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__total
+msgid "Total"
+msgstr "Total"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_barthel_b1
+msgid "Total dependency"
+msgstr "Dependencia total"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_katz_i04
+msgid "Transferring"
+msgstr "Traslados"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_barthel_i08
+msgid "Transfers (bed to chair)"
+msgstr "Traslados (cama a silla)"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__bid
+msgid "Twice daily"
+msgstr "Dos veces al día"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_search
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Type"
+msgstr "Tipo"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__activity_exception_decoration
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción registrada."
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i01_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i10_o1
+msgid "Unable"
+msgstr "Incapaz"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i08_o1
+msgid "Unable, no sitting balance"
+msgstr "Incapaz, sin equilibrio sentado/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__state__review
+msgid "Under review"
+msgstr "En revisión"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_intake__blood_type__unknown
+msgid "Unknown"
+msgstr "Desconocido"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__uploaded_by_id
+msgid "Uploaded By"
+msgstr "Subido por"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i05_o1
+msgid "Urinary and faecal"
+msgstr "Urinaria y fecal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_family_access_log__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i05_o2
+msgid "Usually urinary"
+msgstr "Habitualmente urinaria"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i01_o1
+msgid "Very bad"
+msgstr "Muy malo"
+
+#. module: peart_clinical_record
+#: model:peart.scale.band,name:peart_clinical_record.scale_norton_b1
+msgid "Very high risk"
+msgstr "Riesgo muy alto"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i04_o2
+msgid "Very limited"
+msgstr "Muy limitada"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_allergy__family_visible
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__family_visible
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__family_visible
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__family_visible
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_document__family_visible
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__family_visible
+msgid "Visible to family"
+msgstr "Visible para la familia"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__vision
+msgid "Vision"
+msgstr "Visión"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Vision / hearing"
+msgstr "Visión / audición"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__visitors
+msgid "Visitors"
+msgstr "Visitas"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_daily_log_view_form
+msgid "Vital signs"
+msgstr "Signos vitales"
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_daily_log.py:0
+msgid "Vital signs cannot be negative."
+msgstr "Los signos vitales no pueden ser negativos."
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_norton_i03_o3
+msgid "Walks with help"
+msgstr "Camina con ayuda"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i09_o3
+msgid "Walks with help of one person > 50 yards"
+msgstr "Camina con ayuda de una persona > 45 m"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__kind__elopement
+msgid "Wandering / elopement"
+msgstr "Deambulación / fuga"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_scale_band__severity__warn
+msgid "Watch"
+msgstr "Vigilar"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i05_o2
+msgid "Weak"
+msgstr "Débil"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_assessment__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_care_plan__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_condition__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_consent__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_family_link__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_intake__website_message_ids
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_resident_medication__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_incident__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_assessment__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_care_plan__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_condition__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_consent__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_family_link__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__website_message_ids
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_resident_medication__frequency__weekly
+msgid "Weekly"
+msgstr "Semanal"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_daily_log__weight
+msgid "Weight (kg)"
+msgstr "Peso (kg)"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i02
+msgid "What day of the week is it?"
+msgstr "¿Qué día de la semana es?"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.peart_incident_view_form
+msgid "What happened"
+msgstr "Qué ocurrió"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i01
+msgid "What is the date today (month, day, year)?"
+msgstr "¿Qué fecha es hoy (mes, día, año)?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i03
+msgid "What is the name of this place?"
+msgstr "¿Cómo se llama este lugar?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i04
+msgid "What is your telephone number (or address if none)?"
+msgstr "¿Cuál es su número de teléfono (o dirección si no tiene)?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i09
+msgid "What was your mother's maiden name?"
+msgstr "¿Cuál era el apellido de soltera de su madre?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_incident__family_notified_method__whatsapp
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_barthel_i09_o2
+msgid "Wheelchair independent > 50 yards"
+msgstr "Independiente en silla de ruedas > 45 m"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_daily_log__family_visible
+msgid ""
+"When the log is closed, the family sees the vitals, care summary and the "
+"family note. Internal notes are never shared."
+msgstr ""
+"Al cerrar el registro, la familia ve los signos vitales, el resumen de "
+"cuidados y la nota para la familia. Las notas internas nunca se comparten."
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i06
+msgid "When were you born (month, day, year)?"
+msgstr "¿Cuándo nació (mes, día, año)?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i07
+msgid "Who is the current Prime Minister?"
+msgstr "¿Quién es el Primer Ministro actual?"
+
+#. module: peart_clinical_record
+#: model:peart.scale.item,name:peart_clinical_record.scale_spmsq_i08
+msgid "Who was the previous Prime Minister?"
+msgstr "¿Quién fue el Primer Ministro anterior?"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields.selection,name:peart_clinical_record.selection__peart_daily_log__mood__withdrawn
+msgid "Withdrawn"
+msgstr "Retraído/a"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,field_description:peart_clinical_record.field_peart_incident__witnesses
+msgid "Witnesses"
+msgstr "Testigos"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_intake__skin_on_admission
+msgid "Wounds, pressure areas or bruising found on arrival."
+msgstr "Heridas, zonas de presión o moretones al llegar."
+
+#. module: peart_clinical_record
+#. odoo-python
+#: code:addons/peart_clinical_record/models/peart_family_portal.py:0
+msgid "Write a message first."
+msgstr "Escriba un mensaje primero."
+
+#. module: peart_clinical_record
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i01_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i02_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i03_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i04_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i05_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i06_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i07_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i08_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i09_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i10_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i11_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i12_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i13_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i14_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_gds15_i15_o1
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i01_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i02_o2
+#: model:peart.scale.option,name:peart_clinical_record.scale_morse_i04_o2
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+msgid "Yes"
+msgstr "Sí"
+
+#. module: peart_clinical_record
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_medication_administration__dose
+#: model:ir.model.fields,help:peart_clinical_record.field_peart_resident_medication__dose
+msgid "e.g. 500 mg, 2 puffs"
+msgstr "p. ej. 500 mg, 2 inhalaciones"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "not yet closed."
+msgstr "sin cerrar."
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_resident_record_document
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "on"
+msgstr "el"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "resident logs -"
+msgstr "registros de residentes -"
+
+#. module: peart_clinical_record
+#: model_terms:ir.ui.view,arch_db:peart_clinical_record.report_shift_summary_document
+msgid "with values out of range -"
+msgstr "con valores fuera de rango -"

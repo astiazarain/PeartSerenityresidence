@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Valores iniciales propuestos. DEBEN ser validados por el médico o la
+         directora de enfermería antes de usar el panel con residentes reales. -->
+    <record id="threshold_meds_overdue" model="ops.hud.threshold">
+        <field name="code">meds_overdue</field>
+        <field name="name">Dosis atrasadas (más de 60 min)</field>
+        <field name="unit">dosis</field>
+        <field name="warn">1</field>
+        <field name="danger">3</field>
+        <field name="higher_is_worse" eval="True"/>
+    </record>
+    <record id="threshold_meds_max_delay" model="ops.hud.threshold">
+        <field name="code">meds_max_delay</field>
+        <field name="name">Mayor retraso de una dosis</field>
+        <field name="unit">min</field>
+        <field name="warn">61</field>
+        <field name="danger">120</field>
+        <field name="higher_is_worse" eval="True"/>
+    </record>
+    <record id="threshold_logs_closed_pct" model="ops.hud.threshold">
+        <field name="code">logs_closed_pct</field>
+        <field name="name">Registros de turno cerrados (1 h después del cambio de turno)</field>
+        <field name="unit">%</field>
+        <field name="warn">95</field>
+        <field name="danger">80</field>
+        <field name="higher_is_worse" eval="False"/>
+    </record>
+    <record id="threshold_logs_alerts" model="ops.hud.threshold">
+        <field name="code">logs_alerts</field>
+        <field name="name">Registros con valores fuera de rango (24 h)</field>
+        <field name="unit">registros</field>
+        <field name="warn">1</field>
+        <field name="danger">3</field>
+        <field name="higher_is_worse" eval="True"/>
+    </record>
+    <record id="threshold_compliance_overdue" model="ops.hud.threshold">
+        <field name="code">compliance_overdue</field>
+        <field name="name">Elementos de cumplimiento vencidos</field>
+        <field name="unit">elementos</field>
+        <field name="warn">1</field>
+        <field name="danger">4</field>
+        <field name="higher_is_worse" eval="True"/>
+    </record>
+    <record id="threshold_compliance_days" model="ops.hud.threshold">
+        <field name="code">compliance_days</field>
+        <field name="name">Mayor retraso de un elemento de cumplimiento</field>
+        <field name="unit">días</field>
+        <field name="warn">1</field>
+        <field name="danger">30</field>
+        <field name="higher_is_worse" eval="True"/>
+    </record>
+    <record id="threshold_family_question_hours" model="ops.hud.threshold">
+        <field name="code">family_question_hours</field>
+        <field name="name">Pregunta de una familia sin responder</field>
+        <field name="unit">horas</field>
+        <field name="warn">1</field>
+        <field name="danger">24</field>
+        <field name="higher_is_worse" eval="True"/>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+/* Clinical PDFs (resident record, shift summary). Plain values only: the
+   reports are rendered by wkhtmltopdf's old WebKit, which ignores var(). */
+.o_peart_clinical_report h3 { font-family: Cambria, Georgia, serif; margin: 6px 0 10px; }
+.o_peart_clinical_report h4 {
+    font-family: Cambria, Georgia, serif; font-size: 14px; margin: 16px 0 6px;
+    padding-bottom: 3px; border-bottom: 2px solid #C9A227; color: #0D0D0D;
+    page-break-after: avoid;
+}
+.o_peart_clinical_report table { font-size: 11px; page-break-inside: auto; }
+.o_peart_clinical_report tr { page-break-inside: avoid; }
+.o_peart_clinical_report th { background-color: #F5EFDC; }
+.o_peart_kv th { width: 16%; background-color: #F5EFDC; }
+.o_peart_small { font-size: 9.5px !important; }
+.o_peart_confidential {
+    font-size: 10px; color: #8A1C1C; border: 1px solid #8A1C1C; padding: 4px 8px; margin-bottom: 10px;
+}
+.o_peart_flag { color: #8A1C1C; font-weight: bold; }
+.o_peart_row_alert td { background-color: #FBE9E9; }
+
+.o_peart_block { page-break-inside: avoid; }
+.o_peart_clinical_report p { font-size: 11px; }

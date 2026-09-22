@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="ops_hud_dashboard.Dashboard" owl="1">
+    <div class="o_hud_root" t-ref="dashboardRoot">
+
+        <div class="o_hud_topbar">
+            <div class="o_hud_brand">
+                <span class="o_hud_brand_dot"/>
+                <span class="o_hud_brand_text">CENTRO DE CONTROL</span>
+            </div>
+            <div class="o_hud_tabs">
+                <button t-foreach="state.tabs" t-as="tab" t-key="tab.id"
+                        t-attf-class="o_hud_tab {{state.activeTab === tab.id ? 'o_hud_tab_active' : ''}}"
+                        t-on-click="() => this.switchTab(tab.id)"><t t-esc="tab.label"/></button>
+            </div>
+            <div class="o_hud_topbar_right">
+                <span class="o_hud_clock" t-esc="state.clock"/>
+                <span class="o_hud_live">
+                    <span class="o_hud_live_dot"/> LIVE
+                </span>
+                <button class="o_hud_refresh_btn" t-on-click="toggleDrawer">
+                    <t t-esc="'MÉTRICAS (' + activeCount().active + '/' + activeCount().total + ')'"/>
+                </button>
+                <button class="o_hud_refresh_btn" t-on-click="refresh">
+                    ⟳ Actualizar
+                </button>
+            </div>
+        </div>
+
+        <div t-if="state.activeTab and state.tabLoading[state.activeTab]" class="o_hud_loading">
+            Cargando datos del centro de control...
+        </div>
+        <div t-if="state.ready and !state.tabs.length" class="o_hud_loading">
+            Su usuario no tiene acceso a ningún panel del centro de control.
+        </div>
+
+        <!-- ============================================================
+             Panel de Métricas — drawer lateral
+             ============================================================ -->
+        <div t-if="state.drawerOpen" class="o_hud_drawer_overlay" t-on-click="toggleDrawer">
+            <div class="o_hud_drawer" t-on-click.stop="() => {}">
+                <div class="o_hud_drawer_header">
+                    <div>
+                        <div class="o_hud_drawer_title">Métricas del tablero</div>
+                        <div class="o_hud_drawer_subtitle">ELEGÍ QUÉ VER · TOCÁ EL TIPO PARA CAMBIAR EL GRÁFICO</div>
+                    </div>
+                    <button class="o_hud_drawer_close" t-on-click="toggleDrawer">✕</button>
+                </div>
+
+                <div class="o_hud_drawer_body">
+                    <div t-foreach="metricGroups()" t-as="group" t-key="group.category" class="o_hud_drawer_group">
+                        <div class="o_hud_drawer_group_title">
+                            <t t-esc="group.category"/> · <t t-esc="group.metrics.length"/>
+                        </div>
+                        <div t-foreach="group.metrics" t-as="metric" t-key="metric.id" class="o_hud_drawer_row">
+                            <label class="o_hud_drawer_checkbox">
+                                <input type="checkbox"
+                                       t-att-checked="state.metricsConfig[metric.id].visible"
+                                       t-on-change="() => this.toggleMetric(metric.id)"/>
+                            </label>
+                            <div class="o_hud_drawer_row_info">
+                                <div class="o_hud_drawer_row_label" t-esc="metric.label"/>
+                                <div class="o_hud_drawer_row_source" t-esc="metric.source"/>
+                            </div>
+                            <span t-if="metric.chartTypes and metric.chartTypes.length > 1"
+                                  class="o_hud_metric_badge o_hud_metric_badge_clickable"
+                                  t-on-click="() => this.cycleChartType(metric.id)"
+                                  t-esc="chartTypeLabel(state.metricsConfig[metric.id].chartType)"/>
+                            <span t-elif="metric.chartTypes"
+                                  class="o_hud_metric_badge"
+                                  t-esc="chartTypeLabel(metric.defaultChartType)"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="o_hud_drawer_footer">
+                    <span><t t-esc="activeCount().active"/> de <t t-esc="activeCount().total"/> activas</span>
+                    <span class="o_hud_drawer_footer_actions">
+                        <button t-on-click="() => this.toggleAllActiveTab(false)">NINGUNA</button>
+                        <button t-on-click="() => this.toggleAllActiveTab(true)">TODAS</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             Cuerpo principal
+             ============================================================ -->
+        <div t-if="state.activeTab and !state.tabLoading[state.activeTab] and state.tabData[state.activeTab]" class="o_hud_body">
+
+            <div class="o_hud_kpi_row">
+                <div t-foreach="visibleMetrics('kpi')" t-as="metric" t-key="metric.id"
+                     t-attf-class="o_hud_kpi_card {{kpiStatusClass(metric)}}"
+                     t-on-click="() => this.onKpiClick(metric)">
+                    <div class="o_hud_kpi_label" t-esc="metric.label"/>
+                    <div class="o_hud_kpi_value" t-esc="formatKpiValue(metric)"/>
+                    <div t-if="kpiHint(metric)" class="o_hud_kpi_hint" t-esc="kpiHint(metric)"/>
+                    <t t-if="metric.sparkline">
+                        <t t-set="kpi" t-value="metricKpi(metric)"/>
+                        <div t-if="kpi and kpi.delta_pct !== null and kpi.delta_pct !== undefined"
+                             t-attf-class="o_hud_kpi_delta {{kpi.delta_pct >= 0 ? 'o_hud_kpi_good' : 'o_hud_kpi_bad'}}">
+                            <t t-esc="(kpi.delta_pct >= 0 ? '+' : '') + kpi.delta_pct + '%'"/>
+                        </div>
+                        <div class="o_hud_sparkline"><canvas t-att-data-spark-id="metric.id"/></div>
+                    </t>
+                </div>
+            </div>
+
+            <!-- Chat con el Coordinador — fuera del sistema de métricas,
+                 siempre visible sin importar la pestaña activa. -->
+            <div t-if="state.canChat" class="o_hud_panel o_hud_chat_panel">
+                <div class="o_hud_panel_title">
+                    Coordinador — Chat
+                    <span class="o_hud_panel_subtitle">Pedile en lenguaje natural que genere contenido, consulte métricas o prepare una publicación.</span>
+                </div>
+                <div class="o_hud_chat_messages" t-ref="chatMessages">
+                    <div t-if="!state.chat.messages.length" class="o_hud_empty">
+                        Escribí algo como "generá una publicación sobre la nueva promoción" o "¿cuántas aprobaciones pendientes hay?"
+                    </div>
+                    <div t-foreach="state.chat.messages" t-as="msg" t-key="msg_index"
+                         t-attf-class="o_hud_chat_msg o_hud_chat_msg_{{msg.role}}{{msg.isError ? ' o_hud_chat_msg_error' : ''}}">
+                        <t t-esc="msg.content"/>
+                    </div>
+                    <div t-if="state.chat.sending" class="o_hud_chat_msg o_hud_chat_msg_agent o_hud_chat_typing">
+                        Pensando...
+                    </div>
+                </div>
+                <div class="o_hud_chat_input_row">
+                    <input type="text"
+                           class="o_hud_chat_input"
+                           placeholder="Escribile al Coordinador..."
+                           t-model="state.chat.input"
+                           t-on-keydown="_onChatKeydown"
+                           t-att-disabled="state.chat.sending"/>
+                    <button class="o_hud_chat_send_btn" t-on-click="sendChatMessage" t-att-disabled="state.chat.sending">
+                        Enviar
+                    </button>
+                </div>
+            </div>
+
+            <div t-foreach="visibleMetrics('assistant')" t-as="metric" t-key="metric.id"
+                 class="o_hud_panel o_hud_chat_panel o_hud_panel_wide">
+                <div class="o_hud_panel_title">
+                    <t t-esc="metric.label"/>
+                    <span class="o_hud_panel_subtitle" t-esc="metric.source"/>
+                </div>
+                <div class="o_hud_chat_messages">
+                    <div t-if="!state.assistants[metric.id] or !state.assistants[metric.id].messages.length" class="o_hud_empty">
+                        <t t-esc="metric.placeholder or 'Escribe tu pregunta...'"/>
+                    </div>
+                    <div t-foreach="(state.assistants[metric.id] and state.assistants[metric.id].messages) or []"
+                         t-as="msg" t-key="msg_index"
+                         t-attf-class="o_hud_chat_msg o_hud_chat_msg_{{msg.role}}{{msg.isError ? ' o_hud_chat_msg_error' : ''}}">
+                        <t t-esc="msg.content"/>
+                    </div>
+                    <div t-if="state.assistants[metric.id] and state.assistants[metric.id].sending"
+                         class="o_hud_chat_msg o_hud_chat_msg_agent o_hud_chat_typing">
+                        Pensando...
+                    </div>
+                </div>
+                <div class="o_hud_chat_input_row">
+                    <input type="text" class="o_hud_chat_input"
+                           t-att-placeholder="metric.inputPlaceholder or 'Escribí tu pregunta...'"
+                           t-model="state.assistants[metric.id].input"
+                           t-on-keydown="(ev) => this._onAssistantKeydown(ev, metric)"
+                           t-att-disabled="state.assistants[metric.id] and state.assistants[metric.id].sending"/>
+                    <button class="o_hud_chat_send_btn" t-on-click="() => this.sendAssistantMessage(metric)"
+                            t-att-disabled="state.assistants[metric.id] and state.assistants[metric.id].sending">
+                        Enviar
+                    </button>
+                </div>
+            </div>
+
+            <div class="o_hud_grid">
+                <div t-foreach="visibleMetrics('chart')" t-as="metric" t-key="metric.id"
+                     t-attf-class="o_hud_panel {{metric.wide ? 'o_hud_panel_wide' : ''}}">
+                    <div class="o_hud_panel_title" t-esc="metric.label"/>
+                    <div class="o_hud_chart_box"><canvas t-att-data-chart-id="metric.id"/></div>
+                </div>
+
+                <t t-foreach="visibleMetrics('table')" t-as="metric" t-key="metric.id">
+                    <div t-attf-class="o_hud_panel {{metric.wide ? 'o_hud_panel_wide' : ''}}">
+                        <div class="o_hud_panel_title" t-esc="metric.label"/>
+
+                        <!-- Tabla genérica (metric.columns): filas con severidad y clic -->
+                        <t t-if="metric.columns">
+                            <div t-if="!tableData(metric).length" class="o_hud_empty" t-esc="metric.emptyText or 'Sin datos.'"/>
+                            <table t-if="tableData(metric).length" class="o_hud_table">
+                                <thead>
+                                    <tr><th t-foreach="metric.columns" t-as="col" t-key="col.key" t-esc="col.label"/></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="tableData(metric)" t-as="row" t-key="row_index"
+                                        t-attf-class="{{row.action ? 'o_hud_row_link' : ''}}"
+                                        t-on-click="() => this.openAction(row.action)">
+                                        <td t-foreach="metric.columns" t-as="col" t-key="col.key">
+                                            <span t-if="col.key === 'severity'"
+                                                  t-attf-class="o_hud_sev_chip o_hud_sev_{{row.severity}}"
+                                                  t-esc="row.severity_label"/>
+                                            <t t-else="" t-esc="row[col.key]"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- Estado de cuentas conectadas -->
+                        <t t-if="metric.id === 'account_status'">
+                            <div class="o_hud_status_list">
+                                <div t-if="!tableData(metric).length" class="o_hud_empty">No hay cuentas configuradas.</div>
+                                <div t-foreach="tableData(metric)" t-as="acc" t-key="acc.name" class="o_hud_status_row">
+                                    <span t-esc="acc.name"/>
+                                    <span t-attf-class="o_hud_status_chip o_hud_status_{{acc.status}}" t-esc="statusLabels[acc.status]"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Skills activas -->
+                        <t t-if="metric.id === 'skills'">
+                            <div class="o_hud_status_list">
+                                <div t-if="!tableData(metric).length" class="o_hud_empty">No hay herramientas registradas.</div>
+                                <div t-foreach="tableData(metric)" t-as="skill" t-key="skill.name" class="o_hud_status_row">
+                                    <span>
+                                        <span t-esc="skill.label"/>
+                                        <span class="o_hud_skill_agent" t-esc="' · ' + skill.agent"/>
+                                    </span>
+                                    <span t-attf-class="o_hud_risk_chip o_hud_risk_{{skill.risk}}" t-esc="riskLabels[skill.risk]"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Conversaciones por agente -->
+                        <t t-if="metric.id === 'conversations_by_agent'">
+                            <div t-if="!tableData(metric).length" class="o_hud_empty">Todavía no hay conversaciones registradas.</div>
+                            <table t-if="tableData(metric).length" class="o_hud_table">
+                                <thead><tr><th>Agente</th><th>Activas</th><th>Escaladas</th><th>Cerradas</th></tr></thead>
+                                <tbody>
+                                    <tr t-foreach="tableData(metric)" t-as="c" t-key="c.agent">
+                                        <td t-esc="c.agent"/><td t-esc="c.active"/><td t-esc="c.escalated"/><td t-esc="c.closed"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- Top publicaciones -->
+                        <t t-if="metric.id === 'top_posts'">
+                            <div t-if="!tableData(metric).length" class="o_hud_empty">Todavía no hay publicaciones con interacciones registradas.</div>
+                            <table t-if="tableData(metric).length" class="o_hud_table">
+                                <thead>
+                                    <tr><th>Publicación</th><th>Me gusta</th><th>Comentarios</th><th>Compartidos</th><th>Total</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="tableData(metric)" t-as="post" t-key="post.id">
+                                        <td t-esc="post.name"/>
+                                        <td t-esc="post.total_likes"/>
+                                        <td t-esc="post.total_comments"/>
+                                        <td t-esc="post.total_shares"/>
+                                        <td class="o_hud_table_total" t-esc="post.total_engagement"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- Vault — cola de atención -->
+                        <t t-if="metric.id === 'attention_queue'">
+                            <div t-if="!tableData(metric).length" class="o_hud_empty">Nada requiere atención en este momento.</div>
+                            <div t-foreach="tableData(metric)" t-as="item" t-key="item.id" class="o_hud_alert_row">
+                                <span t-attf-class="o_hud_alert_dot o_hud_alert_risk_{{item.risk}}"/>
+                                <span class="o_hud_alert_name" t-esc="item.name"/>
+                                <span class="o_hud_alert_note">
+                                    <t t-esc="item.agent"/> · solicitado por <t t-esc="item.requested_by"/>
+                                    <t t-if="item.note"> — <t t-esc="item.note"/></t>
+                                </span>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </div>
+</t>
+
+</templates>

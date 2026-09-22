@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===== Resident form: clinical pages (hidden from non-clinical roles) ===== -->
+    <record id="peart_resident_view_form_clinical" model="ir.ui.view">
+        <field name="name">peart.resident.form.clinical</field>
+        <field name="model">peart.resident</field>
+        <field name="inherit_id" ref="peart_clinical_record.peart_resident_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_intake" type="object" string="Clinical Intake"
+                        groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo"/>
+                <button name="action_new_assessment" type="object" string="New Assessment" class="btn-primary"
+                        groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse"/>
+                <button name="action_ask_aria" type="object" string="Ask ARIA Clínica"
+                        groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo"/>
+                <button name="action_request_nursing_task" type="object" string="Request Nursing Task"
+                        groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div class="alert alert-danger" role="alert"
+                     invisible="not allergy_ids"
+                     groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <strong>Allergies:</strong> <field name="allergy_summary" nolabel="1" class="d-inline"/>
+                </div>
+                <div groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <group>
+                        <field name="code_status"/>
+                    </group>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='consents']" position="after">
+                <page string="Diagnoses" name="conditions"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="condition_ids">
+                        <list editable="bottom">
+                            <field name="kind"/>
+                            <field name="name"/>
+                            <field name="icd10"/>
+                            <field name="onset_date"/>
+                            <field name="status"/>
+                            <field name="notes"/>
+                            <field name="family_visible"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Allergies" name="allergies"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="allergy_ids">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="reaction"/>
+                            <field name="severity"/>
+                            <field name="family_visible"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Medication" name="medication"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="medication_ids">
+                        <list editable="bottom" decoration-muted="state == 'stopped'">
+                            <field name="name"/>
+                            <field name="dose"/>
+                            <field name="route"/>
+                            <field name="frequency"/>
+                            <field name="schedule_times"/>
+                            <field name="prn_reason"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="prescriber_id"/>
+                            <field name="state" widget="badge"/>
+                            <field name="family_visible"/>
+                            <button name="action_stop" type="object" icon="fa-stop-circle"
+                                    string="Stop" invisible="state != 'active' or not id"
+                                    groups="peart_clinical_record.group_clinical_doctor"
+                                    confirm="Stop this medication?"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Care Plan" name="care_plan"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="care_plan_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="goal"/>
+                            <field name="intervention"/>
+                            <field name="responsible"/>
+                            <field name="review_date"/>
+                            <field name="state" widget="badge"/>
+                        </list>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                                <field name="goal"/>
+                                <field name="intervention"/>
+                                <field name="responsible"/>
+                                <field name="start_date"/>
+                                <field name="review_date"/>
+                                <field name="state"/>
+                                <field name="family_visible"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page string="Assessments" name="assessments"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="assessment_ids" readonly="1">
+                        <list decoration-danger="severity == 'danger'" decoration-warning="severity == 'warn'">
+                            <field name="date"/>
+                            <field name="scale_id"/>
+                            <field name="total"/>
+                            <field name="band_id"/>
+                            <field name="assessor_id"/>
+                            <field name="severity" column_invisible="1"/>
+                            <field name="state" widget="badge"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Medical Contacts" name="contacts"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_admin,peart_clinical_record.group_clinical_ceo">
+                    <field name="contact_ids">
+                        <list editable="bottom">
+                            <field name="kind"/>
+                            <field name="name"/>
+                            <field name="organization"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="policy_number"/>
+                            <field name="notes"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Documents" name="documents"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_admin,peart_clinical_record.group_clinical_ceo">
+                    <field name="document_ids">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="date"/>
+                            <field name="file" filename="filename"/>
+                            <field name="filename" column_invisible="1"/>
+                            <field name="uploaded_by_id"/>
+                            <field name="family_visible"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ===== Clinical intake ===== -->
+    <record id="peart_resident_intake_view_form" model="ir.ui.view">
+        <field name="name">peart.resident.intake.form</field>
+        <field name="model">peart.resident.intake</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <field name="resident_id" invisible="1"/>
+                    </div>
+                    <group>
+                        <group string="Admission">
+                            <field name="reason_for_admission"/>
+                            <field name="code_status"/>
+                            <field name="advance_directive"/>
+                            <field name="blood_type"/>
+                        </group>
+                        <group string="Nutrition">
+                            <field name="diet_type"/>
+                            <field name="diet_notes"/>
+                            <field name="swallowing_difficulty"/>
+                            <field name="dentures"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Senses and mobility">
+                            <field name="vision"/>
+                            <field name="hearing"/>
+                            <field name="mobility_aid"/>
+                        </group>
+                        <group string="Continence">
+                            <field name="continence_urine"/>
+                            <field name="continence_bowel"/>
+                        </group>
+                    </group>
+                    <group string="Condition on arrival">
+                        <field name="cognition_baseline"/>
+                        <field name="skin_on_admission"/>
+                        <field name="spiritual_preferences"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ===== Assessments ===== -->
+    <record id="peart_assessment_view_list" model="ir.ui.view">
+        <field name="name">peart.resident.assessment.list</field>
+        <field name="model">peart.resident.assessment</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="severity == 'danger'" decoration-warning="severity == 'warn'">
+                <field name="date"/>
+                <field name="resident_id"/>
+                <field name="scale_id"/>
+                <field name="total"/>
+                <field name="band_id"/>
+                <field name="assessor_id"/>
+                <field name="severity" column_invisible="1"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_assessment_view_form" model="ir.ui.view">
+        <field name="name">peart.resident.assessment.form</field>
+        <field name="model">peart.resident.assessment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Complete" class="btn-primary"
+                            invisible="state != 'draft'"
+                            confirm="A completed assessment can no longer be edited. Continue?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="resident_id" readonly="state == 'done'"/>
+                            <field name="scale_id" readonly="state == 'done' or line_ids"/>
+                            <field name="date" readonly="state == 'done'"/>
+                            <field name="assessor_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="total"/>
+                            <field name="max_score"/>
+                            <field name="band_id"/>
+                            <field name="severity" widget="badge"
+                                   decoration-success="severity == 'ok'"
+                                   decoration-warning="severity == 'warn'"
+                                   decoration-danger="severity == 'danger'"/>
+                            <field name="family_visible"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="state == 'done'">
+                        <list editable="bottom" create="0" delete="0">
+                            <field name="item_id" readonly="1"/>
+                            <field name="option_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="points"/>
+                        </list>
+                    </field>
+                    <field name="notes" placeholder="Observations..." readonly="state == 'done'"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_assessment_view_search" model="ir.ui.view">
+        <field name="name">peart.resident.assessment.search</field>
+        <field name="model">peart.resident.assessment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="resident_id"/>
+                <field name="scale_id"/>
+                <filter name="high_concern" string="High concern" domain="[('severity', '=', 'danger')]"/>
+                <filter name="draft" string="Drafts" domain="[('state', '=', 'draft')]"/>
+                <group>
+                    <filter name="by_scale" string="Scale" context="{'group_by': 'scale_id'}"/>
+                    <filter name="by_resident" string="Resident" context="{'group_by': 'resident_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_assessment_action" model="ir.actions.act_window">
+        <field name="name">Assessments</field>
+        <field name="res_model">peart.resident.assessment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ===== Medication overview ===== -->
+    <record id="peart_medication_view_list" model="ir.ui.view">
+        <field name="name">peart.resident.medication.list</field>
+        <field name="model">peart.resident.medication</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'stopped'" create="0">
+                <field name="resident_id"/>
+                <field name="name"/>
+                <field name="dose"/>
+                <field name="route"/>
+                <field name="frequency"/>
+                <field name="schedule_times"/>
+                <field name="prescriber_id"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_medication_action" model="ir.actions.act_window">
+        <field name="name">Medication</field>
+        <field name="res_model">peart.resident.medication</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'active')]</field>
+    </record>
+
+    <!-- ===== Scales (configuration) ===== -->
+    <record id="peart_scale_view_form" model="ir.ui.view">
+        <field name="name">peart.scale.form</field>
+        <field name="model">peart.scale</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="frequency_days"/>
+                        <field name="max_score"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Items">
+                            <field name="item_ids">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                </list>
+                                <form>
+                                    <group><field name="name"/><field name="sequence"/></group>
+                                    <field name="option_ids">
+                                        <list editable="bottom">
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="name"/>
+                                            <field name="points"/>
+                                        </list>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Interpretation">
+                            <field name="band_ids">
+                                <list editable="bottom">
+                                    <field name="score_min"/>
+                                    <field name="score_max"/>
+                                    <field name="name"/>
+                                    <field name="severity"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_scale_view_list" model="ir.ui.view">
+        <field name="name">peart.scale.list</field>
+        <field name="model">peart.scale</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="frequency_days"/>
+                <field name="max_score"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_scale_action" model="ir.actions.act_window">
+        <field name="name">Assessment Scales</field>
+        <field name="res_model">peart.scale</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

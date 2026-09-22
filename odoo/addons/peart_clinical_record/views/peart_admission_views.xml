@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="peart_admission_view_form_resident" model="ir.ui.view">
+        <field name="name">peart.admission.form.resident</field>
+        <field name="model">peart.admission</field>
+        <field name="inherit_id" ref="peart_serenity.peart_admission_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_resident" type="object" string="Open Resident File"
+                        invisible="state != 'admitted'"
+                        groups="peart_clinical_record.group_clinical_admin"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

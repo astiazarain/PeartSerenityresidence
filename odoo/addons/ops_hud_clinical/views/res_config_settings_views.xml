@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_hud_clinical" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hud.clinical</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="peart_clinical_record.res_config_settings_view_form_clinical"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='peart_clinical_aria']" position="after">
+                <block title="Control Center (HUD)" id="peart_clinical_hud">
+                    <setting string="Bed capacity"
+                             help="Total beds. With it, the Residencia tab shows occupancy as a percentage. Leave 0 to show only the resident count.">
+                        <field name="hud_bed_capacity"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

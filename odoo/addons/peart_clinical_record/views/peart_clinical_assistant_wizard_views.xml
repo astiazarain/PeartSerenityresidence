@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="peart_clinical_assistant_wizard_view_form" model="ir.ui.view">
+        <field name="name">peart.clinical.assistant.wizard.form</field>
+        <field name="model">peart.clinical.assistant.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="history" invisible="1"/>
+                    <group>
+                        <field name="resident_id" readonly="1" invisible="not resident_id"/>
+                    </group>
+                    <field name="reply" readonly="1" placeholder="La respuesta de ARIA Clínica aparecerá aquí..."
+                           invisible="not reply"/>
+                    <field name="message" placeholder="Escriba su pregunta para ARIA Clínica..."/>
+                </sheet>
+                <footer>
+                    <button name="action_ask" type="object" string="Preguntar" class="btn-primary"/>
+                    <button string="Cerrar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

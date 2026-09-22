@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Jamaica does not observe DST, so 06:45/18:45 local time is a fixed
+         11:45/23:45 UTC year-round - no timezone math needed at runtime
+         beyond what peart.shift.handover._clock() already does for the
+         digest content itself. Two crons (not one every-12h) so each has
+         its own honest nextcall instead of drifting off a single anchor. -->
+    <record id="cron_shift_handover_morning" model="ir.cron">
+        <field name="name">Peart: shift handover (06:45)</field>
+        <field name="model_id" ref="model_peart_shift_handover"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_generate()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="((lambda t: t if t &gt; DateTime.now() else t + timedelta(days=1))(
+                                      DateTime.now().replace(hour=11, minute=45, second=0, microsecond=0))
+                                      ).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+    <record id="cron_shift_handover_evening" model="ir.cron">
+        <field name="name">Peart: shift handover (18:45)</field>
+        <field name="model_id" ref="model_peart_shift_handover"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_generate()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="((lambda t: t if t &gt; DateTime.now() else t + timedelta(days=1))(
+                                      DateTime.now().replace(hour=23, minute=45, second=0, microsecond=0))
+                                      ).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+</odoo>

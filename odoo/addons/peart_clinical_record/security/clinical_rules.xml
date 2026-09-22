@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Staff: every resident. -->
+    <record id="rule_resident_staff" model="ir.rule">
+        <field name="name">Resident: staff see all</field>
+        <field name="model_id" ref="model_peart_resident"/>
+        <field name="groups" eval="[(4, ref('group_clinical_doctor')), (4, ref('group_clinical_nurse')),
+                                    (4, ref('group_clinical_admin')), (4, ref('group_clinical_ceo'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+
+    <record id="rule_family_link_staff" model="ir.rule">
+        <field name="name">Family link: staff see all</field>
+        <field name="model_id" ref="model_peart_resident_family_link"/>
+        <field name="groups" eval="[(4, ref('group_clinical_doctor')), (4, ref('group_clinical_nurse')),
+                                    (4, ref('group_clinical_admin')), (4, ref('group_clinical_ceo'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+
+    <record id="rule_consent_staff" model="ir.rule">
+        <field name="name">Consent: staff see all</field>
+        <field name="model_id" ref="model_peart_resident_consent"/>
+        <field name="groups" eval="[(4, ref('group_clinical_doctor')), (4, ref('group_clinical_nurse')),
+                                    (4, ref('group_clinical_admin')), (4, ref('group_clinical_ceo'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Documents: clinical roles see all; Administrator only non-clinical categories. -->
+    <record id="rule_document_clinical" model="ir.rule">
+        <field name="name">Document: clinical roles see all</field>
+        <field name="model_id" ref="model_peart_resident_document"/>
+        <field name="groups" eval="[(4, ref('group_clinical_doctor')), (4, ref('group_clinical_nurse')), (4, ref('group_clinical_ceo'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_document_admin" model="ir.rule">
+        <field name="name">Document: administrator sees non-clinical only</field>
+        <field name="model_id" ref="model_peart_resident_document"/>
+        <field name="groups" eval="[(4, ref('group_clinical_admin'))]"/>
+        <field name="domain_force">[('category', 'in', ['id_document', 'legal', 'insurance', 'billing', 'consent'])]</field>
+    </record>
+</odoo>

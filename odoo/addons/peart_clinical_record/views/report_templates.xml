@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===== Resident record (full clinical file) ===== -->
+    <template id="report_resident_record_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <t t-set="layout_document_title">Resident Record</t>
+                    <div class="page o_peart_clinical_report">
+                        <p class="o_peart_confidential">
+                            CONFIDENTIAL - contains protected health information. Printed by
+                            <t t-out="user.name"/> on <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>.
+                        </p>
+
+                        <h3><t t-out="o.name"/> <small>(<t t-out="o.code"/>)</small></h3>
+                        <table class="table table-sm o_peart_kv">
+                            <tr>
+                                <th>Date of birth</th><td><span t-field="o.date_of_birth"/> (<t t-out="o.age"/>)</td>
+                                <th>Gender</th><td><span t-field="o.gender"/></td>
+                            </tr>
+                            <tr>
+                                <th>Status</th><td><span t-field="o.state"/></td>
+                                <th>Room / bed</th><td><t t-out="o.room or '-'"/> / <t t-out="o.bed or '-'"/></td>
+                            </tr>
+                            <tr>
+                                <th>Admitted</th><td><span t-field="o.admission_date"/></td>
+                                <th>Care level</th><td><span t-field="o.care_level"/></td>
+                            </tr>
+                            <tr>
+                                <th>Emergency contact</th>
+                                <td colspan="3">
+                                    <t t-out="o.emergency_contact_name or '-'"/>
+                                    <t t-if="o.emergency_contact_relationship">(<t t-out="o.emergency_contact_relationship"/>)</t>
+                                    <t t-out="o.emergency_contact_phone or ''"/> <t t-out="o.emergency_contact_email or ''"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-set="intake" t-value="o.intake_ids[:1]"/>
+                        <t t-if="intake">
+                            <div class="o_peart_block"><h4>Clinical intake</h4>
+                            <table class="table table-sm o_peart_kv">
+                                <tr><th>Code status</th><td><span t-field="intake.code_status"/></td>
+                                    <th>Blood type</th><td><span t-field="intake.blood_type"/></td></tr>
+                                <tr><th>Diet</th><td><span t-field="intake.diet_type"/> <t t-out="intake.diet_notes or ''"/></td>
+                                    <th>Swallowing difficulty</th><td><t t-if="intake.swallowing_difficulty">Yes</t><t t-else="">No</t></td></tr>
+                                <tr><th>Vision / hearing</th><td><span t-field="intake.vision"/><t t-if="not intake.vision">-</t> / <span t-field="intake.hearing"/><t t-if="not intake.hearing">-</t></td>
+                                    <th>Mobility aid</th><td><t t-out="intake.mobility_aid or '-'"/></td></tr>
+                                <tr><th>Continence</th><td colspan="3"><span t-field="intake.continence_urine"/><t t-if="not intake.continence_urine">-</t> / <span t-field="intake.continence_bowel"/><t t-if="not intake.continence_bowel">-</t></td></tr>
+                                <tr t-if="intake.advance_directive"><th>Advance directive</th><td colspan="3"><t t-out="intake.advance_directive"/></td></tr>
+                                <tr t-if="intake.reason_for_admission"><th>Reason for admission</th><td colspan="3"><t t-out="intake.reason_for_admission"/></td></tr>
+                            </table>
+                            </div>
+                        </t>
+                        <div class="o_peart_block"><h4>Allergies</h4>
+                        <p t-if="not o.allergy_ids">No known allergies recorded.</p>
+                        <table t-else="" class="table table-sm">
+                            <thead><tr><th>Allergen</th><th>Type</th><th>Reaction</th><th>Severity</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="o.allergy_ids" t-as="a">
+                                    <td><t t-out="a.name"/></td><td><span t-field="a.category"/></td>
+                                    <td><t t-out="a.reaction or ''"/></td><td><span t-field="a.severity"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="o_peart_block"><h4>Diagnoses and history</h4>
+                        <p t-if="not o.condition_ids">None recorded.</p>
+                        <table t-else="" class="table table-sm">
+                            <thead><tr><th>Type</th><th>Condition</th><th>ICD-10</th><th>Onset</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="o.condition_ids" t-as="c">
+                                    <td><span t-field="c.kind"/></td><td><t t-out="c.name"/></td><td><t t-out="c.icd10 or ''"/></td>
+                                    <td><span t-field="c.onset_date"/></td><td><span t-field="c.status"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="o_peart_block"><h4>Medication</h4>
+                        <t t-set="meds" t-value="o.medication_ids.filtered(lambda m: m.state == 'active')"/>
+                        <p t-if="not meds">No active medication.</p>
+                        <table t-else="" class="table table-sm">
+                            <thead><tr><th>Drug</th><th>Dose</th><th>Route</th><th>Frequency</th><th>Times</th><th>Prescriber</th><th>Since</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="meds" t-as="m">
+                                    <td><t t-out="m.name"/></td><td><t t-out="m.dose"/></td><td><span t-field="m.route"/></td>
+                                    <td><span t-field="m.frequency"/><t t-if="m.prn_reason"> (<t t-out="m.prn_reason"/>)</t></td>
+                                    <td><t t-out="m.schedule_times or ''"/></td><td><t t-out="m.prescriber_id.name"/></td>
+                                    <td><span t-field="m.start_date"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="o_peart_block"><h4>Care plan</h4>
+                        <t t-set="plans" t-value="o.care_plan_ids.filtered(lambda c: c.state == 'active')"/>
+                        <p t-if="not plans">No active care plan.</p>
+                        <table t-else="" class="table table-sm">
+                            <thead><tr><th>Need</th><th>Goal</th><th>Intervention</th><th>Review</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="plans" t-as="c">
+                                    <td><t t-out="c.name"/></td><td><t t-out="c.goal"/></td>
+                                    <td><t t-out="c.intervention"/></td><td><span t-field="c.review_date"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="o_peart_block"><h4>Latest assessments</h4>
+                        <t t-set="assessments" t-value="o._report_latest_assessments()"/>
+                        <p t-if="not assessments">No completed assessments.</p>
+                        <table t-else="" class="table table-sm">
+                            <thead><tr><th>Scale</th><th>Date</th><th>Score</th><th>Result</th><th>By</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="assessments" t-as="a">
+                                    <td><t t-out="a.scale_id.name"/></td><td><span t-field="a.date" t-options='{"widget": "date"}'/></td>
+                                    <td><t t-out="a.total"/> / <t t-out="a.max_score"/></td><td><t t-out="a.band_id.name"/></td>
+                                    <td><t t-out="a.assessor_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="o_peart_block"><h4>Last 14 days - shift logs</h4>
+                        <t t-set="logs" t-value="o._report_recent_logs()"/>
+                        <p t-if="not logs">No shift logs in this period.</p>
+                        <table t-else="" class="table table-sm o_peart_small">
+                            <thead><tr><th>Date</th><th>Shift</th><th>BP</th><th>HR</th><th>Temp</th><th>SpO2</th><th>Meals</th><th>Mood</th><th>Flags</th><th>Notes</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="logs" t-as="l">
+                                    <td><span t-field="l.date"/></td><td><span t-field="l.shift"/></td>
+                                    <td><t t-if="l.bp_systolic"><t t-out="l.bp_systolic"/>/<t t-out="l.bp_diastolic"/></t></td>
+                                    <td><t t-out="l.heart_rate or ''"/></td><td><t t-out="l.temperature or ''"/></td><td><t t-out="l.spo2 or ''"/></td>
+                                    <td><t t-if="l.intake_pct"><t t-out="l.intake_pct"/>%</t></td><td><span t-field="l.mood"/></td>
+                                    <td class="o_peart_flag"><t t-out="l.alert_flags or ''"/></td><td><t t-out="l.notes or ''"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="o_peart_block"><h4>Incidents - last 90 days</h4>
+                        <t t-set="incidents" t-value="o._report_incidents()"/>
+                        <p t-if="not incidents">No incidents in this period.</p>
+                        <table t-else="" class="table table-sm o_peart_small">
+                            <thead><tr><th>Ref.</th><th>Date</th><th>Type</th><th>Severity</th><th>Description</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr t-foreach="incidents" t-as="i">
+                                    <td><t t-out="i.name"/></td><td><span t-field="i.occurred_at"/></td><td><span t-field="i.kind"/></td>
+                                    <td><span t-field="i.severity"/></td><td><t t-out="i.description"/></td><td><span t-field="i.state"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_resident_record" model="ir.actions.report">
+        <field name="name">Resident Record</field>
+        <field name="model">peart.resident</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">peart_clinical_record.report_resident_record_document</field>
+        <field name="report_file">peart_clinical_record.report_resident_record_document</field>
+        <field name="print_report_name">'Resident Record - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_peart_resident"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_clinical_doctor')), (4, ref('group_clinical_nurse')), (4, ref('group_clinical_ceo'))]"/>
+    </record>
+
+    <!-- ===== Shift summary (selected shift logs on one sheet) ===== -->
+    <template id="report_shift_summary_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="layout_document_title">Shift Summary</t>
+                <div class="page o_peart_clinical_report">
+                    <p class="o_peart_confidential">
+                        CONFIDENTIAL - contains protected health information. Printed by
+                        <t t-out="user.name"/> on <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>.
+                    </p>
+                    <t t-set="flagged" t-value="docs.filtered('has_alert')"/>
+                    <p>
+                        <strong><t t-out="len(docs)"/></strong> resident logs -
+                        <strong><t t-out="len(flagged)"/></strong> with values out of range -
+                        <strong><t t-out="len(docs.filtered(lambda l: l.state == 'draft'))"/></strong> not yet closed.
+                    </p>
+                    <table class="table table-sm o_peart_small">
+                        <thead>
+                            <tr><th>Resident</th><th>Date</th><th>Shift</th><th>BP</th><th>HR</th><th>Temp</th><th>SpO2</th>
+                                <th>Meals</th><th>Fluids</th><th>Mood</th><th>Flags</th><th>Notes</th><th>By</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs.sorted(lambda l: (l.date, l.shift, l.resident_id.name))" t-as="l"
+                                t-att-class="'o_peart_row_alert' if l.has_alert else ''">
+                                <td><t t-out="l.resident_id.name"/> <small><t t-out="l.resident_id.room or ''"/></small></td>
+                                <td><span t-field="l.date"/></td><td><span t-field="l.shift"/></td>
+                                <td><t t-if="l.bp_systolic"><t t-out="l.bp_systolic"/>/<t t-out="l.bp_diastolic"/></t></td>
+                                <td><t t-out="l.heart_rate or ''"/></td><td><t t-out="l.temperature or ''"/></td><td><t t-out="l.spo2 or ''"/></td>
+                                <td><t t-if="l.intake_pct"><t t-out="l.intake_pct"/>%</t></td><td><t t-out="l.fluids_ml or ''"/></td>
+                                <td><span t-field="l.mood"/></td><td class="o_peart_flag"><t t-out="l.alert_flags or ''"/></td>
+                                <td><t t-out="l.notes or ''"/></td><td><t t-out="l.author_id.name"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_shift_summary" model="ir.actions.report">
+        <field name="name">Shift Summary</field>
+        <field name="model">peart.daily.log</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">peart_clinical_record.report_shift_summary_document</field>
+        <field name="report_file">peart_clinical_record.report_shift_summary_document</field>
+        <field name="print_report_name">'Shift Summary'</field>
+        <field name="binding_model_id" ref="model_peart_daily_log"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('group_clinical_doctor')), (4, ref('group_clinical_nurse')), (4, ref('group_clinical_ceo'))]"/>
+    </record>
+</odoo>

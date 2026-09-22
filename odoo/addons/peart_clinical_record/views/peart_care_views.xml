@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===== Shift log ===== -->
+    <record id="peart_daily_log_view_list" model="ir.ui.view">
+        <field name="name">peart.daily.log.list</field>
+        <field name="model">peart.daily.log</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="has_alert" decoration-muted="state == 'closed' and not has_alert"
+                  editable="bottom" delete="0" open_form_view="1">
+                <field name="resident_id" readonly="id"/>
+                <field name="date" optional="show" readonly="id"/>
+                <field name="shift" optional="show" readonly="id"/>
+                <field name="bp_systolic" string="SBP" readonly="state == 'closed'"/>
+                <field name="bp_diastolic" string="DBP" readonly="state == 'closed'"/>
+                <field name="heart_rate" string="HR" readonly="state == 'closed'"/>
+                <field name="temperature" string="Temp" readonly="state == 'closed'"/>
+                <field name="spo2" string="SpO2" readonly="state == 'closed'"/>
+                <field name="intake_pct" readonly="state == 'closed'"/>
+                <field name="fluids_ml" readonly="state == 'closed'"/>
+                <field name="mood" readonly="state == 'closed'"/>
+                <field name="alert_flags" readonly="1"/>
+                <field name="has_alert" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'closed'" decoration-info="state == 'draft'"/>
+                <button name="action_close" type="object" string="Close" icon="fa-check"
+                        invisible="state == 'closed'"
+                        confirm="Close this log? It can no longer be edited (only addenda)."/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_daily_log_view_form" model="ir.ui.view">
+        <field name="name">peart.daily.log.form</field>
+        <field name="model">peart.daily.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_close" type="object" string="Close log" class="btn-primary"
+                            invisible="state == 'closed'"
+                            confirm="Close this log? It can no longer be edited (only addenda)."/>
+                    <button name="action_ask_aria" type="object" string="Ask ARIA Clínica"
+                            groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="not has_alert">
+                        <strong>Out of range:</strong> <field name="alert_flags" nolabel="1" class="d-inline"/>
+                    </div>
+                    <field name="has_alert" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="resident_id" readonly="state == 'closed'"/>
+                            <field name="date" readonly="state == 'closed'"/>
+                            <field name="shift" readonly="state == 'closed'"/>
+                        </group>
+                        <group>
+                            <field name="author_id"/>
+                        </group>
+                    </group>
+                    <group string="Vital signs">
+                        <group>
+                            <field name="bp_systolic" readonly="state == 'closed'"/>
+                            <field name="bp_diastolic" readonly="state == 'closed'"/>
+                            <field name="heart_rate" readonly="state == 'closed'"/>
+                            <field name="resp_rate" readonly="state == 'closed'"/>
+                        </group>
+                        <group>
+                            <field name="temperature" readonly="state == 'closed'"/>
+                            <field name="spo2" readonly="state == 'closed'"/>
+                            <field name="glucose" readonly="state == 'closed'"/>
+                            <field name="weight" readonly="state == 'closed'"/>
+                            <field name="pain_score" readonly="state == 'closed'"/>
+                        </group>
+                    </group>
+                    <group string="Care">
+                        <group>
+                            <field name="intake_pct" readonly="state == 'closed'"/>
+                            <field name="fluids_ml" readonly="state == 'closed'"/>
+                            <field name="hygiene" readonly="state == 'closed'"/>
+                            <field name="incontinence_episodes" readonly="state == 'closed'"/>
+                            <field name="bowel_movements" readonly="state == 'closed'"/>
+                        </group>
+                        <group>
+                            <field name="mobility" readonly="state == 'closed'"/>
+                            <field name="repositioned" readonly="state == 'closed'"/>
+                            <field name="sleep" readonly="state == 'closed'"/>
+                            <field name="mood" readonly="state == 'closed'"/>
+                            <field name="activities" readonly="state == 'closed'"/>
+                            <field name="visitors" readonly="state == 'closed'"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" readonly="state == 'closed'"/>
+                        <field name="family_note" readonly="state == 'closed'"/>
+                        <button name="action_draft_family_note" type="object" string="Draft with ARIA Clínica"
+                                invisible="not notes"
+                                groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo"/>
+                        <field name="family_visible"/>
+                        <button name="action_request_family_visible" type="object"
+                                string="Request family visibility (needs approval)"
+                                invisible="family_visible"
+                                groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse"/>
+                    </group>
+                    <notebook>
+                        <page string="Addenda" name="addenda">
+                            <field name="addendum_ids" readonly="state != 'closed'">
+                                <list editable="bottom">
+                                    <field name="create_date"/>
+                                    <field name="author_id"/>
+                                    <field name="text"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_daily_log_view_search" model="ir.ui.view">
+        <field name="name">peart.daily.log.search</field>
+        <field name="model">peart.daily.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="resident_id"/>
+                <filter name="alerts" string="Out of range" domain="[('has_alert', '=', True)]"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <separator/>
+                <filter name="today" string="Today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="by_date" string="Date" context="{'group_by': 'date'}"/>
+                    <filter name="by_shift" string="Shift" context="{'group_by': 'shift'}"/>
+                    <filter name="by_resident" string="Resident" context="{'group_by': 'resident_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_daily_log_action" model="ir.actions.act_window">
+        <field name="name">Daily Logs</field>
+        <field name="res_model">peart.daily.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="peart_daily_log_shift_action" model="ir.actions.server">
+        <field name="name">Shift Log</field>
+        <field name="model_id" ref="model_peart_daily_log"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_generate_current_shift()</field>
+    </record>
+
+    <!-- ===== Medication round (MAR) ===== -->
+    <record id="peart_mar_view_list" model="ir.ui.view">
+        <field name="name">peart.medication.administration.list</field>
+        <field name="model">peart.medication.administration</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="is_late" decoration-muted="state in ('cancelled', 'given')"
+                  decoration-warning="state in ('refused', 'omitted', 'held')">
+                <field name="scheduled_datetime"/>
+                <field name="resident_id"/>
+                <field name="drug"/>
+                <field name="dose"/>
+                <field name="route"/>
+                <field name="state" widget="badge"/>
+                <field name="reason"/>
+                <field name="given_at" optional="show"/>
+                <field name="given_by_id" optional="show"/>
+                <field name="is_late" column_invisible="1"/>
+                <button name="action_give" type="object" string="Give" icon="fa-check"
+                        invisible="state != 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_mar_view_form" model="ir.ui.view">
+        <field name="name">peart.medication.administration.form</field>
+        <field name="model">peart.medication.administration</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_give" type="object" string="Given" class="btn-primary"
+                            invisible="state != 'pending'"/>
+                    <button name="action_refuse" type="object" string="Refused" invisible="state != 'pending'"/>
+                    <button name="action_omit" type="object" string="Omitted" invisible="state != 'pending'"/>
+                    <button name="action_hold" type="object" string="Held" invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,given"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="medication_id" readonly="state != 'pending'"/>
+                            <field name="resident_id"/>
+                            <field name="dose"/>
+                            <field name="route"/>
+                        </group>
+                        <group>
+                            <field name="scheduled_datetime" readonly="state != 'pending'"/>
+                            <field name="reason" readonly="state != 'pending'"
+                                   placeholder="Required for refused / omitted / held; indication for PRN"/>
+                            <field name="given_at"/>
+                            <field name="given_by_id"/>
+                        </group>
+                    </group>
+                    <field name="notes" placeholder="Notes..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_mar_view_search" model="ir.ui.view">
+        <field name="name">peart.medication.administration.search</field>
+        <field name="model">peart.medication.administration</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="resident_id"/>
+                <field name="drug"/>
+                <filter name="pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <filter name="late" string="Overdue (&gt;60 min)" domain="[('state', '=', 'pending'),
+                        ('scheduled_datetime', '&lt;', (datetime.datetime.now() - relativedelta(minutes=60)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <filter name="not_given" string="Not given" domain="[('state', 'in', ('refused', 'omitted', 'held'))]"/>
+                <separator/>
+                <filter name="today" string="Today" domain="[
+                        ('scheduled_datetime', '&gt;=', context_today().strftime('%Y-%m-%d 05:00:00')),
+                        ('scheduled_datetime', '&lt;', (context_today() + relativedelta(days=1)).strftime('%Y-%m-%d 05:00:00'))]"/>
+                <group>
+                    <filter name="by_resident" string="Resident" context="{'group_by': 'resident_id'}"/>
+                    <filter name="by_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_mar_action" model="ir.actions.act_window">
+        <field name="name">Medication Round</field>
+        <field name="res_model">peart.medication.administration</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_pending': 1, 'search_default_today': 1}</field>
+    </record>
+
+    <record id="peart_mar_generate_action" model="ir.actions.server">
+        <field name="name">Schedule today's doses</field>
+        <field name="model_id" ref="model_peart_resident_medication"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_generate_mar()</field>
+    </record>
+
+    <!-- ===== Incidents ===== -->
+    <record id="peart_incident_view_list" model="ir.ui.view">
+        <field name="name">peart.incident.list</field>
+        <field name="model">peart.incident</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="severity in ('serious', 'sentinel') and state != 'closed'"
+                  decoration-muted="state == 'closed'">
+                <field name="name"/>
+                <field name="occurred_at"/>
+                <field name="resident_id"/>
+                <field name="kind"/>
+                <field name="severity"/>
+                <field name="physician_notified"/>
+                <field name="family_notified"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_incident_view_form" model="ir.ui.view">
+        <field name="name">peart.incident.form</field>
+        <field name="model">peart.incident</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_review" type="object" string="Start review" invisible="state != 'open'"/>
+                    <button name="action_close" type="object" string="Close incident" class="btn-primary"
+                            invisible="state == 'closed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="resident_id"/>
+                            <field name="occurred_at"/>
+                            <field name="kind"/>
+                            <field name="severity"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="reported_by_id"/>
+                            <field name="witnesses"/>
+                        </group>
+                    </group>
+                    <group string="What happened">
+                        <field name="description"/>
+                        <field name="immediate_action"/>
+                        <field name="injury_description"/>
+                    </group>
+                    <group string="Notifications">
+                        <group>
+                            <field name="physician_notified"/>
+                            <field name="physician_notified_at" invisible="not physician_notified"/>
+                        </group>
+                        <group>
+                            <field name="family_notified"/>
+                            <field name="family_notified_at" invisible="not family_notified"/>
+                            <field name="family_notified_method" invisible="not family_notified"/>
+                        </group>
+                    </group>
+                    <group string="Family portal">
+                        <field name="family_visible"/>
+                        <field name="family_summary" invisible="not family_visible"
+                               placeholder="Plain-language account for the family..."/>
+                        <button name="action_draft_family_summary" type="object" string="Draft with ARIA Clínica"
+                                invisible="not family_visible or not description"
+                                groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo"/>
+                        <button name="action_request_family_visible" type="object"
+                                string="Request family visibility (needs approval)"
+                                invisible="family_visible"
+                                groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse"/>
+                    </group>
+                    <group string="Follow-up">
+                        <field name="follow_up"/>
+                        <field name="closed_by_id" invisible="state != 'closed'"/>
+                        <field name="closed_date" invisible="state != 'closed'"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_incident_view_search" model="ir.ui.view">
+        <field name="name">peart.incident.search</field>
+        <field name="model">peart.incident</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="resident_id"/>
+                <filter name="open" string="Not closed" domain="[('state', '!=', 'closed')]"/>
+                <filter name="serious" string="Serious / sentinel" domain="[('severity', 'in', ('serious', 'sentinel'))]"/>
+                <group>
+                    <filter name="by_kind" string="Type" context="{'group_by': 'kind'}"/>
+                    <filter name="by_severity" string="Severity" context="{'group_by': 'severity'}"/>
+                    <filter name="by_resident" string="Resident" context="{'group_by': 'resident_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_incident_action" model="ir.actions.act_window">
+        <field name="name">Incidents</field>
+        <field name="res_model">peart.incident</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_open': 1}</field>
+    </record>
+
+    <!-- ===== Resident form: read-only history pages ===== -->
+    <record id="peart_resident_view_form_care" model="ir.ui.view">
+        <field name="name">peart.resident.form.care</field>
+        <field name="model">peart.resident</field>
+        <field name="inherit_id" ref="peart_clinical_record.peart_resident_view_form_clinical"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='medication']" position="after">
+                <page string="Daily Log" name="daily_log"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="daily_log_ids" readonly="1">
+                        <list decoration-danger="has_alert" limit="30">
+                            <field name="date"/>
+                            <field name="shift"/>
+                            <field name="bp_systolic" string="SBP"/>
+                            <field name="bp_diastolic" string="DBP"/>
+                            <field name="heart_rate" string="HR"/>
+                            <field name="temperature"/>
+                            <field name="spo2"/>
+                            <field name="intake_pct"/>
+                            <field name="alert_flags"/>
+                            <field name="has_alert" column_invisible="1"/>
+                            <field name="state" widget="badge"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Incidents" name="incidents"
+                      groups="peart_clinical_record.group_clinical_doctor,peart_clinical_record.group_clinical_nurse,peart_clinical_record.group_clinical_ceo">
+                    <field name="incident_ids" readonly="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="occurred_at"/>
+                            <field name="kind"/>
+                            <field name="severity"/>
+                            <field name="state" widget="badge"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ===== Family portal access log (audit) ===== -->
+    <record id="peart_family_access_log_view_list" model="ir.ui.view">
+        <field name="name">peart.family.access.log.list</field>
+        <field name="model">peart.family.access.log</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0" decoration-danger="error">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="resident_id"/>
+                <field name="action"/>
+                <field name="detail"/>
+                <field name="question" optional="show"/>
+                <field name="answer" optional="hide"/>
+                <field name="escalated" optional="show"/>
+                <field name="error" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_family_access_log_view_search" model="ir.ui.view">
+        <field name="name">peart.family.access.log.search</field>
+        <field name="model">peart.family.access.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="resident_id"/>
+                <filter name="aria" string="ARIA questions" domain="[('action', '=', 'aria')]"/>
+                <filter name="escalated" string="Escalated" domain="[('escalated', '=', True)]"/>
+                <group>
+                    <filter name="by_user" string="Family member" context="{'group_by': 'user_id'}"/>
+                    <filter name="by_action" string="Action" context="{'group_by': 'action'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_family_access_log_action" model="ir.actions.act_window">
+        <field name="name">Family Portal Activity</field>
+        <field name="res_model">peart.family.access.log</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

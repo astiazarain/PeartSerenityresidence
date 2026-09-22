@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="agent_clinical_staff" model="ai.agent">
+        <field name="name">ARIA Clínica</field>
+        <field name="code">clinical_staff</field>
+        <field name="sequence">30</field>
+        <field name="description">
+            Asistente interno de solo lectura para el personal clínico (Médico,
+            Enfermera, CEO). Responde preguntas sobre residentes y el estado
+            operativo a partir de los datos ya registrados; nunca receta,
+            cambia medicación, ni cierra registros o incidentes. Implementado
+            en peart_clinical_record (ai.clinical.assistant).
+        </field>
+    </record>
+
+    <record id="tool_preguntar_aria_clinica" model="ai.agent.tool">
+        <field name="name">preguntar_aria_clinica</field>
+        <field name="label">Preguntar a ARIA Clínica</field>
+        <field name="agent_id" ref="agent_clinical_staff"/>
+        <field name="risk_level">0</field>
+        <field name="idempotent">True</field>
+        <field name="target_model">ai.clinical.assistant</field>
+        <field name="target_method">coordinator_ask</field>
+        <field name="requires_existing_record">False</field>
+        <field name="description">
+            Responde preguntas sobre un residente (dosis pendientes o atrasadas,
+            alergias, medicación activa, últimos signos vitales, incidentes
+            abiertos, valoraciones vencidas, plan de cuidados) o sobre el estado
+            general del turno (registros sin cerrar, dosis atrasadas, incidentes
+            abiertos). Palabras clave: residente, turno, dosis, medicación,
+            alergia, alerta, incidente, valoración, signos vitales, plan de
+            cuidados, enfermería, pendiente, atrasada, vencida.
+        </field>
+    </record>
+</odoo>

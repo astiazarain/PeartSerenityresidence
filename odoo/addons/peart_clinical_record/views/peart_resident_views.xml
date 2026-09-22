@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="peart_resident_view_list" model="ir.ui.view">
+        <field name="name">peart.resident.list</field>
+        <field name="model">peart.resident</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state in ('discharged', 'deceased')" decoration-warning="state == 'hospitalized'">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="room"/>
+                <field name="bed"/>
+                <field name="care_level"/>
+                <field name="admission_date"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_resident_view_form" model="ir.ui.view">
+        <field name="name">peart.resident.form</field>
+        <field name="model">peart.resident</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,hospitalized,discharged"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h2><field name="code" readonly="1"/></h2>
+                        <h1><field name="name" placeholder="Resident name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="partner_id"/>
+                            <field name="date_of_birth"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="preferred_lang"/>
+                        </group>
+                        <group string="Stay">
+                            <field name="admission_date"/>
+                            <field name="discharge_date" invisible="state not in ('discharged', 'deceased')"/>
+                            <field name="room"/>
+                            <field name="bed"/>
+                            <field name="care_level"/>
+                            <field name="admission_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Emergency Contact" name="emergency">
+                            <group>
+                                <field name="emergency_contact_name"/>
+                                <field name="emergency_contact_relationship"/>
+                                <field name="emergency_contact_phone"/>
+                                <field name="emergency_contact_email"/>
+                            </group>
+                        </page>
+                        <page string="Family Access" name="family">
+                            <field name="family_link_ids">
+                                <list editable="bottom">
+                                    <field name="user_id"/>
+                                    <field name="relationship"/>
+                                    <field name="is_primary"/>
+                                    <field name="access_enabled"/>
+                                    <field name="granted_by_id"/>
+                                    <field name="granted_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Consents" name="consents">
+                            <field name="consent_ids">
+                                <list>
+                                    <field name="kind"/>
+                                    <field name="date"/>
+                                    <field name="signed_by"/>
+                                    <field name="signer_relationship"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'granted'"
+                                           decoration-danger="state == 'revoked'"/>
+                                    <button name="action_revoke" type="object" string="Revoke"
+                                            icon="fa-ban" invisible="state == 'revoked'"
+                                            confirm="Revoke this consent? Family access is removed if no other family-access consent remains."/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="kind"/>
+                                        <field name="date"/>
+                                        <field name="signed_by"/>
+                                        <field name="signer_relationship"/>
+                                        <field name="document" filename="document_filename"/>
+                                        <field name="document_filename" invisible="1"/>
+                                        <field name="notes"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_resident_view_search" model="ir.ui.view">
+        <field name="name">peart.resident.search</field>
+        <field name="model">peart.resident</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="room"/>
+                <filter name="in_residence" string="In residence" domain="[('state', '=', 'active')]"/>
+                <filter name="hospitalized" string="Hospitalized" domain="[('state', '=', 'hospitalized')]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="by_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="by_care" string="Care level" context="{'group_by': 'care_level'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_resident_action" model="ir.actions.act_window">
+        <field name="name">Residents</field>
+        <field name="res_model">peart.resident</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_in_residence': 1}</field>
+    </record>
+</odoo>

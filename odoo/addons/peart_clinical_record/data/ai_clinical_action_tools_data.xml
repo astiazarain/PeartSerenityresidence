@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Catalog metadata only (Skills panel). Real execution always goes
+         through an approved peart.clinical.action.request - see
+         models/peart_clinical_action_request.py for why these are not
+         invoked directly via the shared Coordinator/Vault for clinical
+         users. -->
+    <record id="tool_crear_tarea_enfermeria" model="ai.agent.tool">
+        <field name="name">crear_tarea_enfermeria</field>
+        <field name="label">Crear tarea de enfermería</field>
+        <field name="agent_id" ref="agent_clinical_staff"/>
+        <field name="risk_level">2</field>
+        <field name="idempotent">False</field>
+        <field name="target_model">ai.clinical.actions</field>
+        <field name="target_method">create_nursing_task</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Crea una tarea de seguimiento para enfermería sobre un residente.
+            Requiere aprobación de un Médico antes de ejecutarse (peart.clinical.action.request).
+        </field>
+    </record>
+
+    <record id="tool_marcar_visible_familia" model="ai.agent.tool">
+        <field name="name">marcar_visible_familia</field>
+        <field name="label">Marcar visible para la familia</field>
+        <field name="agent_id" ref="agent_clinical_staff"/>
+        <field name="risk_level">2</field>
+        <field name="idempotent">True</field>
+        <field name="target_model">ai.clinical.actions</field>
+        <field name="target_method">mark_family_visible</field>
+        <field name="requires_existing_record">True</field>
+        <field name="description">
+            Marca un registro clínico (alergia, diagnóstico, medicación, plan de
+            cuidados, valoración, documento, registro de turno o incidente) como
+            visible en el portal familiar. Requiere aprobación de un Médico.
+        </field>
+    </record>
+</odoo>

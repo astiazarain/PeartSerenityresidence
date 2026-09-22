@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Used for questions ARIA passes from a family member to the nursing team,
+         so dashboards can count the ones still unanswered without parsing text. -->
+    <record id="mail_activity_type_family_question" model="mail.activity.type">
+        <field name="name">Family question</field>
+        <field name="icon">fa-comments</field>
+        <field name="delay_count">0</field>
+        <field name="res_model">peart.resident</field>
+    </record>
+
+    <!-- Used for nursing tasks requested through ARIA Clínica once approved
+         (peart.clinical.action.request), so dashboards and the Activities
+         view can tell them apart from ordinary manual tasks. -->
+    <record id="mail_activity_type_clinical_task" model="mail.activity.type">
+        <field name="name">Clinical follow-up (ARIA)</field>
+        <field name="icon">fa-stethoscope</field>
+        <field name="delay_count">1</field>
+        <field name="res_model">peart.resident</field>
+    </record>
+</odoo>

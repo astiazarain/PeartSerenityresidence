@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_peart_clinical_root" name="Residents" sequence="40"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_admin,group_clinical_ceo"/>
+    <menuitem id="menu_peart_resident" name="Residents" parent="menu_peart_clinical_root"
+              action="peart_resident_action" sequence="10"/>
+    <menuitem id="menu_peart_shift_log" name="Shift Log" parent="menu_peart_clinical_root"
+              action="peart_daily_log_shift_action" sequence="12"
+              groups="group_clinical_doctor,group_clinical_nurse"/>
+    <menuitem id="menu_peart_daily_logs" name="Daily Logs" parent="menu_peart_clinical_root"
+              action="peart_daily_log_action" sequence="13"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_ceo"/>
+    <menuitem id="menu_peart_mar" name="Medication Round" parent="menu_peart_clinical_root"
+              action="peart_mar_action" sequence="14"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_ceo"/>
+    <menuitem id="menu_peart_handover" name="Shift Handover" parent="menu_peart_clinical_root"
+              action="peart_shift_handover_action" sequence="15"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_ceo"/>
+    <menuitem id="menu_peart_incident" name="Incidents" parent="menu_peart_clinical_root"
+              action="peart_incident_action" sequence="16"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_ceo"/>
+    <menuitem id="menu_peart_assessment" name="Assessments" parent="menu_peart_clinical_root"
+              action="peart_assessment_action" sequence="20"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_ceo"/>
+    <menuitem id="menu_peart_medication" name="Medication" parent="menu_peart_clinical_root"
+              action="peart_medication_action" sequence="30"
+              groups="group_clinical_doctor,group_clinical_nurse,group_clinical_ceo"/>
+    <menuitem id="menu_peart_pending_actions" name="Pending Actions" parent="menu_peart_clinical_root"
+              action="peart_clinical_action_request_action" sequence="17"
+              groups="group_clinical_doctor,group_clinical_nurse"/>
+    <menuitem id="menu_peart_family_log" name="Family Portal Activity" parent="menu_peart_clinical_root"
+              action="peart_family_access_log_action" sequence="60"
+              groups="group_clinical_ceo,group_clinical_admin"/>
+    <menuitem id="menu_peart_clinical_config" name="Configuration" parent="menu_peart_clinical_root"
+              sequence="90" groups="group_clinical_doctor"/>
+    <menuitem id="menu_peart_mar_generate" name="Schedule today's doses" parent="menu_peart_clinical_config"
+              action="peart_mar_generate_action" sequence="20"/>
+    <menuitem id="menu_peart_scale" name="Assessment Scales" parent="menu_peart_clinical_config"
+              action="peart_scale_action" sequence="10"/>
+</odoo>

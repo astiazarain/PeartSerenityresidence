@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="peart_clinical_action_request_view_list" model="ir.ui.view">
+        <field name="name">peart.clinical.action.request.list</field>
+        <field name="model">peart.clinical.action.request</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="state == 'pending'" decoration-danger="state == 'error'"
+                  decoration-muted="state in ('rejected',)">
+                <field name="create_date"/>
+                <field name="resident_id"/>
+                <field name="kind"/>
+                <field name="preview"/>
+                <field name="requested_by_id"/>
+                <field name="state" widget="badge"/>
+                <button name="action_approve" type="object" string="Approve" icon="fa-check"
+                        invisible="state != 'pending'" groups="peart_clinical_record.group_clinical_doctor"/>
+                <button name="action_reject" type="object" string="Reject" icon="fa-times"
+                        invisible="state != 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="peart_clinical_action_request_view_form" model="ir.ui.view">
+        <field name="name">peart.clinical.action.request.form</field>
+        <field name="model">peart.clinical.action.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary"
+                            invisible="state != 'pending'" groups="peart_clinical_record.group_clinical_doctor"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved,executed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="resident_id" readonly="1"/>
+                            <field name="kind" readonly="1"/>
+                            <field name="preview" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="requested_by_id" readonly="1"/>
+                            <field name="approved_by_id" readonly="1" invisible="not approved_by_id"/>
+                            <field name="result_text" readonly="1" invisible="not result_text"/>
+                            <field name="error_message" readonly="1" invisible="not error_message"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="peart_clinical_action_request_view_search" model="ir.ui.view">
+        <field name="name">peart.clinical.action.request.search</field>
+        <field name="model">peart.clinical.action.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="resident_id"/>
+                <filter name="pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <group>
+                    <filter name="by_kind" string="Type" context="{'group_by': 'kind'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="peart_clinical_action_request_action" model="ir.actions.act_window">
+        <field name="name">Pending Actions</field>
+        <field name="res_model">peart.clinical.action.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+</odoo>

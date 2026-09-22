@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ops_hud_threshold_view_list" model="ir.ui.view">
+        <field name="name">ops.hud.threshold.list</field>
+        <field name="model">ops.hud.threshold</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="0" delete="0">
+                <field name="name" readonly="1"/>
+                <field name="unit" readonly="1"/>
+                <field name="warn"/>
+                <field name="danger"/>
+                <field name="direction" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="ops_hud_threshold_action" model="ir.actions.act_window">
+        <field name="name">HUD thresholds</field>
+        <field name="res_model">ops.hud.threshold</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem id="menu_ops_hud_threshold" name="HUD thresholds"
+              parent="peart_clinical_record.menu_peart_clinical_config"
+              action="ops_hud_threshold_action" sequence="30"/>
+</odoo>

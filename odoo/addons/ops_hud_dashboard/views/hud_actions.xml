@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_ops_hud_dashboard" model="ir.actions.client">
+        <field name="name">Centro de Control</field>
+        <field name="tag">ops_hud_dashboard</field>
+    </record>
+
+    <menuitem id="menu_ops_hud_root" name="Centro de Control"
+              action="action_ops_hud_dashboard" sequence="1"
+              web_icon="ops_hud_dashboard,static/description/icon.png"/>
+</odoo>

@@ -9,12 +9,14 @@ import {
   Plus,
   Calendar,
   LogOut,
+  HeartPulse,
 } from 'lucide-react';
 import {
   getSession,
   logout,
   fetchMyAdmissions,
   fetchMyTours,
+  fetchMyResidents,
   type SessionInfo,
   type MyAdmission,
   type MyTourBooking,
@@ -35,12 +37,15 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [admissions, setAdmissions] = useState<MyAdmission[]>([]);
   const [tours, setTours] = useState<MyTourBooking[]>([]);
+  const [residentCount, setResidentCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     getSession().then((s) => {
       if (!s.uid) { navigate('/auth'); return; }
       setSession(s);
+      // Only shows the Family Portal card when staff have linked a resident.
+      fetchMyResidents().then((r) => setResidentCount(r.length)).catch(() => setResidentCount(0));
       Promise.all([fetchMyAdmissions(), fetchMyTours()])
         .then(([myAdmissions, myTours]) => {
           setAdmissions(myAdmissions);
@@ -76,6 +81,16 @@ export default function Dashboard() {
             <LogOut className="h-4 w-4" /> Sign Out
           </button>
         </div>
+
+        {residentCount > 0 && (
+          <Link to="/family" className="flex items-center gap-5 bg-white border-2 border-gold-500 rounded-2xl p-6 mb-6 hover:shadow-2xl transition-all duration-300">
+            <HeartPulse className="h-10 w-10 text-gold-600 flex-shrink-0" />
+            <div>
+              <h3 className="font-serif text-xl text-brand-black">Family Portal / Portal familiar</h3>
+              <p className="text-sm text-brand-textgrey">Daily updates, health record and ARIA / Novedades, expediente y ARIA</p>
+            </div>
+          </Link>
+        )}
 
         {/* QUICK ACTIONS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

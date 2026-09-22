@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="privilege_peart_clinical" model="res.groups.privilege">
+        <field name="name">Peart Clinical Record</field>
+        <field name="sequence">40</field>
+        <field name="category_id" ref="base.module_category_services"/>
+    </record>
+
+    <!-- Four staff roles. None implies another: each grant is explicit so a
+         doctor is not silently an administrator and vice versa. -->
+    <record id="group_clinical_doctor" model="res.groups">
+        <field name="name">Doctor</field>
+        <field name="privilege_id" ref="privilege_peart_clinical"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_clinical_nurse" model="res.groups">
+        <field name="name">Nurse</field>
+        <field name="privilege_id" ref="privilege_peart_clinical"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_clinical_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="privilege_id" ref="privilege_peart_clinical"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_clinical_ceo" model="res.groups">
+        <field name="name">CEO (read-only)</field>
+        <field name="privilege_id" ref="privilege_peart_clinical"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>
