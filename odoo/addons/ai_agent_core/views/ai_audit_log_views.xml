@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_audit_log_list" model="ir.ui.view">
+        <field name="name">ai.audit.log.list</field>
+        <field name="model">ai.audit.log</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="status == 'error'" decoration-muted="status == 'skipped'"
+                  create="false" edit="false">
+                <field name="create_date" string="Fecha"/>
+                <field name="event_type" optional="show"/>
+                <field name="agent_id"/>
+                <field name="tool_name"/>
+                <field name="provider_config_id" optional="show"/>
+                <field name="model_name" optional="show"/>
+                <field name="total_tokens" sum="Tokens" optional="show"/>
+                <field name="cost_usd" sum="Costo" optional="show"/>
+                <field name="fallback_from_id" optional="hide"/>
+                <field name="error_kind" optional="show"/>
+                <field name="user_id"/>
+                <field name="status"/>
+                <field name="duration_ms"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_audit_log_form" model="ir.ui.view">
+        <field name="name">ai.audit.log.form</field>
+        <field name="model">ai.audit.log</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="event_type"/>
+                            <field name="agent_id"/>
+                            <field name="tool_name"/>
+                            <field name="user_id"/>
+                            <field name="company_id"/>
+                            <field name="conversation_id"/>
+                            <field name="approval_request_id"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="duration_ms"/>
+                            <field name="target_model"/>
+                            <field name="target_res_id"/>
+                            <field name="error_type"/>
+                            <field name="error_kind"/>
+                        </group>
+                    </group>
+                    <group string="Proveedor de IA" invisible="event_type == 'tool'">
+                        <group>
+                            <field name="provider_config_id"/>
+                            <field name="provider_code"/>
+                            <field name="model_name"/>
+                            <field name="attempt"/>
+                            <field name="fallback_from_id"/>
+                        </group>
+                        <group>
+                            <field name="input_tokens"/>
+                            <field name="output_tokens"/>
+                            <field name="total_tokens"/>
+                            <field name="cost_usd"/>
+                            <field name="cost_source"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Solicitud">
+                            <field name="request_json" widget="text"/>
+                        </page>
+                        <page string="Respuesta">
+                            <field name="response_json" widget="text"/>
+                            <field name="error_message"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_audit_log_pivot" model="ir.ui.view">
+        <field name="name">ai.audit.log.pivot</field>
+        <field name="model">ai.audit.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Gasto en IA">
+                <field name="provider_config_id" type="row"/>
+                <field name="create_date" interval="month" type="col"/>
+                <field name="cost_usd" type="measure"/>
+                <field name="total_tokens" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_ai_audit_log_search" model="ir.ui.view">
+        <field name="name">ai.audit.log.search</field>
+        <field name="model">ai.audit.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="agent_id"/>
+                <field name="tool_name"/>
+                <field name="provider_config_id"/>
+                <field name="model_name"/>
+                <field name="user_id"/>
+                <filter name="errors" string="Con error" domain="[('status', '=', 'error')]"/>
+                <filter name="llm_calls" string="Llamadas a IA" domain="[('event_type', '=', 'llm_call')]"/>
+                <filter name="fallbacks" string="Degradadas" domain="[('fallback_from_id', '!=', False)]"/>
+                <group>
+                    <filter name="group_agent" string="Agente" context="{'group_by': 'agent_id'}"/>
+                    <filter name="group_provider" string="Proveedor" context="{'group_by': 'provider_config_id'}"/>
+                    <filter name="group_model" string="Modelo" context="{'group_by': 'model_name'}"/>
+                    <filter name="group_error_kind" string="Tipo de fallo" context="{'group_by': 'error_kind'}"/>
+                    <filter name="group_status" string="Estado" context="{'group_by': 'status'}"/>
+                    <filter name="group_day" string="Día" context="{'group_by': 'create_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ai_audit_log" model="ir.actions.act_window">
+        <field name="name">Auditoría</field>
+        <field name="res_model">ai.audit.log</field>
+        <field name="view_mode">list,pivot,form</field>
+    </record>
+</odoo>

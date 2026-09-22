@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ai_agent_root" name="Agentes de IA" sequence="15"
+              groups="ai_agent_core.group_ai_agent_user"/>
+
+    <menuitem id="menu_ai_approval_request" name="Vault — Aprobaciones"
+              parent="menu_ai_agent_root" action="action_ai_approval_request" sequence="10"/>
+
+    <menuitem id="menu_ai_conversation" name="Conversaciones"
+              parent="menu_ai_agent_root" action="action_ai_conversation" sequence="20"/>
+
+    <menuitem id="menu_ai_audit_log" name="Auditoría"
+              parent="menu_ai_agent_root" action="action_ai_audit_log" sequence="30"
+              groups="ai_agent_core.group_ai_agent_manager"/>
+
+    <menuitem id="menu_ai_config" name="Configuración"
+              parent="menu_ai_agent_root" sequence="90"
+              groups="ai_agent_core.group_ai_agent_manager"/>
+
+    <menuitem id="menu_ai_agent" name="Agentes"
+              parent="menu_ai_config" action="action_ai_agent" sequence="10"/>
+
+    <menuitem id="menu_ai_agent_tool" name="Herramientas"
+              parent="menu_ai_config" action="action_ai_agent_tool" sequence="20"/>
+
+    <menuitem id="menu_ai_provider_config" name="Proveedores de IA"
+              parent="menu_ai_config" action="action_ai_provider_config" sequence="30"/>
+
+    <menuitem id="menu_ai_model_spec" name="Especificaciones de modelos"
+              parent="menu_ai_config" action="action_ai_model_spec" sequence="40"/>
+</odoo>

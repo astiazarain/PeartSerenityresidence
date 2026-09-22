@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Especificaciones de referencia de los proveedores cuya API NO publica
+    precio ni límites (Groq, DeepSeek, Mistral). Las de OpenRouter y Abacus
+    salen de su propia API al actualizar el catálogo.
+
+    noupdate: son datos para editar desde la interfaz cuando cambien.
+    Actualizar el módulo no debe pisar un precio corregido a mano.
+    Precios en USD por millón de tokens, verificados el 2026-09-11/12.
+-->
+<odoo noupdate="1">
+
+    <!-- Groq. Su documentación (console.groq.com) rechaza las peticiones
+         desde la red donde se verificó, igual que su API: los datos vienen
+         de una recopilación secundaria fechada. -->
+    <record id="spec_groq_gpt_oss_120b" model="ai.model.spec">
+        <field name="provider">groq</field>
+        <field name="model_id">openai/gpt-oss-120b</field>
+        <field name="name">GPT-OSS 120B</field>
+        <field name="context_window">131072</field>
+        <field name="input_cost_per_mtok">0.15</field>
+        <field name="output_cost_per_mtok">0.60</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="free_rpm">30</field>
+        <field name="free_rpd">1000</field>
+        <field name="free_tpm">8000</field>
+        <field name="free_tpd">200000</field>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://klymentiev.com/blog/groq-pricing</field>
+        <field name="verified_on">2026-09-11</field>
+    </record>
+    <record id="spec_groq_gpt_oss_20b" model="ai.model.spec">
+        <field name="provider">groq</field>
+        <field name="model_id">openai/gpt-oss-20b</field>
+        <field name="name">GPT-OSS 20B</field>
+        <field name="context_window">131072</field>
+        <field name="input_cost_per_mtok">0.075</field>
+        <field name="output_cost_per_mtok">0.30</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="free_rpm">30</field>
+        <field name="free_rpd">1000</field>
+        <field name="free_tpm">8000</field>
+        <field name="free_tpd">200000</field>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://klymentiev.com/blog/groq-pricing</field>
+        <field name="verified_on">2026-09-11</field>
+    </record>
+    <record id="spec_groq_qwen3_6_27b" model="ai.model.spec">
+        <field name="provider">groq</field>
+        <field name="model_id">qwen/qwen3.6-27b</field>
+        <field name="name">Qwen 3.6 27B</field>
+        <field name="context_window">131072</field>
+        <field name="input_cost_per_mtok">0.60</field>
+        <field name="output_cost_per_mtok">3.00</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="free_rpm">30</field>
+        <field name="free_rpd">1000</field>
+        <field name="free_tpm">8000</field>
+        <field name="free_tpd">200000</field>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://klymentiev.com/blog/groq-pricing</field>
+        <field name="verified_on">2026-09-11</field>
+        <field name="notes">Soporte de tool calling sin verificar.</field>
+    </record>
+    <record id="spec_groq_qwen3_8_27b" model="ai.model.spec">
+        <field name="provider">groq</field>
+        <field name="model_id">qwen/qwen3.8-27b</field>
+        <field name="name">Qwen 3.8 27B</field>
+        <field name="context_window">131072</field>
+        <field name="input_cost_per_mtok">0.80</field>
+        <field name="output_cost_per_mtok">4.00</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="free_rpm">30</field>
+        <field name="free_rpd">1000</field>
+        <field name="free_tpm">8000</field>
+        <field name="free_tpd">200000</field>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://klymentiev.com/blog/groq-pricing</field>
+        <field name="verified_on">2026-09-11</field>
+        <field name="notes">Soporte de tool calling sin verificar.</field>
+    </record>
+    <record id="spec_groq_llama_3_3_70b" model="ai.model.spec">
+        <field name="provider">groq</field>
+        <field name="model_id">llama-3.3-70b-versatile</field>
+        <field name="name">Llama 3.3 70B Versatile</field>
+        <field name="context_window">131072</field>
+        <field name="pricing_known" eval="False"/>
+        <field name="free_rpm">30</field>
+        <field name="free_rpd">1000</field>
+        <field name="free_tpm">12000</field>
+        <field name="free_tpd">100000</field>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://tokenmix.ai/blog/groq-free-tier-limits-2026</field>
+        <field name="verified_on">2026-08-31</field>
+        <field name="notes">Precio sin verificar en una fuente de 2026: el costo de sus llamadas queda vacío hasta completarlo.</field>
+    </record>
+    <record id="spec_groq_llama_3_1_8b" model="ai.model.spec">
+        <field name="provider">groq</field>
+        <field name="model_id">llama-3.1-8b-instant</field>
+        <field name="name">Llama 3.1 8B Instant</field>
+        <field name="context_window">131072</field>
+        <field name="pricing_known" eval="False"/>
+        <field name="free_rpm">30</field>
+        <field name="free_rpd">14400</field>
+        <field name="free_tpm">6000</field>
+        <field name="free_tpd">500000</field>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://tokenmix.ai/blog/groq-free-tier-limits-2026</field>
+        <field name="verified_on">2026-08-31</field>
+        <field name="notes">Precio sin verificar en una fuente de 2026: el costo de sus llamadas queda vacío hasta completarlo.</field>
+    </record>
+
+    <!-- DeepSeek: tarifa por franja horaria. Se guarda la de hora punta
+         (01:00-04:00 y 06:00-10:00 UTC, lunes a viernes), así el costo
+         estimado es una cota superior. No publica RPM/TPM: limita por
+         conexiones simultáneas. -->
+    <record id="spec_deepseek_flash" model="ai.model.spec">
+        <field name="provider">deepseek</field>
+        <field name="model_id">deepseek-flash</field>
+        <field name="name">DeepSeek Flash</field>
+        <field name="context_window">1000000</field>
+        <field name="max_output_tokens">384000</field>
+        <field name="input_cost_per_mtok">0.30</field>
+        <field name="output_cost_per_mtok">1.20</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">official</field>
+        <field name="source_url">https://api-docs.deepseek.com/quick_start/pricing</field>
+        <field name="verified_on">2026-09-12</field>
+        <field name="notes">Precio de hora punta (entrada sin caché). Fuera de punta: 0,15 / 0,60 USD. Entrada con caché: 0,006 USD (punta). Límite: 2500 conexiones simultáneas; sin tier gratuito.</field>
+    </record>
+    <record id="spec_deepseek_v4_pro" model="ai.model.spec">
+        <field name="provider">deepseek</field>
+        <field name="model_id">deepseek-v4-pro</field>
+        <field name="name">DeepSeek V4 Pro</field>
+        <field name="context_window">1000000</field>
+        <field name="max_output_tokens">384000</field>
+        <field name="input_cost_per_mtok">1.32</field>
+        <field name="output_cost_per_mtok">3.96</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">official</field>
+        <field name="source_url">https://api-docs.deepseek.com/quick_start/pricing</field>
+        <field name="verified_on">2026-09-12</field>
+        <field name="notes">Precio de hora punta (entrada sin caché). Fuera de punta: 0,66 / 1,98 USD. Entrada con caché: 0,044 USD (punta). Límite: 500 conexiones simultáneas; sin tier gratuito.</field>
+    </record>
+
+    <!-- Mistral: el contexto y el tool calling los completa su API al
+         actualizar el catálogo. No publica límites RPM/TPM. -->
+    <record id="spec_mistral_large_latest" model="ai.model.spec">
+        <field name="provider">mistral</field>
+        <field name="model_id">mistral-large-latest</field>
+        <field name="name">Mistral Large 3</field>
+        <field name="input_cost_per_mtok">0.50</field>
+        <field name="output_cost_per_mtok">1.50</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">official</field>
+        <field name="source_url">https://mistral.ai/pricing</field>
+        <field name="verified_on">2026-09-12</field>
+    </record>
+    <record id="spec_mistral_large_2512" model="ai.model.spec">
+        <field name="provider">mistral</field>
+        <field name="model_id">mistral-large-2512</field>
+        <field name="name">Mistral Large 3 (2512)</field>
+        <field name="input_cost_per_mtok">0.50</field>
+        <field name="output_cost_per_mtok">1.50</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_tools" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">official</field>
+        <field name="source_url">https://mistral.ai/pricing</field>
+        <field name="verified_on">2026-09-12</field>
+    </record>
+    <record id="spec_mistral_medium_latest" model="ai.model.spec">
+        <field name="provider">mistral</field>
+        <field name="model_id">mistral-medium-latest</field>
+        <field name="name">Mistral Medium 3.5</field>
+        <field name="input_cost_per_mtok">1.50</field>
+        <field name="output_cost_per_mtok">7.50</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://www.cloudzero.com/blog/mistral-api-pricing/</field>
+        <field name="verified_on">2026-09-12</field>
+    </record>
+    <record id="spec_mistral_small_latest" model="ai.model.spec">
+        <field name="provider">mistral</field>
+        <field name="model_id">mistral-small-latest</field>
+        <field name="name">Mistral Small 4</field>
+        <field name="input_cost_per_mtok">0.15</field>
+        <field name="output_cost_per_mtok">0.60</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://www.cloudzero.com/blog/mistral-api-pricing/</field>
+        <field name="verified_on">2026-09-12</field>
+    </record>
+    <record id="spec_mistral_small_2603" model="ai.model.spec">
+        <field name="provider">mistral</field>
+        <field name="model_id">mistral-small-2603</field>
+        <field name="name">Mistral Small 4 (2603)</field>
+        <field name="input_cost_per_mtok">0.15</field>
+        <field name="output_cost_per_mtok">0.60</field>
+        <field name="pricing_known" eval="True"/>
+        <field name="supports_streaming" eval="True"/>
+        <field name="source">secondary</field>
+        <field name="source_url">https://www.cloudzero.com/blog/mistral-api-pricing/</field>
+        <field name="verified_on">2026-09-12</field>
+    </record>
+</odoo>

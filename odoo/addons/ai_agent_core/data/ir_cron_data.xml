@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_refresh_ai_provider_models" model="ir.cron">
+        <field name="name">ARIA: Actualizar modelos de IA disponibles</field>
+        <field name="model_id" ref="model_ai_provider_config"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_refresh_available_models()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Inactivo por omisión: cada comprobación es una petición a cada
+         proveedor. Activarlo si se quiere que la cadena de fallback conozca
+         una caída antes de que la sufra una llamada real. -->
+    <record id="ir_cron_ai_provider_health" model="ir.cron">
+        <field name="name">ARIA: Health check de proveedores de IA</field>
+        <field name="model_id" ref="model_ai_provider_config"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_health_check()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">False</field>
+    </record>
+</odoo>

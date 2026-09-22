@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="agent_coordinator" model="ai.agent">
+        <field name="name">Coordinador</field>
+        <field name="code">coordinator</field>
+        <field name="sequence">1</field>
+        <field name="is_coordinator">True</field>
+        <field name="description">
+            Recibe toda solicitud entrante desde el HUD y la delega al agente y
+            herramienta correspondiente. No ejecuta operaciones de negocio
+            directamente. Ver ARIA_Especificacion_Tecnica.md §5.1.
+        </field>
+    </record>
+
+    <record id="agent_social_media" model="ai.agent">
+        <field name="name">Redes Sociales</field>
+        <field name="code">social_media</field>
+        <field name="sequence">10</field>
+        <field name="description">
+            Genera y publica contenido en redes sociales usando IA (Claude/Gemini).
+            Implementado en social_agent_publisher. Ver
+            ARIA_Especificacion_Tecnica.md §5.2.
+        </field>
+    </record>
+
+    <record id="agent_customer_service" model="ai.agent">
+        <field name="name">Atención al Cliente (Sitio Web)</field>
+        <field name="code">customer_service</field>
+        <field name="sequence">20</field>
+        <field name="description">
+            Responde en el chat del sitio web: FAQ y consulta de pedidos
+            directamente; escala a un humano (WhatsApp/Telegram) todo lo que no
+            pueda resolver con confianza. Implementado en ai_customer_agent. Ver
+            ARIA_Especificacion_Tecnica.md §5.3.
+        </field>
+    </record>
+
+    <!--
+        Las herramientas concretas (responder_faq, consultar_estado_pedido,
+        publicar_ahora, etc.) se registran desde social_agent_publisher y
+        ai_customer_agent respectivamente, no aquí — este núcleo no depende de
+        esos módulos de dominio. Ver §16 de la especificación.
+
+        La única excepción es la herramienta de escalado, que se declara aquí
+        como referencia mínima para que el agente de atención al cliente sea
+        instalable de forma independiente incluso antes de que
+        ai_customer_agent registre sus propias herramientas; ai_customer_agent
+        debe sobrescribir agent_customer_service.escalation_tool_id con su
+        propia implementación real (notificación por WhatsApp/Telegram).
+
+        noupdate="0": este registro está pensado para ser sobrescrito EN EL
+        MISMO xmlid por un módulo de dominio (ver
+        ai_customer_agent/data/ai_agent_tools_data.xml). Con noupdate="1"
+        (el default de este archivo) Odoo protege el registro contra
+        escrituras de otros módulos en cada -u, y la sobrescritura nunca
+        se aplicaría. Mantenerlo en noupdate="0" es intencional aquí, no
+        un descuido.
+    -->
+    <data noupdate="0">
+        <record id="tool_escalate_to_human_placeholder" model="ai.agent.tool">
+            <field name="name">escalar_a_humano</field>
+            <field name="label">Escalar a humano</field>
+            <field name="agent_id" ref="agent_customer_service"/>
+            <field name="risk_level">1</field>
+            <field name="idempotent">False</field>
+            <field name="target_model">ai.conversation</field>
+            <field name="target_method">action_escalate</field>
+            <field name="description">
+                Placeholder: marca la conversación como escalada. ai_customer_agent
+                debe extender esto para además notificar por WhatsApp/Telegram.
+            </field>
+        </record>
+    </data>
+
+    <record id="agent_customer_service" model="ai.agent">
+        <field name="external_facing">True</field>
+        <field name="escalation_tool_id" ref="tool_escalate_to_human_placeholder"/>
+    </record>
+
+</odoo>

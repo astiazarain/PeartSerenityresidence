@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_agent_list" model="ir.ui.view">
+        <field name="name">ai.agent.list</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_coordinator"/>
+                <field name="external_facing"/>
+                <field name="tool_count"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_agent_form" model="ir.ui.view">
+        <field name="name">ai.agent.form</field>
+        <field name="model">ai.agent</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(ai_agent_core.action_ai_agent_tool)d" type="action"
+                                class="oe_stat_button" icon="fa-wrench"
+                                context="{'default_agent_id': id, 'search_default_agent_id': id}">
+                            <field name="tool_count" widget="statinfo" string="Herramientas"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="is_coordinator"/>
+                        <field name="external_facing"/>
+                        <field name="escalation_tool_id"
+                               invisible="not external_facing"
+                               required="external_facing"/>
+                        <field name="ai_provider_id"/>
+                    </group>
+                    <field name="description" placeholder="Descripción del agente..."/>
+                    <notebook>
+                        <page string="Herramientas">
+                            <field name="tool_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="label"/>
+                                    <field name="risk_level"/>
+                                    <field name="requires_approval"/>
+                                    <field name="target_model"/>
+                                    <field name="target_method"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ai_agent" model="ir.actions.act_window">
+        <field name="name">Agentes</field>
+        <field name="res_model">ai.agent</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

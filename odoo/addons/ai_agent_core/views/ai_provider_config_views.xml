@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ai_provider_config_list" model="ir.ui.view">
+        <field name="name">ai.provider.config.list</field>
+        <field name="model">ai.provider.config</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="health_state == 'error'" decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="provider"/>
+                <field name="model_name_id"/>
+                <field name="fallback_provider_id" optional="show"/>
+                <field name="health_state" widget="badge"
+                       decoration-success="health_state == 'ok'"
+                       decoration-danger="health_state == 'error'"/>
+                <field name="unavailable_until" optional="show"/>
+                <field name="is_default"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ai_provider_config_form" model="ir.ui.view">
+        <field name="name">ai.provider.config.form</field>
+        <field name="model">ai.provider.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_health_check" type="object"
+                            string="Probar conexión" class="btn-primary"
+                            help="Verifica la credencial y la red con un endpoint que no genera texto: no consume tokens."/>
+                    <button name="action_refresh_available_models" type="object"
+                            string="Actualizar modelos disponibles" class="btn-secondary"/>
+                    <field name="health_state" widget="badge"
+                           decoration-success="health_state == 'ok'"
+                           decoration-danger="health_state == 'error'"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning" role="alert" invisible="not unavailable_until">
+                        En pausa hasta <field name="unavailable_until" readonly="1" class="d-inline"/>:
+                        la cadena de fallback lo salta mientras tanto.
+                        <field name="last_error_message" readonly="1" class="d-block"/>
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_available_models" type="object"
+                                class="oe_stat_button" icon="fa-list-ul">
+                            <field name="available_model_count" widget="statinfo"
+                                   string="Modelos"/>
+                        </button>
+                    </div>
+                    <field name="protocol" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="provider"/>
+                            <field name="ollama_mode" invisible="provider != 'ollama'"/>
+                            <field name="model_name_id"
+                                   placeholder="Actualiza el catálogo para elegir"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="image_model_name_id"
+                                   placeholder="Actualiza el catálogo para elegir"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="active"/>
+                            <field name="is_default"/>
+                        </group>
+                        <group>
+                            <field name="api_key_masked"
+                                   invisible="provider == 'ollama' and ollama_mode == 'local'"/>
+                            <field name="api_key" password="True"
+                                   placeholder="Escribe una nueva para reemplazar la guardada"
+                                   invisible="provider == 'ollama' and ollama_mode == 'local'"/>
+                            <field name="base_url"
+                                   invisible="not (protocol == 'openai' or (provider == 'ollama' and ollama_mode == 'local'))"
+                                   required="provider == 'ollama' and ollama_mode == 'local'"/>
+                            <field name="free_tier_note" invisible="not free_tier_note"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Instrucción de sistema" name="system_prompt">
+                            <field name="system_prompt" nolabel="1"/>
+                        </page>
+                        <page string="Resiliencia" name="resilience">
+                            <group>
+                                <group string="Cadena de fallback">
+                                    <field name="fallback_provider_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="use_local_fallback"/>
+                                    <field name="cooldown_minutes"/>
+                                </group>
+                                <group string="Reintentos ante 429">
+                                    <field name="max_retries"/>
+                                    <field name="retry_budget_seconds"/>
+                                    <field name="retry_budget_background_seconds"/>
+                                </group>
+                            </group>
+                            <group string="Estado">
+                                <group>
+                                    <field name="health_checked_at"/>
+                                    <field name="health_message"/>
+                                </group>
+                                <group>
+                                    <field name="last_error_kind"/>
+                                    <field name="last_error_message"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ai_provider_available_model_list" model="ir.ui.view">
+        <field name="name">ai.provider.available.model.list</field>
+        <field name="model">ai.provider.available.model</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="0">
+                <field name="model_id" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <field name="kind" readonly="1"/>
+                <field name="context_window" optional="show"/>
+                <field name="input_cost_per_mtok" optional="show"/>
+                <field name="output_cost_per_mtok" optional="show"/>
+                <field name="supports_tools" optional="hide"/>
+                <field name="active" string="Seleccionable" widget="boolean_toggle"/>
+                <field name="provider_config_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ai_provider_config" model="ir.actions.act_window">
+        <field name="name">Proveedores de IA</field>
+        <field name="res_model">ai.provider.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
